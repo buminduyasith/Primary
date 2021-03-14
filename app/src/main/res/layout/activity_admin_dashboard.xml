@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AdminDashboard">
+
+
+    <RelativeLayout
+        android:id="@+id/dashbord_topbar"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/displayname"
+            android:text="--"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="17sp"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/dpandlogout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_login_24"/>
+
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dashboard_mainview"
+        android:layout_below="@+id/dashbord_topbar"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+
+
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+
+            app:cardCornerRadius="5dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="false"
+            android:background="#1e59f6"
+            android:backgroundTint="#44B5F3"
+
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome to APPNAME"
+                    android:textSize="18sp"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="#ffffff"/>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="-10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="MAR"
+                        android:id="@+id/month"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="#fff"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/datecircle"
+                        android:text="05"
+                        android:textStyle="bold"
+                        android:gravity="center"
+
+                        android:id="@+id/day"
+                        android:textSize="18sp"/>
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_below="@+id/dashboard_mainview"
+        android:layout_height="wrap_content">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_createteacherAcocunts"
+
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+
+            app:cardCornerRadius="16dp"
+
+            android:layout_marginBottom="10dp"
+
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/ImgcreateteacherAcocunts"
+                    android:layout_margin="10dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/createaccount"/>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/ImgcreateteacherAcocunts"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="16sp"
+                        android:text="Create Teacher Accounts"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Tap here, to Create Accounts."
+
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

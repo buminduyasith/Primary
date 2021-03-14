@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Primary</string>
+
+
+    <string name="country_prompt">Choose a Grade</string>
+
+
+    <string-array name="grade_arrays">
+        <item>1A</item>
+        <item>1B</item>
+        <item>1C</item>
+        <item>1D</item>
+        <item>1E</item>
+        <item>1F</item>
+        <item>2A</item>
+        <item>2B</item>
+        <item>2C</item>
+        <item>2D</item>
+        <item>2E</item>
+        <item>2F</item>
+    </string-array>
+
+
+</resources>
