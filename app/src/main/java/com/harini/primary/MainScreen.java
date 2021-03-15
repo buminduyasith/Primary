@@ -22,7 +22,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     private void setupUi(){
         btn_login =findViewById(R.id.btn_loginlink);
-        btn_signup_admin =findViewById(R.id.btn_signup_adminlink);
+       // btn_signup_admin =findViewById(R.id.btn_signup_adminlink);
         btn_signup_parent =findViewById(R.id.btn_signup_parentlink);
     }
 
