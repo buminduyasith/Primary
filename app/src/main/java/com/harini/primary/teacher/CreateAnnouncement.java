@@ -171,6 +171,13 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
 
 
+        adapter.setOnItemClickListner(new AnnouncementRecycleViewAdapter.onItemClickListner() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+               adapter.deleteItem(position);
+            }
+        });
 
 
 

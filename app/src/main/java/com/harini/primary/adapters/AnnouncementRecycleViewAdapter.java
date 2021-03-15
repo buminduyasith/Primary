@@ -13,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.harini.primary.Models.Announcement;
 import com.harini.primary.R;
 
@@ -30,6 +31,7 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
      */
 
     private String role;
+    private onItemClickListner listner;
 
     public AnnouncementRecycleViewAdapter(@NonNull FirestoreRecyclerOptions<Announcement> options,String role) {
         super(options);
@@ -82,6 +84,16 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
             txtmessage = itemView.findViewById(R.id.txt_message);
             txttime = itemView.findViewById(R.id.txt_time);
             img_del = itemView.findViewById(R.id.img_del_announcement);
+
+            img_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION && listner !=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(pos),pos);
+                    }
+                }
+            });
         }
 
 
@@ -91,5 +103,20 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
     @Override
     public int getItemCount() {
         return super.getItemCount();
+    }
+
+    public interface onItemClickListner{
+
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemClickListner(onItemClickListner listner){
+
+
+        this.listner = listner;
+    }
+
+    public void deleteItem(int position) {
+        getSnapshots().getSnapshot(position).getReference().delete();
     }
 }
