@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.Timestamp;
 import com.harini.primary.Models.Announcement;
 import com.harini.primary.R;
@@ -64,6 +65,8 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
             txtmessage = itemView.findViewById(R.id.txt_message);
             txttime = itemView.findViewById(R.id.txt_time);
         }
+
+
     }
 
 

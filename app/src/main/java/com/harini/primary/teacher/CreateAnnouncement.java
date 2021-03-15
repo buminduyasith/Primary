@@ -1,6 +1,7 @@
 package com.harini.primary.teacher;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -28,7 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.harini.primary.Models.Announcement;
@@ -55,8 +59,10 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
     private AnnouncementRecycleViewAdapter adapter;
 
+    private LinearLayout chat_noresults_container;
 
-    private static final String TAG = "CreateAnnouncement";
+
+    private static final String TAG = "createanndebug";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
         db = FirebaseFirestore.getInstance();
 
         collectionReference = db.collection("announcements");
+
+
 
         setupRecycleView();
 
@@ -89,6 +97,7 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
         Fab_addannouncment = findViewById(R.id.Fab_addannouncment);
         recyleview_announcement = findViewById(R.id.recyleview_announcement);
+        chat_noresults_container = findViewById(R.id.chat_noresults_container);
     }
 
 
@@ -98,26 +107,61 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
         Query query = collectionReference.whereEqualTo("userid",firebaseUser.getUid()).orderBy("timestamp",Query.Direction.DESCENDING);
 
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-
-                    Log.d(TAG, "onComplete: size"+task.getResult().size());
-
-
-                }
-                else{
-                    Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
-                }
-            }
-        });
 
         FirestoreRecyclerOptions<Announcement> options = new FirestoreRecyclerOptions.Builder<Announcement>()
                 .setQuery(query,Announcement.class).build();
 
 
+
         adapter = new AnnouncementRecycleViewAdapter(options);
+
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                Log.d(TAG, "onStart:b "+value.size());
+
+
+                if(value !=null){
+
+                    if(value.size()>0){
+
+                        chat_noresults_container.setVisibility(View.GONE);
+                        recyleview_announcement.setVisibility(View.VISIBLE);
+
+
+                    }
+                    else{
+
+                        recyleview_announcement.setVisibility(View.GONE);
+                        chat_noresults_container.setVisibility(View.VISIBLE);
+
+                    }
+
+                }
+
+
+
+
+            }
+        });
+
+
+
+       /* adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                Log.d(TAG, "onItemRangeInserted: "+itemCount);
+                Log.d(TAG, "setupRecycleView: bumi count"+options.getSnapshots().size());
+            }
+
+            @Override
+            public void onChanged() {
+                Log.d(TAG, "onChanged: "+options.getSnapshots().size());
+                super.onChanged();
+            }
+        });*/
+
 
         recyleview_announcement.setHasFixedSize(true);
 
@@ -125,7 +169,11 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
         recyleview_announcement.setAdapter(adapter);
 
-        recyleview_announcement.setVisibility(View.VISIBLE);
+
+
+
+
+
 
 
 
@@ -214,6 +262,8 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
     protected void onStart() {
         super.onStart();
         adapter.startListening();
+
+
     }
 
     @Override
