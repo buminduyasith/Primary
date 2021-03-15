@@ -190,6 +190,8 @@ public class CreateTeacherAccounts extends AppCompatActivity {
                         } else {
 
                             progressbar_teacherSignup.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(),task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+
                             Log.d(TAG, "createUserWithEmail:failure", task.getException());
                         }
                     }
