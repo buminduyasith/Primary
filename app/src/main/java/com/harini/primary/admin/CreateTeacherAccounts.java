@@ -273,9 +273,6 @@ public class CreateTeacherAccounts extends AppCompatActivity {
 
         }
 
-
-
-
         return true;
 
     }

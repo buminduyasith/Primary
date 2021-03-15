@@ -49,11 +49,11 @@
             android:text="Signin" />
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_signup_adminlink"
-            android:text="Signup as Admin" />
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/btn_signup_adminlink"-->
+<!--            android:text="Signup as Admin" />-->
 
 
         <Button

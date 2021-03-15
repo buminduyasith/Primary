@@ -28,7 +28,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     private void setActions(){
         btn_login.setOnClickListener(this);
-        btn_signup_admin.setOnClickListener(this);
+        //btn_signup_admin.setOnClickListener(this);
         btn_signup_parent.setOnClickListener(this);
 
     }
@@ -39,9 +39,6 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.btn_loginlink:
                 login();
-                break;
-            case R.id.btn_signup_adminlink:
-                signupasAdmin();
                 break;
             case R.id.btn_signup_parentlink:
                 signupasParent();
