@@ -43,8 +43,6 @@ public class AnnouncementFragment extends Fragment {
     private LinearLayout announcemtns_noresults_container;
 
 
-
-
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private CollectionReference collectionReference;
@@ -52,15 +50,17 @@ public class AnnouncementFragment extends Fragment {
 
     private AnnouncementRecycleViewAdapter adapter;
 
-    private FirestoreRecyclerOptions<Announcement> response;
+    //private FirestoreRecyclerOptions<Announcement> response;
 
 
-    private static final String TAG = "AnnouncementFragment";
+    private static final String TAG = "annfragmentD";
+
+    private String grade = "";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parent_dashboard_announcement,container,false);
+        View view = inflater.inflate(R.layout.fragment_parent_dashboard_announcement, container, false);
 
         setupUi(view);
 
@@ -71,6 +71,27 @@ public class AnnouncementFragment extends Fragment {
 
         setupRecycleView();
 
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        db.collection("Parents")
+                .document(firebaseUser.getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+
+                        grade = documentSnapshot.getString("grade");
+                        Log.d(TAG, "onSuccess: grade onsucess listner firebase" + grade);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+            }
+        });
+
         return view;
     }
 
@@ -79,44 +100,31 @@ public class AnnouncementFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void setupUi(View view){
+    private void setupUi(View view) {
 
         recyleview_announcement = view.findViewById(R.id.recyleview_announcement);
         announcemtns_noresults_container = view.findViewById(R.id.announcemtns_noresults_container);
     }
 
 
-    private void setupRecycleView(){
+    private void setupRecycleView() {
 
-       // Query query;
-
-        foo(new Callback() {
-            @Override
-            public void myResponseCallback(String result) {
-
-                Log.d(TAG, "myResponseCallback: foo"+result);
-
-                Query query = collectionReference.whereEqualTo("grade",result).orderBy("timestamp",Query.Direction.DESCENDING);
+        // Query query;
 
 
+        Query query = collectionReference.whereEqualTo("grade", "1B").orderBy("timestamp", Query.Direction.DESCENDING);
 
 
-                response = new FirestoreRecyclerOptions.Builder<Announcement>()
-                        .setQuery(query,Announcement.class).build();
+        FirestoreRecyclerOptions<Announcement> response = new FirestoreRecyclerOptions.Builder<Announcement>()
+                .setQuery(query, Announcement.class).build();
 
 
-                adapter = new AnnouncementRecycleViewAdapter(response);
+        adapter = new AnnouncementRecycleViewAdapter(response);
 
-                recyleview_announcement.setAdapter(adapter);
+        recyleview_announcement.setAdapter(adapter);
 
 
 
-                adapter.startListening();
-                adapter.notifyDataSetChanged();
-
-
-                Log.d(TAG, "myResponseCallback: itemcount "+adapter.getItemCount());
-                Log.d(TAG, "myResponseCallback: itemcount res "+response.getSnapshots().size());
 
                 /*if(response.getSnapshots().size()>0){
 
@@ -130,26 +138,6 @@ public class AnnouncementFragment extends Fragment {
                 }*/
 
 
-
-
-
-
-                //adapter.notifyDataSetChanged();
-
-
-
-            }
-
-
-        });
-
-
-        Query query = collectionReference.whereEqualTo("grade","").orderBy("timestamp",Query.Direction.DESCENDING);
-
-        response = new FirestoreRecyclerOptions.Builder<Announcement>()
-                .setQuery(query,Announcement.class).build();
-
-
         adapter = new AnnouncementRecycleViewAdapter(response);
 
         recyleview_announcement.setHasFixedSize(true);
@@ -157,83 +145,15 @@ public class AnnouncementFragment extends Fragment {
         recyleview_announcement.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
 
-        recyleview_announcement.setAdapter(adapter);
-
-
-        /*if(response.getSnapshots().size()>0){
-
-            announcemtns_noresults_container.setVisibility(View.GONE);
-            recyleview_announcement.setVisibility(View.VISIBLE);
-        }
-        else{
-
-            recyleview_announcement.setVisibility(View.GONE);
-            announcemtns_noresults_container.setVisibility(View.VISIBLE);
-        }*/
-
-
-
-
-
-
-
-       // Query query = collectionReference.whereEqualTo("grade","").orderBy("timestamp",Query.Direction.DESCENDING);
-
-
-
-
-
-
-        //Query query = collectionReference.whereEqualTo("userid",firebaseUser.getUid()).orderBy("timestamp",Query.Direction.DESCENDING);
-
-       /* query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-
-                    Log.d(TAG, "onComplete: size"+task.getResult().size());
-
-
-                }
-                else{
-                    Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
-                }
-            }
-        });*/
-
-
-
-
-
     }
 
-    public void foo(final Callback callback){
-
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
-        db.collection("Parents")
-                .document(firebaseUser.getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-
-                        String grade = documentSnapshot.getString("grade");
-                        Log.d(TAG, "onSuccess: grade onsucess listner firebase"+grade);
-                        callback.myResponseCallback(grade);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
-            }
-        });
-    }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        Log.d(TAG, "onStart: grade" + grade);
+
         adapter.startListening();
 
     }
@@ -244,27 +164,5 @@ public class AnnouncementFragment extends Fragment {
         adapter.stopListening();
     }
 
-    /*
-     db.collection("Parents")
-                .document(firebaseUser.getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-
-                        grade[0] = documentSnapshot.getString("grade");
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
-            }
-        });
-     */
-
-    interface Callback {
-        void myResponseCallback(String result);//whatever your return type is: string, integer, etc.
-    }
 }
