@@ -245,6 +245,11 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                         FirebaseAuth auth = FirebaseAuth.getInstance();
                         String emailAddress = emailforgetpassword.getEditText().getText().toString();
 
+                        if(emailAddress.isEmpty()){
+                            Toast.makeText(getApplicationContext(),"Email address is required",Toast.LENGTH_SHORT);
+                            return;
+                        }
+
                         auth.sendPasswordResetEmail(emailAddress)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
