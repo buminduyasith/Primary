@@ -113,7 +113,7 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
 
 
 
-        adapter = new AnnouncementRecycleViewAdapter(options);
+        adapter = new AnnouncementRecycleViewAdapter(options,"TEACHER");
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override

@@ -3,6 +3,7 @@ package com.harini.primary.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,21 +28,36 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
      *
      * @param options
      */
-    public AnnouncementRecycleViewAdapter(@NonNull FirestoreRecyclerOptions<Announcement> options) {
+
+    private String role;
+
+    public AnnouncementRecycleViewAdapter(@NonNull FirestoreRecyclerOptions<Announcement> options,String role) {
         super(options);
+        this.role = role;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull AnnouncementRecycleViewAdapterViewHolder holder, int position, @NonNull Announcement model) {
-
-        holder.txtmessage.setText(model.getMessage());
 
         Timestamp ts=model.getTimestamp();
         Date date=ts.toDate();
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm a");
         String time =sdf.format(date);
 
-        holder.txttime.setText(time);
+        if(role=="TEACHER"){
+
+            holder.txtmessage.setText(model.getMessage());
+            holder.txttime.setText(time);
+
+        }else{
+
+
+            holder.img_del.setVisibility(View.GONE);
+            holder.txtmessage.setText(model.getMessage());
+            holder.txttime.setText(time);
+        }
+
+
 
     }
 
@@ -58,12 +74,14 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
 
         TextView txtmessage;
         TextView txttime;
+        ImageView img_del;
 
         public AnnouncementRecycleViewAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtmessage = itemView.findViewById(R.id.txt_message);
             txttime = itemView.findViewById(R.id.txt_time);
+            img_del = itemView.findViewById(R.id.img_del_announcement);
         }
 
 

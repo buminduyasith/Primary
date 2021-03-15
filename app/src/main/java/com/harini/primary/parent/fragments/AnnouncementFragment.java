@@ -140,7 +140,7 @@ public class AnnouncementFragment extends Fragment {
                         });
 
 
-                        adapter = new AnnouncementRecycleViewAdapter(response);
+                        adapter = new AnnouncementRecycleViewAdapter(response,"PARENT");
 
 
                         recyleview_announcement.setHasFixedSize(true);
