@@ -25,7 +25,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.harini.primary.Models.Announcement;
@@ -54,8 +56,8 @@ public class AnnouncementFragment extends Fragment {
 
 
     private static final String TAG = "annfragmentD";
+    private String grade;
 
-    private String grade = "";
 
     @Nullable
     @Override
@@ -71,26 +73,6 @@ public class AnnouncementFragment extends Fragment {
 
         setupRecycleView();
 
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
-        db.collection("Parents")
-                .document(firebaseUser.getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-
-                        grade = documentSnapshot.getString("grade");
-                        Log.d(TAG, "onSuccess: grade onsucess listner firebase" + grade);
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-            }
-        });
 
         return view;
     }
@@ -111,38 +93,73 @@ public class AnnouncementFragment extends Fragment {
 
         // Query query;
 
-
-        Query query = collectionReference.whereEqualTo("grade", "1B").orderBy("timestamp", Query.Direction.DESCENDING);
-
-
-        FirestoreRecyclerOptions<Announcement> response = new FirestoreRecyclerOptions.Builder<Announcement>()
-                .setQuery(query, Announcement.class).build();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
 
-        adapter = new AnnouncementRecycleViewAdapter(response);
-
-        recyleview_announcement.setAdapter(adapter);
-
-
-
-
-                /*if(response.getSnapshots().size()>0){
-
-                    announcemtns_noresults_container.setVisibility(View.GONE);
-                    recyleview_announcement.setVisibility(View.VISIBLE);
-                }
-                else{
-
-                    recyleview_announcement.setVisibility(View.GONE);
-                    announcemtns_noresults_container.setVisibility(View.VISIBLE);
-                }*/
+        db.collection("Parents")
+                .document(firebaseUser.getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
 
 
-        adapter = new AnnouncementRecycleViewAdapter(response);
+                        grade = documentSnapshot.getString("grade");
 
-        recyleview_announcement.setHasFixedSize(true);
+                        Query query = collectionReference.whereEqualTo("grade", grade).orderBy("timestamp", Query.Direction.DESCENDING);
 
-        recyleview_announcement.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+                        FirestoreRecyclerOptions<Announcement> response = new FirestoreRecyclerOptions.Builder<Announcement>()
+                                .setQuery(query, Announcement.class).build();
+
+
+                        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                                //Log.d(TAG, "onEvent: snapshort" + value.size());
+
+                                if(value!=null){
+
+                                    if (value.size() > 0) {
+
+                                        //Log.d(TAG, "onEvent: recy view");
+                                        announcemtns_noresults_container.setVisibility(View.GONE);
+                                        recyleview_announcement.setVisibility(View.VISIBLE);
+                                    } else {
+
+                                        //Log.d(TAG, "onEvent: container view");
+                                        recyleview_announcement.setVisibility(View.GONE);
+                                        announcemtns_noresults_container.setVisibility(View.VISIBLE);
+                                    }
+                                }
+
+
+
+                            }
+                        });
+
+
+                        adapter = new AnnouncementRecycleViewAdapter(response);
+
+
+                        recyleview_announcement.setHasFixedSize(true);
+
+                        recyleview_announcement.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+                        recyleview_announcement.setAdapter(adapter);
+
+
+                        adapter.startListening();
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
+            }
+        });
 
 
     }
@@ -152,9 +169,12 @@ public class AnnouncementFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        Log.d(TAG, "onStart: grade" + grade);
+        if (adapter != null) {
+            adapter.startListening();
+        } else {
+            //Log.d(TAG, "onStart: adapter is null");
+        }
 
-        adapter.startListening();
 
     }
 
