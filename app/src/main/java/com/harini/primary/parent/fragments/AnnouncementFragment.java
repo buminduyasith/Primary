@@ -96,6 +96,8 @@ public class AnnouncementFragment extends Fragment {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
 
+
+
         db.collection("Parents")
                 .document(firebaseUser.getUid())
                 .get()

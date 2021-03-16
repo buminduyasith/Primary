@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void setActions(){
 
         dpandlogout.setOnClickListener(this);
+        card_viewHomeworks.setOnClickListener(this);
     }
 
     private void init(){
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 signout();
 
                 break;
+
             default:
                 return;
 

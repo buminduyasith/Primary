@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -153,7 +154,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                         if(currentUser != null){
 
-                            mAuth.getInstance().signOut();
+                            //mAuth.getInstance().signOut();
+                            mAuth.signOut();
                             Intent mainpage = new Intent(getContext(), Signin.class);
                             startActivity(mainpage);
                             getActivity().getFragmentManager().popBackStack();
