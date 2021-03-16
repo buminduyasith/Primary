@@ -16,6 +16,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
+import com.harini.primary.teacher.LessonVideo;
 import com.harini.primary.teacher.TeacherDashboard;
 
 public class SplashScreen extends AppCompatActivity {
@@ -39,9 +40,9 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-     //   Intent ParentSignupIntent = new Intent(this, TeacherDashboard.class);
+       Intent ParentSignupIntent = new Intent(this, LessonVideo.class);
 
-      //  startActivity(ParentSignupIntent);
+       startActivity(ParentSignupIntent);
     }
 
 
@@ -77,7 +78,7 @@ public class SplashScreen extends AppCompatActivity {
 
        // throw new RuntimeException("Test Crash");
 
-        if (isFirstTime()) {
+       /* if (isFirstTime()) {
 
             Intent newIntent = new Intent(getApplicationContext(), MainScreen.class);
 
@@ -145,7 +146,7 @@ public class SplashScreen extends AppCompatActivity {
             }
 
 
-        }
+        }*/
     }
 
 

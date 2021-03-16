@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.harini.primary">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-
-    <application
-
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:replace="android:icon"
+    <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Primary">
-        <activity android:name=".teacher.CreateAnnouncement"></activity>
+        android:theme="@style/Theme.Primary"
+        tools:replace="android:icon">
+        <activity android:name=".teacher.LessonVideo"></activity>
+        <activity android:name=".teacher.CreateAnnouncement" />
         <activity android:name=".teacher.TeacherDashboard" />
         <activity android:name=".parent.ParentDashboard" />
-
         <activity android:name=".admin.AdminDashboard" />
         <activity android:name=".Signin" />
         <activity android:name=".admin.CreateTeacherAccounts" />
         <activity android:name=".MainScreen" />
         <activity android:name=".AdminSignup" />
         <activity android:name=".ParentSignup" />
-        <activity android:name=".SplashScreen"
-            android:theme="@style/spalshscreen"
-            >
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/spalshscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
