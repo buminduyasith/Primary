@@ -81,8 +81,8 @@ public class AddVideoLessons extends AppCompatActivity {
 
     private void setupUi(){
 
-        Fab_addvideo = findViewById(R.id.Fab_addannouncment);
-        recyleview_videolessons = findViewById(R.id.recyleview_announcement);
+        Fab_addvideo = findViewById(R.id.Fab_addvideo);
+        recyleview_videolessons = findViewById(R.id.recyleview_videolessons);
         videolessons_noresults_container = findViewById(R.id.videolessons_noresults_container);
     }
 
@@ -105,11 +105,12 @@ public class AddVideoLessons extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                Log.d(TAG, "onStart:b "+value.size());
+
 
 
                 if(value !=null){
 
+                    Log.d(TAG, "onStart:b "+value.size());
                     if(value.size()>0){
 
                         videolessons_noresults_container.setVisibility(View.GONE);

@@ -16,6 +16,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
+import com.harini.primary.teacher.AddVideoLessons;
 import com.harini.primary.teacher.LessonVideo;
 import com.harini.primary.teacher.TeacherDashboard;
 
@@ -40,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-       Intent ParentSignupIntent = new Intent(this, LessonVideo.class);
+       Intent ParentSignupIntent = new Intent(this, AddVideoLessons.class);
 
        startActivity(ParentSignupIntent);
     }
