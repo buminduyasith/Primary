@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wdwdddddddddddddddddddddddwdwddddddddddddddddddddddd"
+                android:textSize="20dp"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:id="@+id/txtvideotitle"
+                android:layout_margin="10dp"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txttime"
+                android:text="2021-03-18"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@id/txtvideotitle"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_baseline_delete_24"
+            android:id="@+id/btndelete"/>
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

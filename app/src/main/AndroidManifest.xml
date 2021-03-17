@@ -4,7 +4,7 @@
     package="com.harini.primary">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".teacher.LessonVideo"></activity>
+        <activity android:name=".teacher.AddVideoLessons"></activity>
+        <activity android:name=".teacher.LessonVideo" />
         <activity android:name=".teacher.CreateAnnouncement" />
         <activity android:name=".teacher.TeacherDashboard" />
         <activity android:name=".parent.ParentDashboard" />
