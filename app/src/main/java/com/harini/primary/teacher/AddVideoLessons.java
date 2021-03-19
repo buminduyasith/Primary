@@ -1,17 +1,27 @@
 package com.harini.primary.teacher;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -26,6 +36,11 @@ import com.harini.primary.Models.VideoLesson;
 import com.harini.primary.R;
 import com.harini.primary.adapters.AddVideoLessonsAdapter;
 import com.harini.primary.adapters.AnnouncementRecycleViewAdapter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AddVideoLessons extends AppCompatActivity {
 
@@ -89,13 +104,14 @@ public class AddVideoLessons extends AppCompatActivity {
 
     private void setupRecycleView(){
 
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+       // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         Query query = collectionReference.whereEqualTo("class","5A").orderBy("timestamp",Query.Direction.DESCENDING);
 
 
         FirestoreRecyclerOptions<VideoLesson> options = new FirestoreRecyclerOptions.Builder<VideoLesson>()
                 .setQuery(query,VideoLesson.class).build();
+
 
 
 
@@ -110,8 +126,10 @@ public class AddVideoLessons extends AppCompatActivity {
 
                 if(value !=null){
 
-                    Log.d(TAG, "onStart:b "+value.size());
+
+
                     if(value.size()>0){
+
 
                         videolessons_noresults_container.setVisibility(View.GONE);
                         recyleview_videolessons.setVisibility(View.VISIBLE);
@@ -165,5 +183,21 @@ public class AddVideoLessons extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.stopListening();
+    }
 }

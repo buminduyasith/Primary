@@ -36,7 +36,9 @@ public class AddVideoLessonsAdapter extends FirestoreRecyclerAdapter<VideoLesson
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm a");
         String time =sdf.format(date);
 
+
         holder.txttile.setText(model.getTitle());
+
         holder.txttime.setText(time);
 
     }
@@ -60,7 +62,7 @@ public class AddVideoLessonsAdapter extends FirestoreRecyclerAdapter<VideoLesson
             super(itemView);
 
             txttile = itemView.findViewById(R.id.txtvideotitle);
-            txttime = itemView.findViewById(R.id.txtvideotitle);
+            txttime = itemView.findViewById(R.id.txttime);
             imgbtnremove = itemView.findViewById(R.id.btndelete);
 
             imgbtnremove.setOnClickListener(new View.OnClickListener() {
