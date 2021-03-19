@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -53,8 +54,6 @@ public class AddVideoLessons extends AppCompatActivity {
     private RecyclerView recyleview_videolessons;
 
 
-
-
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private CollectionReference collectionReference;
@@ -65,7 +64,6 @@ public class AddVideoLessons extends AppCompatActivity {
     private LinearLayout videolessons_noresults_container;
 
     private SweetAlertDialog pDialog;
-
 
 
     private static final String TAG = "videolessondbug";
@@ -83,9 +81,7 @@ public class AddVideoLessons extends AppCompatActivity {
         collectionReference = db.collection("VideoLessons");
 
 
-
         setupRecycleView();
-
 
 
         Fab_addvideo.setOnClickListener(new View.OnClickListener() {
@@ -96,12 +92,10 @@ public class AddVideoLessons extends AppCompatActivity {
         });
 
 
-
-
     }
 
 
-    private void setupUi(){
+    private void setupUi() {
 
         Fab_addvideo = findViewById(R.id.Fab_addvideo);
         recyleview_videolessons = findViewById(R.id.recyleview_videolessons);
@@ -109,17 +103,15 @@ public class AddVideoLessons extends AppCompatActivity {
     }
 
 
-    private void setupRecycleView(){
+    private void setupRecycleView() {
 
-       // FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        Query query = collectionReference.whereEqualTo("class","5A").orderBy("timestamp",Query.Direction.DESCENDING);
+        Query query = collectionReference.whereEqualTo("class", "5A").orderBy("timestamp", Query.Direction.DESCENDING);
 
 
         FirestoreRecyclerOptions<VideoLesson> options = new FirestoreRecyclerOptions.Builder<VideoLesson>()
-                .setQuery(query,VideoLesson.class).build();
-
-
+                .setQuery(query, VideoLesson.class).build();
 
 
         adapter = new AddVideoLessonsAdapter(options);
@@ -129,21 +121,17 @@ public class AddVideoLessons extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
 
+                if (value != null) {
 
 
-                if(value !=null){
-
-
-
-                    if(value.size()>0){
+                    if (value.size() > 0) {
 
 
                         videolessons_noresults_container.setVisibility(View.GONE);
                         recyleview_videolessons.setVisibility(View.VISIBLE);
 
 
-                    }
-                    else{
+                    } else {
 
                         recyleview_videolessons.setVisibility(View.GONE);
                         videolessons_noresults_container.setVisibility(View.VISIBLE);
@@ -153,14 +141,8 @@ public class AddVideoLessons extends AppCompatActivity {
                 }
 
 
-
-
             }
         });
-
-
-
-
 
 
         recyleview_videolessons.setHasFixedSize(true);
@@ -168,7 +150,6 @@ public class AddVideoLessons extends AppCompatActivity {
         recyleview_videolessons.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         recyleview_videolessons.setAdapter(adapter);
-
 
 
         adapter.setOnItemClickListner(new AddVideoLessonsAdapter.onItemClickListner() {
@@ -181,24 +162,17 @@ public class AddVideoLessons extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
     }
 
 
-    private void openDialog(){
+    private void openDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AddVideoLessons.this);
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_dialog_add_videolessons,null);
+        View view = inflater.inflate(R.layout.layout_dialog_add_videolessons, null);
 
         final TextInputLayout title = view.findViewById(R.id.TIL_video_title);
         final TextInputLayout urlcode = view.findViewById(R.id.TIL_url_code);
-
 
 
         builder.setView(view)
@@ -208,24 +182,38 @@ public class AddVideoLessons extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        final DialogInterface d =  dialog;
+                        final DialogInterface d = dialog;
 
                         Log.d(TAG, "onClick: postive click");
-                        String yturlcode =urlcode.getEditText().getText().toString();
-                        String yttitle =title.getEditText().getText().toString();
+                        String yturlcode = urlcode.getEditText().getText().toString();
+                        String yttitle = title.getEditText().getText().toString();
 
-                        if(yttitle.isEmpty() || yturlcode.isEmpty()){
-                            Log.d(TAG, "onClick: empty");
-                            Toast.makeText(AddVideoLessons.this,"required_field_missing",Toast.LENGTH_SHORT);
+                        if (yttitle.isEmpty() || yturlcode.isEmpty()) {
+                            Log.d(TAG, "onClick: feilds empty");
+                            Toast.makeText(AddVideoLessons.this, "required_field_missing", Toast.LENGTH_SHORT);
+                            return;
+                        }
+
+
+                        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+                        String grade = prf.getString("GRADE", null);
+
+                        if (grade == null) {
+                            Log.d(TAG, "onClick: grade null");
+                            Toast.makeText(AddVideoLessons.this, "grade null", Toast.LENGTH_SHORT);
                             return;
                         }
 
                         Timestamp timestamp = new Timestamp(new Date());
+
+
+
                         Map<String, Object> video = new HashMap<>();
-                        video.put("title",yttitle);
-                        video.put("videoid",yturlcode);
-                        video.put("timestamp",timestamp);
-                        video.put("class","5A");
+                        video.put("title", yttitle);
+                        video.put("videoid", yturlcode);
+                        video.put("timestamp", timestamp);
+                        video.put("class", grade);
 
                         db.collection("VideoLessons").add(video)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -258,7 +246,7 @@ public class AddVideoLessons extends AppCompatActivity {
                                 pDialog.setContentText(e.getLocalizedMessage());
                                 d.dismiss();
                                 pDialog.show();
-                                Log.d(TAG, "onFailure: "+e.getMessage());
+                                Log.d(TAG, "onFailure: " + e.getMessage());
                             }
                         });
 
@@ -271,11 +259,7 @@ public class AddVideoLessons extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
 
         dialog.show();
-       // dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
-
-
-
+        // dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
 
     }

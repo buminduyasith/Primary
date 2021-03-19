@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.harini.primary.Models.Teacher;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
 import com.harini.primary.teacher.AddVideoLessons;
@@ -22,7 +23,7 @@ import com.harini.primary.teacher.TeacherDashboard;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static final String TAG ="splashscreendebug" ;
+    private static final String TAG = "splashscreendebug";
     private FirebaseAuth mAuth;
 
     private FirebaseFirestore db;
@@ -40,10 +41,9 @@ public class SplashScreen extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
+       /* Intent ParentSignupIntent = new Intent(this, AddVideoLessons.class);
 
-      Intent ParentSignupIntent = new Intent(this, AddVideoLessons.class);
-
-       startActivity(ParentSignupIntent);
+        startActivity(ParentSignupIntent);*/
     }
 
 
@@ -53,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
         boolean applicationStatus = prf.getBoolean("FIRST_TIME", false);
-        Log.d(TAG, "isFirstTime: "+applicationStatus);
+        Log.d(TAG, "isFirstTime: " + applicationStatus);
         SharedPreferences.Editor editor = prf.edit();
 
         if (applicationStatus == true) {
@@ -77,9 +77,9 @@ public class SplashScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-       // throw new RuntimeException("Test Crash");
+        // throw new RuntimeException("Test Crash");
 
-      /* if (isFirstTime()) {
+       if (isFirstTime()) {
 
             Intent newIntent = new Intent(getApplicationContext(), MainScreen.class);
 
@@ -104,9 +104,10 @@ public class SplashScreen extends AppCompatActivity {
                                 String role = documentSnapshot.getString("role");
 
                                 if(role.equals(TEACHER_ROLE)){
-                                    Intent newIntent = new Intent(getApplicationContext(), TeacherDashboard.class);
 
-                                    startActivity(newIntent);
+                                    getclass(user.getUid());
+
+
                                 }
 
                                 else if(role.equals(PARENT_ROLE)){
@@ -147,7 +148,55 @@ public class SplashScreen extends AppCompatActivity {
             }
 
 
-        }*/
+        }
+    }
+
+    private void getclass(String uid) {
+
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+
+
+
+        db.collection("teachers")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot ds) {
+
+                        Teacher teacher = ds.toObject(Teacher.class);
+
+                        if(grade==null){
+
+                            SharedPreferences.Editor editor = prf.edit();
+
+                            editor.putString("FIRST_NAME",teacher.getFirstName());
+
+                            editor.putString("LAST_NAME",teacher.getLastName());
+
+                            editor.putString("PHONE_NUMBER",teacher.getPhoneNumber());
+
+                            editor.putString("GRADE",teacher.getGrade());
+
+                            editor.commit();
+
+                        }
+
+                        Intent newIntent = new Intent(getApplicationContext(), TeacherDashboard.class);
+
+                        startActivity(newIntent);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
 
 
