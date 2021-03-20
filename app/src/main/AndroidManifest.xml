@@ -18,7 +18,6 @@
         <activity android:name=".parent.ViewVideoLessons" >
         </activity>
         <activity android:name=".teacher.AddVideoLessons" />
-        <activity android:name=".parent.LessonVideo" />
         <activity android:name=".teacher.CreateAnnouncement" />
         <activity android:name=".teacher.TeacherDashboard" />
         <activity android:name=".parent.ParentDashboard" />

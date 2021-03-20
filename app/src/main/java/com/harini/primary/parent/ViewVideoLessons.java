@@ -115,11 +115,13 @@ public class ViewVideoLessons extends YouTubeBaseActivity {
 
         // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-//        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
-//
-//        String grade = prf.getString("GRADE", null);
+        SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
 
-        String grade = "1D";
+       String grade = prf.getString("GRADE", null);
+
+       if(grade==null){
+           throw new RuntimeException("grade should not be null");
+       }
 
         Log.d(TAG, "setupRecycleView: grade"+grade);
 

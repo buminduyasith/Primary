@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.harini.primary.Models.Parent;
 import com.harini.primary.Models.Teacher;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
@@ -103,26 +104,26 @@ public class SplashScreen extends AppCompatActivity {
 
                                 if(role.equals(TEACHER_ROLE)){
 
-                                    getclass(user.getUid());
+                                    getclassforTeacher(user.getUid());
 
 
                                 }
 
                                 else if(role.equals(PARENT_ROLE)){
-                                    Intent newIntent = new Intent(getApplicationContext(), ParentDashboard.class);
-
-                                    startActivity(newIntent);
+                                    getclassforStudent(user.getUid());
                                 }
 
                                 else{
                                     Intent newIntent = new Intent(getApplicationContext(), AdminDashboard.class);
 
                                     startActivity(newIntent);
+
+                                    finish();
                                 }
 
 
 
-                                finish();
+
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -149,7 +150,7 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private void getclass(String uid) {
+    private void getclassforTeacher(String uid) {
 
         SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
 
@@ -186,6 +187,64 @@ public class SplashScreen extends AppCompatActivity {
                         Intent newIntent = new Intent(getApplicationContext(), TeacherDashboard.class);
 
                         startActivity(newIntent);
+
+                        finish();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    private void getclassforStudent(String uid) {
+
+        SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+
+
+
+        db.collection("Parents")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot ds) {
+
+                        Parent parent = ds.toObject(Parent.class);
+
+                        if(grade==null){
+
+                            SharedPreferences.Editor editor = prf.edit();
+
+                            editor.putString("FIRST_NAME",parent.getFirstName());
+
+                            editor.putString("LAST_NAME",parent.getLastName());
+
+                            editor.putString("PHONE_NUMBER",parent.getPhoneNumber());
+
+                            editor.putString("GRADE",parent.getGrade());
+
+                            editor.putString("REGISTER_ID",parent.getRegisterID());
+
+                            editor.putString("STUDENT_NAME",parent.getStudentName());
+
+
+
+
+                            editor.commit();
+
+                        }
+
+                        Intent newIntent = new Intent(getApplicationContext(), ParentDashboard.class);
+
+                        startActivity(newIntent);
+                        finish();
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

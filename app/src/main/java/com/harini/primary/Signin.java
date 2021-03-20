@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.harini.primary.Models.Parent;
+import com.harini.primary.Models.Teacher;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
 import com.harini.primary.teacher.TeacherDashboard;
@@ -157,21 +160,15 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                         String role = documentSnapshot.getString("role");
 
                         if(role.equals(TEACHER_ROLE)){
-                            Intent newIntent = new Intent(getApplicationContext(), TeacherDashboard.class);
+                            getclassforTeacher(uid);
 
 
-                            logprogressBar.setVisibility(View.GONE);
-                            startActivity(newIntent);
-
-                            finish();
                         }
 
                         else if(role.equals(PARENT_ROLE)){
-                            Intent newIntent = new Intent(getApplicationContext(), ParentDashboard.class);
 
-                            logprogressBar.setVisibility(View.GONE);
-                            startActivity(newIntent);
-                            finish();
+                            getclassforStudent(uid);
+
                         }
 
                         else{
@@ -292,4 +289,115 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 
         dialog.show();
     }
+
+
+    private void getclassforTeacher(String uid) {
+
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+
+
+
+        db.collection("teachers")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot ds) {
+
+                        Teacher teacher = ds.toObject(Teacher.class);
+
+                        if(grade==null){
+
+                            SharedPreferences.Editor editor = prf.edit();
+
+                            editor.putString("FIRST_NAME",teacher.getFirstName());
+
+                            editor.putString("LAST_NAME",teacher.getLastName());
+
+                            editor.putString("PHONE_NUMBER",teacher.getPhoneNumber());
+
+                            editor.putString("GRADE",teacher.getGrade());
+
+                            editor.commit();
+
+                        }
+
+                        Intent newIntent = new Intent(getApplicationContext(), TeacherDashboard.class);
+
+
+                        logprogressBar.setVisibility(View.GONE);
+                        startActivity(newIntent);
+
+                        finish();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    private void getclassforStudent(String uid) {
+
+        SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+
+
+
+        db.collection("Parents")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot ds) {
+
+                        Parent parent = ds.toObject(Parent.class);
+
+                        if(grade==null){
+
+                            SharedPreferences.Editor editor = prf.edit();
+
+                            editor.putString("FIRST_NAME",parent.getFirstName());
+
+                            editor.putString("LAST_NAME",parent.getLastName());
+
+                            editor.putString("PHONE_NUMBER",parent.getPhoneNumber());
+
+                            editor.putString("GRADE",parent.getGrade());
+
+                            editor.putString("REGISTER_ID",parent.getRegisterID());
+
+                            editor.putString("STUDENT_NAME",parent.getStudentName());
+
+
+
+
+                            editor.commit();
+
+                        }
+
+                        Intent newIntent = new Intent(getApplicationContext(), ParentDashboard.class);
+
+                        logprogressBar.setVisibility(View.GONE);
+                        startActivity(newIntent);
+                        finish();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
 }

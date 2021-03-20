@@ -113,6 +113,13 @@ public class AddVideoLessons extends AppCompatActivity {
 
         Log.d(TAG, "setupRecycleView: grade"+grade);
 
+        if(grade==null){
+            throw new RuntimeException("grade should not be null");
+        }
+
+
+        Log.d(TAG, "setupRecycleView: grade"+grade);
+
         Query query = collectionReference.whereEqualTo("class", grade).orderBy("timestamp", Query.Direction.DESCENDING);
 
 

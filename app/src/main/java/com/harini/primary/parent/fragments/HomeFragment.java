@@ -1,7 +1,9 @@
 package com.harini.primary.parent.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,6 +148,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         if(currentUser != null){
 
                             mAuth.getInstance().signOut();
+
+                            SharedPreferences prf = getActivity().getSharedPreferences("Parent_DATA", Context.MODE_PRIVATE);
+
+                            prf.edit().clear().apply();
+
+
                             Intent mainpage = new Intent(getContext(), Signin.class);
                             startActivity(mainpage);
                             getActivity().getFragmentManager().popBackStack();
