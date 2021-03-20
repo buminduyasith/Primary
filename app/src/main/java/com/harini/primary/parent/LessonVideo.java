@@ -1,4 +1,4 @@
-package com.harini.primary.teacher;
+package com.harini.primary.parent;
 
 import androidx.appcompat.app.AppCompatActivity;
 

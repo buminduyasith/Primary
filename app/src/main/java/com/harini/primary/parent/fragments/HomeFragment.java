@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Signin;
+import com.harini.primary.parent.ViewVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_viewHomeworks;
+    private CardView card_viewHomeworks,card_viewVideoLessons;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -71,6 +72,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dpandlogout = view.findViewById(R.id.dpandlogout);
 
         card_viewHomeworks = view.findViewById(R.id.card_viewHomeworks);
+        card_viewVideoLessons = view.findViewById(R.id.card_viewVideoLessons);
 
     }
 
@@ -78,6 +80,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         dpandlogout.setOnClickListener(this);
         card_viewHomeworks.setOnClickListener(this);
+        card_viewVideoLessons.setOnClickListener(this);
     }
 
     private void init(){
@@ -106,6 +109,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
+            case R.id.card_viewVideoLessons:
+                Intent ViewVideoLessonsIntent = new Intent(getActivity(), ViewVideoLessons.class);
+                startActivity(ViewVideoLessonsIntent);
+                break;
 
             case R.id.dpandlogout:
 

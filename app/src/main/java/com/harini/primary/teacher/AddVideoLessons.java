@@ -107,7 +107,13 @@ public class AddVideoLessons extends AppCompatActivity {
 
         // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        Query query = collectionReference.whereEqualTo("class", "5A").orderBy("timestamp", Query.Direction.DESCENDING);
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+        Log.d(TAG, "setupRecycleView: grade"+grade);
+
+        Query query = collectionReference.whereEqualTo("class", grade).orderBy("timestamp", Query.Direction.DESCENDING);
 
 
         FirestoreRecyclerOptions<VideoLesson> options = new FirestoreRecyclerOptions.Builder<VideoLesson>()

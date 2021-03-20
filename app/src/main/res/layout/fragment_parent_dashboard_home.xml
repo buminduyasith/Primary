@@ -148,57 +148,62 @@
         android:layout_height="wrap_content">
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_viewHomeworks"
-
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_margin="20dp"
-
-            app:cardCornerRadius="16dp"
-
-            android:layout_marginBottom="10dp"
-
+            android:padding="20dp"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_viewHomeworks"
+
                 android:layout_width="match_parent"
+
+
+                app:cardCornerRadius="16dp"
+
+                android:layout_marginBottom="10dp"
 
                 android:layout_height="wrap_content">
 
-
-                <ImageView
-                    android:id="@+id/ImgViewHomework"
-                    android:layout_margin="10dp"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/homework"/>
-
-                <LinearLayout
-                    android:layout_marginTop="10dp"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_toRightOf="@+id/ImgViewHomework"
-                    android:orientation="vertical"
+
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textSize="16sp"
-                        android:text="Homeworks"
-                        tools:text="Homeworks" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textSize="12sp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Tap here, to view Homeworks."
 
-                        />
+                    <ImageView
+                        android:id="@+id/ImgViewHomework"
+                        android:layout_margin="10dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/homework"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/ImgViewHomework"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="16sp"
+                            android:text="Homeworks"
+                            tools:text="Homeworks" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="12sp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Tap here, to view Homeworks."
+
+                            />
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
 
 
@@ -208,11 +213,85 @@
 
 
 
-            </RelativeLayout>
+                </RelativeLayout>
 
 
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_viewVideoLessons"
+
+                android:layout_width="match_parent"
+
+
+                app:cardCornerRadius="16dp"
+
+                android:layout_below="@+id/card_viewHomeworks"
+
+                android:layout_marginBottom="10dp"
+
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/ImgViewVideoLessons"
+                        android:layout_margin="10dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/videolessons"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/ImgViewVideoLessons"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="16sp"
+                            android:text="Video Lessons"
+                            tools:text="Video Lessons" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="12sp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Tap here, to view video lessons."
+
+                            />
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+
+
+
 
 
 

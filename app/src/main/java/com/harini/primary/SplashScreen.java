@@ -17,8 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.Models.Teacher;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.ParentDashboard;
-import com.harini.primary.teacher.AddVideoLessons;
-import com.harini.primary.teacher.LessonVideo;
 import com.harini.primary.teacher.TeacherDashboard;
 
 public class SplashScreen extends AppCompatActivity {

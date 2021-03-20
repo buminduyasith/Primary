@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Signin;
+import com.harini.primary.teacher.AddVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
    // onCreateView onViewCreated
-   private CardView card_ImgMakeAnnouncement;
+   private CardView card_ImgMakeAnnouncement,card_addVideoLessons;
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
@@ -78,6 +79,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dpandlogout = view.findViewById(R.id.dpandlogout);
 
         card_ImgMakeAnnouncement = view.findViewById(R.id.card_ImgMakeAnnouncement);
+        card_addVideoLessons = view.findViewById(R.id.card_addVideoLessons);
 
     }
 
@@ -86,6 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         dpandlogout.setOnClickListener(this);
         card_ImgMakeAnnouncement.setOnClickListener(this);
+        card_addVideoLessons.setOnClickListener(this);
     }
 
 
@@ -126,8 +129,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.card_ImgMakeAnnouncement:
-                Intent newIntent = new Intent(getActivity(), CreateAnnouncement.class);
-                startActivity(newIntent);
+                Intent CreateAnnouncementIntent = new Intent(getActivity(), CreateAnnouncement.class);
+                startActivity(CreateAnnouncementIntent);
+                break;
+            case R.id.card_addVideoLessons:
+                Intent VideoLessonsIntent = new Intent(getActivity(), AddVideoLessons.class);
+                startActivity(VideoLessonsIntent);
                 break;
 
             default:

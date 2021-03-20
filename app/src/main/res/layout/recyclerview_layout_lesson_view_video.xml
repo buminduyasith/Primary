@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="10dp"
     app:cardCornerRadius="10dp"
-    android:outlineSpotShadowColor="@color/colorPrimary"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:padding="5dp"
         android:layout_height="match_parent">
 
 
@@ -17,48 +17,44 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="60dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
             android:orientation="vertical">
 
 
             <TextView
+                android:id="@+id/txtvideotitle"
+                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="title"
-                android:textSize="20dp"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:id="@+id/txtvideotitle"
                 android:layout_margin="10dp"
-               />
+                android:text="title"
+                android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/txttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txttime"
-                android:text="2021-03-18"
+                android:layout_below="@id/txtvideotitle"
                 android:layout_marginLeft="10dp"
-                android:layout_below="@id/txtvideotitle"/>
-
-
+                android:text="2021-03-18" />
 
 
         </LinearLayout>
 
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imgbtnytplay"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/ic_baseline_delete_24"
-            android:id="@+id/btndelete"/>
-
-
+            android:background="@drawable/ic_baseline_play_circle_filled_24" />
 
 
     </RelativeLayout>
+
 
 </androidx.cardview.widget.CardView>
