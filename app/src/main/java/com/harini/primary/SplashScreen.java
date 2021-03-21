@@ -42,9 +42,9 @@ public class SplashScreen extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-        Intent ParentSignupIntent = new Intent(this, AddEvents.class);
+       /* Intent ParentSignupIntent = new Intent(this, AddEvents.class);
 
-        startActivity(ParentSignupIntent);
+        startActivity(ParentSignupIntent);*/
     }
 
 
@@ -74,7 +74,7 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -256,7 +256,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-    }*/
+    }
 
 
 }

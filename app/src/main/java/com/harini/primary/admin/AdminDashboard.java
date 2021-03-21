@@ -26,7 +26,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_createteacherAcocunts;
+    private CardView card_createteacherAcocunts,card_createEvents;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -58,6 +58,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         dpandlogout = findViewById(R.id.dpandlogout);
 
         card_createteacherAcocunts = findViewById(R.id.card_createteacherAcocunts);
+        card_createEvents = findViewById(R.id.card_createEvents);
 
     }
 
@@ -66,6 +67,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         dpandlogout.setOnClickListener(this);
 
         card_createteacherAcocunts.setOnClickListener(this);
+        card_createEvents.setOnClickListener(this);
     }
 
     private void init(){
@@ -103,8 +105,12 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.card_createteacherAcocunts:
-                Intent newIntent = new Intent(getApplicationContext(),CreateTeacherAccounts.class);
-                startActivity(newIntent);
+                Intent CreateTeacherAccountsIntent = new Intent(getApplicationContext(),CreateTeacherAccounts.class);
+                startActivity(CreateTeacherAccountsIntent);
+                break;
+            case R.id.card_createEvents:
+                Intent AddEventsIntent = new Intent(getApplicationContext(),AddEvents.class);
+                startActivity(AddEventsIntent);
                 break;
             default:
                 return;

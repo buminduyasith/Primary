@@ -4,23 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -40,8 +35,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.harini.primary.Models.CustomeEvent;
 import com.harini.primary.R;
 import com.harini.primary.adapters.AgendaCalenderAdapter;
-import com.harini.primary.teacher.AddVideoLessons;
-import com.harini.primary.utill.DatePickerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 import devs.mulham.horizontalcalendar.model.CalendarEvent;

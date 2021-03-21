@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Signin;
+import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.ViewVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
 
@@ -33,7 +34,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_viewHomeworks,card_viewVideoLessons;
+    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         card_viewHomeworks = view.findViewById(R.id.card_viewHomeworks);
         card_viewVideoLessons = view.findViewById(R.id.card_viewVideoLessons);
+        card_viewevents = view.findViewById(R.id.card_viewevents);
 
     }
 
@@ -83,6 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dpandlogout.setOnClickListener(this);
         card_viewHomeworks.setOnClickListener(this);
         card_viewVideoLessons.setOnClickListener(this);
+        card_viewevents.setOnClickListener(this);
     }
 
     private void init(){
@@ -115,6 +118,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.card_viewVideoLessons:
                 Intent ViewVideoLessonsIntent = new Intent(getActivity(), ViewVideoLessons.class);
                 startActivity(ViewVideoLessonsIntent);
+                break;
+
+            case R.id.card_viewevents:
+
+                Intent ViewEventsLessonsIntent = new Intent(getActivity(), AgendaCalendarView.class);
+                startActivity(ViewEventsLessonsIntent);
                 break;
 
             case R.id.dpandlogout:

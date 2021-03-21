@@ -116,7 +116,7 @@ public class AgendaCalendarView extends AppCompatActivity {
             @Override
             public void onDateSelected(Calendar date, int position) {
 
-               Log.d(TAG, "onDateSelected: "+date);
+               //Log.d(TAG, "onDateSelected: "+date);
 
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
@@ -130,7 +130,7 @@ public class AgendaCalendarView extends AppCompatActivity {
 
 
 
-                Log.d(TAG, "onDateSelected: pos"+selectedData);
+                Log.d(TAG, "onDateSelected: pos"+formatdate);
             }
 
             @Override
@@ -166,17 +166,18 @@ public class AgendaCalendarView extends AppCompatActivity {
 
         // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        /*SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
+        SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
 
-        String grade = prf.getString("GRADE", null);
+        String stdclass = prf.getString("GRADE", null);
 
-        if(grade==null){
+        if(stdclass==null){
             throw new RuntimeException("grade should not be null");
         }
 
-        Log.d(TAG, "setupRecycleView: grade"+grade);*/
+        char stdgrade = stdclass.charAt(0);
 
-        String  grade ="5A";
+        Log.d(TAG, "setupRecycleView: grade"+stdgrade);
+
 
         Calendar calendar = Calendar.getInstance();
 
@@ -186,7 +187,7 @@ public class AgendaCalendarView extends AppCompatActivity {
         Log.d(TAG, "setupRecycleView: format date recview"+formatdate);
 
 
-        query = collectionReference.whereEqualTo("grade", 1).whereEqualTo("date",formatdate).orderBy("timestamp", Query.Direction.DESCENDING);
+        query = collectionReference.whereEqualTo("grade", Integer.valueOf(String.valueOf(stdgrade))).whereEqualTo("date",formatdate).orderBy("timestamp", Query.Direction.DESCENDING);
 
 
         FirestoreRecyclerOptions<CustomeEvent> options = new FirestoreRecyclerOptions.Builder<CustomeEvent>()
@@ -201,6 +202,7 @@ public class AgendaCalendarView extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
 
+                Log.d(TAG, "onEvent: value size "+value.size());
 
                 if (value != null) {
 
@@ -241,8 +243,22 @@ public class AgendaCalendarView extends AppCompatActivity {
 
     private void getdatawhendatachange(String formatdate,int grade){
 
+        SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
+
+        String stdclass = prf.getString("GRADE", null);
+
+        if(stdclass==null){
+            throw new RuntimeException("grade should not be null");
+        }
+
+        char stdgrade = stdclass.charAt(0);
+
+        Log.d(TAG, "setupRecycleView: grade"+stdgrade);
+
+        Log.d(TAG, "getdatawhendatachange: value function int"+Integer.valueOf(String.valueOf(stdgrade)));
+
         adapter.stopListening();
-        query = collectionReference.whereEqualTo("grade", grade).whereEqualTo("date",formatdate).orderBy("timestamp", Query.Direction.DESCENDING);
+        query = collectionReference.whereEqualTo("grade", Integer.valueOf(String.valueOf(stdgrade))).whereEqualTo("date",formatdate).orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<CustomeEvent> options = new FirestoreRecyclerOptions.Builder<CustomeEvent>()
                 .setQuery(query, CustomeEvent.class).build();
@@ -259,6 +275,7 @@ public class AgendaCalendarView extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
 
+                Log.d(TAG, "onEvent: value size "+value.size());
 
                 if (value != null) {
 
