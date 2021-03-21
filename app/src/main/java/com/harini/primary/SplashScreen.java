@@ -16,7 +16,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.Models.Parent;
 import com.harini.primary.Models.Teacher;
+import com.harini.primary.admin.AddEvents;
 import com.harini.primary.admin.AdminDashboard;
+import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.ParentDashboard;
 import com.harini.primary.teacher.TeacherDashboard;
 
@@ -40,9 +42,9 @@ public class SplashScreen extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-       /* Intent ParentSignupIntent = new Intent(this, AddVideoLessons.class);
+        Intent ParentSignupIntent = new Intent(this, AddEvents.class);
 
-        startActivity(ParentSignupIntent);*/
+        startActivity(ParentSignupIntent);
     }
 
 
@@ -72,7 +74,7 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
 
@@ -254,7 +256,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".parent.AgendaCalendarView">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+
+        android:id="@+id/agendacalenderview_appbar"
+        android:background="@color/colorPrimaryDark"
+
+        android:layout_height="wrap_content">
+
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:textColorSelected="#FFFF"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <Button
+        android:id="@+id/textButton_selmonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select a month"
+        android:visibility="gone"
+        android:layout_below="@id/agendacalenderview_appbar"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/ytplayingtext"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--------"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/agendacalenderview_appbar"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/ytplayingtext"
+        android:id="@+id/txtdateshow"/>
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:background="@color/backgroundcolor"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textButton_selmonth"
+        android:layout_marginTop="10dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/recyclerview_agendacalenderview_list"
+            android:id="@+id/rec_event_list"/>
+
+        <LinearLayout
+            android:id="@+id/events_nodata_container"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_gravity="center"
+                android:layout_height="200dp"
+                android:src="@drawable/noevents"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Once an Event add\n you will see it listed here"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

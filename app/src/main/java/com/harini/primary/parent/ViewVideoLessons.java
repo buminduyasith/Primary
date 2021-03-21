@@ -181,7 +181,6 @@ public class ViewVideoLessons extends YouTubeBaseActivity {
 
                 mYouTubePlayer.cueVideo(videoLesson.getVideoid());
                 txtytplayingtitle.setText(videoLesson.getTitle());
-                Toast.makeText(getApplicationContext(),"wow"+videoLesson.getVideoid(),Toast.LENGTH_SHORT).show();
 
             }
         });

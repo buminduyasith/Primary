@@ -21,5 +21,6 @@
     <color name="bottomnavp2">#D3D3D3</color>
 
     <color name="ytplayingtext">#03A9F4</color>
+    <color name="backgroundcolor">#fafafa</color>
 
 </resources>
