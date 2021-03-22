@@ -9,6 +9,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +34,7 @@ import com.harini.primary.Models.Homework;
 import com.harini.primary.Models.Teacher;
 import com.harini.primary.R;
 import com.harini.primary.adapters.HomeWorkAdapter;
+import com.harini.primary.teacher.AdHomeWork;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -156,6 +158,13 @@ public class ViewHomeWork extends AppCompatActivity {
 
                 Homework homework = documentSnapshot.toObject(Homework.class);
 
+
+                pDialog = new SweetAlertDialog(ViewHomeWork.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.setCancelable(false);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("please wait...");
+                pDialog.show();
+
                 new Thread() {
                     public void run() {
                         DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
@@ -175,6 +184,7 @@ public class ViewHomeWork extends AppCompatActivity {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
+                                pDialog.dismissWithAnimation();
                                 Toast toast = Toast.makeText(ViewHomeWork.this, "Downloaded", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
