@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".teacher.AdHomeWork"></activity>
+        <activity android:name=".parent.ViewHomeWork"></activity>
+        <activity android:name=".teacher.AdHomeWork" />
         <activity android:name=".admin.AddEvents" />
         <activity android:name=".parent.AgendaCalendarView" />
         <activity android:name=".parent.ViewVideoLessons" />

@@ -10,13 +10,16 @@ public class Homework {
 
     private String link;
 
+    private String stdclass;
+
     public Homework() {
     }
 
-    public Homework(String discription, Timestamp timestamp, String link) {
+    public Homework(String discription, Timestamp timestamp, String link,String stdclass) {
         this.discription = discription;
         this.timestamp = timestamp;
         this.link = link;
+        this.stdclass = stdclass;
     }
 
     public String getDiscription() {
@@ -41,5 +44,13 @@ public class Homework {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getStdclass() {
+        return stdclass;
+    }
+
+    public void setStdclass(String stdclass) {
+        this.stdclass = stdclass;
     }
 }

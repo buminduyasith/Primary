@@ -3,6 +3,7 @@ package com.harini.primary.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,10 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
         holder.txthwdiscription.setText(model.getDiscription());
 
         holder.txthwtime.setText(time);
+
+        if(role.equals("PARENT")){
+            holder.imgbtndownload.setVisibility(View.VISIBLE);
+        }
     }
 
     @NonNull
@@ -54,12 +59,24 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
 
         TextView txthwdiscription;
         TextView txthwtime;
+        ImageButton imgbtndownload;
 
         public HomeWorkViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txthwdiscription = itemView.findViewById(R.id.txthwdiscription);
             txthwtime = itemView.findViewById(R.id.txthwtime);
+            imgbtndownload = itemView.findViewById(R.id.imgbtndownload);
+
+            imgbtndownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION && listner !=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(pos),pos);
+                    }
+                }
+            });
         }
     }
 

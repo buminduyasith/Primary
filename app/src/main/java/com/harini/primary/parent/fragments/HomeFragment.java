@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Signin;
 import com.harini.primary.parent.AgendaCalendarView;
+import com.harini.primary.parent.ViewHomeWork;
 import com.harini.primary.parent.ViewVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
 
@@ -114,6 +115,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
+            case R.id.card_viewHomeworks:
+                Intent ViewHomeWorkIntent = new Intent(getActivity(), ViewHomeWork.class);
+                startActivity(ViewHomeWorkIntent);
+                break;
 
             case R.id.card_viewVideoLessons:
                 Intent ViewVideoLessonsIntent = new Intent(getActivity(), ViewVideoLessons.class);
