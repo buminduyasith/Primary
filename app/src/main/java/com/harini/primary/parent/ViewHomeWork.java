@@ -69,6 +69,7 @@ public class ViewHomeWork extends AppCompatActivity {
     private String discription;
 
     private static final int REQUEST_CODE=1;
+    private static final int REQUESTCODE_STORAGE_PERMISSION = 99;
 
 
     private String TAG="viewhomework";
@@ -87,7 +88,17 @@ public class ViewHomeWork extends AppCompatActivity {
 
         collectionReference = db.collection("HomeWorks");
 
-        if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        Boolean readPermission = ActivityCompat.checkSelfPermission(ViewHomeWork.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        Boolean writePermission = ActivityCompat.checkSelfPermission(ViewHomeWork.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+        if (!readPermission || !writePermission) {
+            ActivityCompat.requestPermissions(ViewHomeWork.this, new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUESTCODE_STORAGE_PERMISSION);
+
+        }
+
+
+
+       /* if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             Log.e("Permission error","You have permission");
 
 
@@ -95,7 +106,7 @@ public class ViewHomeWork extends AppCompatActivity {
         else{
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-        }
+        }*/
 
 
         setupRecycleView();
@@ -241,7 +252,44 @@ public class ViewHomeWork extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE){
+
+        if(requestCode==REQUESTCODE_STORAGE_PERMISSION){
+
+
+
+            if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+
+
+            }
+            else{
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is need to give a better user experience  ")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(ViewHomeWork.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+                                finish();
+                            }
+                        })
+                        .create().show();
+            }
+
+
+
+        }
+
+
+      /*  if(requestCode == REQUEST_CODE){
             if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
                 //authandredirectuser();
             }
@@ -267,6 +315,6 @@ public class ViewHomeWork extends AppCompatActivity {
                         })
                         .create().show();
             }
-        }
+        }*/
     }
 }
