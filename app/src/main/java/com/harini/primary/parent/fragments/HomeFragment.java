@@ -81,7 +81,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewVideoLessons = view.findViewById(R.id.card_viewVideoLessons);
         card_viewevents = view.findViewById(R.id.card_viewevents);
 //
-//        Context context =   LocaleHelper.setLocale(getContext(), "si");
+        //si-rLK
+        //si-LK
+        //si
+       //Context context =   LocaleHelper.setLocale(getContext(), "si");
 //
 //        Resources resource = context.getResources();
 //

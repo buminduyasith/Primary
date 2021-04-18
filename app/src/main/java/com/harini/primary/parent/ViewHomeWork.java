@@ -153,7 +153,7 @@ public class ViewHomeWork extends AppCompatActivity {
         title = findViewById(R.id.title);
 
 
-       Context context =   LocaleHelper.setLocale(ViewHomeWork.this, "si");
+       //Context context =   LocaleHelper.setLocale(ViewHomeWork.this, "si");
 
 
        Log.d(TAG, "setupUi: "+LocaleHelper.getLanguage(this));
