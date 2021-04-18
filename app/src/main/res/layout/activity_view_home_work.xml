@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/homeworkActivtiyTitle"
+        android:text="@string/homework"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="#2196F3"
         android:layout_margin="20dp"

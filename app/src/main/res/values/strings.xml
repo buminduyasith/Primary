@@ -3,8 +3,11 @@
 
 
     <string name="country_prompt" translatable="false">Choose a Grade</string>
-    <string name="homeworkActivtiyTitle">Home</string>
-
+    <string name="homework">Home Work</string>
+    <string name="video_lessons">Video Lessons</string>
+    <string name="homeworkstitle">Homeworks</string>
+    <string name="eventsfragmenttitle">Events</string>
+    <string name="welcome_to_appname">Welcome to APPNAME</string>
 
 
     <string-array name="grade_arrays">

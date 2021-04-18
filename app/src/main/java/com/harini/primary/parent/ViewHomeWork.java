@@ -157,7 +157,7 @@ public class ViewHomeWork extends AppCompatActivity {
 
 
        Log.d(TAG, "setupUi: "+LocaleHelper.getLanguage(this));
-        Log.d(TAG, "setupUi: "+getApplicationContext().getString(R.string.homeworkActivtiyTitle));
+       // Log.d(TAG, "setupUi: "+getApplicationContext().getString(R.string.homeworkActivtiyTitle));
 
         ///title.setText(resource.getText(R.string.homeworkActivtiyTitle));
     }
@@ -296,7 +296,7 @@ public class ViewHomeWork extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log.d(TAG1, "onConfigurationChanged: ");
-        title.setText(getApplicationContext().getString(R.string.homeworkActivtiyTitle));
+        //title.setText(getApplicationContext().getString(R.string.homeworkActivtiyTitle));
     }
 
     @Override

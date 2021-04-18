@@ -2,8 +2,11 @@
 <resources>
 
 
-
-
+    <string name="homework">ගෙදර වැඩ</string>
+    <string name="video_lessons">විඩීයෝ පාඩම්</string>
+    <string name="homeworkstitle">ගෙදර වැඩ</string>
+    <string name="eventsfragmenttitle">පාසල් වැඩසටහන්</string>
+    <string name="welcome_to_appname">ආයුබෝවන් </string>
 
 
 </resources>
