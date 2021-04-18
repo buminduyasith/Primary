@@ -2,6 +2,7 @@ package com.harini.primary.parent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,15 +15,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.icu.util.ULocale;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -39,8 +46,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.harini.primary.Models.Homework;
 import com.harini.primary.Models.Teacher;
 import com.harini.primary.R;
+import com.harini.primary.SplashScreen;
 import com.harini.primary.adapters.HomeWorkAdapter;
 import com.harini.primary.teacher.AdHomeWork;
+import com.harini.primary.utill.LocaleHelper;
+
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -71,16 +82,37 @@ public class ViewHomeWork extends AppCompatActivity {
     private static final int REQUEST_CODE=1;
     private static final int REQUESTCODE_STORAGE_PERMISSION = 99;
 
+    private TextView title;
 
     private String TAG="viewhomework";
+    private String TAG1="viewhomeworkc";
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // LocaleHelper.setLocale(this,"si");
+       // LocaleHelper.setLocale(this,"si-rLK");
+       // Log.d(TAG1, "onCreate: lk"+Locale.getDefault());
         setContentView(R.layout.activity_view_home_work);
+       // Log.d(TAG1, "onCreate: "+getApplicationContext().getString(R.string.homeworkActivtiyTitle));
 
         setupUi();
+
+
+        //ULocale locale = ULocale.forLanguageTag("si-LK");
+        //.d(TAG1, "onCreate: getdisplayname"+locale.getDisplayName(locale));
+
+       // Locale javaLocale = locale.toLocale();
+
+        //Log.d(TAG1, "onCreate: "+javaLocale.toString());
+       // LocaleHelper.setLocale(this,"si_LK");
+
+
+
+       // Log.d(TAG1, "onCreate:---"+Locale.getDefault());
+       // title.setText(getApplicationContext().getString(R.string.homeworkActivtiyTitle));
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -115,8 +147,19 @@ public class ViewHomeWork extends AppCompatActivity {
     private void setupUi() {
 
 
+
         recyleview_homeworks = findViewById(R.id.recyleview_homeworks);
         hw_noresults_container = findViewById(R.id.hw_noresults_container);
+        title = findViewById(R.id.title);
+
+
+       Context context =   LocaleHelper.setLocale(ViewHomeWork.this, "si");
+
+
+       Log.d(TAG, "setupUi: "+LocaleHelper.getLanguage(this));
+        Log.d(TAG, "setupUi: "+getApplicationContext().getString(R.string.homeworkActivtiyTitle));
+
+        ///title.setText(resource.getText(R.string.homeworkActivtiyTitle));
     }
 
     private void setupRecycleView() {
@@ -247,6 +290,13 @@ public class ViewHomeWork extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG1, "onConfigurationChanged: ");
+        title.setText(getApplicationContext().getString(R.string.homeworkActivtiyTitle));
     }
 
     @Override

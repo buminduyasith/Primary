@@ -1,11 +1,17 @@
 package com.harini.primary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,6 +27,9 @@ import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.ParentDashboard;
 import com.harini.primary.teacher.TeacherDashboard;
+import com.harini.primary.utill.LocaleHelper;
+
+import java.util.Locale;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -41,11 +50,16 @@ public class SplashScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        //setLocale(this,"si-rLK");
 
+
+
+      //  LocaleHelper.setLocale(SplashScreen.this,  "si");
        /* Intent ParentSignupIntent = new Intent(this, AddEvents.class);
 
         startActivity(ParentSignupIntent);*/
     }
+
 
 
     private boolean isFirstTime() {

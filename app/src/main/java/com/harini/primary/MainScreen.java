@@ -22,13 +22,14 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     private void setupUi(){
         btn_login =findViewById(R.id.btn_loginlink);
-       // btn_signup_admin =findViewById(R.id.btn_signup_adminlink);
+        btn_signup_admin =findViewById(R.id.btn_signup_adminlink);
         btn_signup_parent =findViewById(R.id.btn_signup_parentlink);
+
     }
 
     private void setActions(){
         btn_login.setOnClickListener(this);
-        //btn_signup_admin.setOnClickListener(this);
+        btn_signup_admin.setOnClickListener(this);
         btn_signup_parent.setOnClickListener(this);
 
     }
@@ -43,6 +44,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
             case R.id.btn_signup_parentlink:
                 signupasParent();
                 break;
+            case R.id.btn_signup_adminlink:
+                signupasAdmin();
             default:
                 return;
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.ViewHomeWork;
 import com.harini.primary.parent.ViewVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
+import com.harini.primary.utill.LocaleHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -78,7 +80,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewHomeworks = view.findViewById(R.id.card_viewHomeworks);
         card_viewVideoLessons = view.findViewById(R.id.card_viewVideoLessons);
         card_viewevents = view.findViewById(R.id.card_viewevents);
-
+//
+//        Context context =   LocaleHelper.setLocale(getContext(), "si");
+//
+//        Resources resource = context.getResources();
+//
+//        TextView txthome = view.findViewById(R.id.txthomework); // setText(resource.getString(R.string.homeworkActivtiyTitle));
+//
+//        txthome.setText();
     }
 
     private void setActions(){

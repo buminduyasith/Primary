@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Primary</string>
+    <string name="app_name" translatable="false">Primary</string>
 
 
-    <string name="country_prompt">Choose a Grade</string>
+    <string name="country_prompt" translatable="false">Choose a Grade</string>
+    <string name="homeworkActivtiyTitle">Home</string>
+
 
 
     <string-array name="grade_arrays">
