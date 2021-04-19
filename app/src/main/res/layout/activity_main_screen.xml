@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Welcome to appname"
+            android:text="Welcome to StudentTag"
             android:fontFamily="@font/poppins_semibold"
             style="@style/TextAppearance.AppCompat.Headline"
             android:layout_gravity="center"

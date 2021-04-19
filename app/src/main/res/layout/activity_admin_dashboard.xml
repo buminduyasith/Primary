@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Welcome to APPName"
+                    android:text="Welcome to StudentTag"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
