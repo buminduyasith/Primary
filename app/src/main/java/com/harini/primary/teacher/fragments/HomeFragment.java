@@ -25,6 +25,7 @@ import com.harini.primary.R;
 import com.harini.primary.Settings;
 import com.harini.primary.Signin;
 import com.harini.primary.teacher.AdHomeWork;
+import com.harini.primary.teacher.AddExamPapers;
 import com.harini.primary.teacher.AddVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
 
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
    // onCreateView onViewCreated
-   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_settings;
+   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_settings,card_exams;
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
@@ -86,6 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_addVideoLessons = view.findViewById(R.id.card_addVideoLessons);
         card_addhomeworks = view.findViewById(R.id.card_addhomeworks);
         card_settings = view.findViewById(R.id.card_settings);
+        card_exams = view.findViewById(R.id.card_exams);
 
     }
 
@@ -97,6 +99,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_addVideoLessons.setOnClickListener(this);
         card_addhomeworks.setOnClickListener(this);
         card_settings.setOnClickListener(this);
+        card_exams.setOnClickListener(this);
     }
 
 
@@ -151,6 +154,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.card_settings:
                 Intent SettingsIntent = new Intent(getActivity(), com.harini.primary.Settings.class);
                 startActivity(SettingsIntent);
+                break;
+            case R.id.card_exams:
+                Intent examIntent = new Intent(getActivity(), AddExamPapers.class);
+                startActivity(examIntent);
                 break;
 
             default:
