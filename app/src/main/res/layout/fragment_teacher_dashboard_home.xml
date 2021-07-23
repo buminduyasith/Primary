@@ -261,7 +261,7 @@
 
 
                 android:layout_below="@+id/card_addVideoLessons"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginBottom="10dp"
 
                 app:cardCornerRadius="16dp">
@@ -300,6 +300,66 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to add a Homework."
+                            android:textSize="12sp"
+
+                            />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_settings"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:layout_below="@+id/card_addhomeworks"
+                android:visibility="visible"
+                android:layout_marginBottom="10dp"
+
+                app:cardCornerRadius="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/Imgsettings"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/homework" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/Imgsettings"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Settings"
+                            android:textSize="16sp"
+                            tools:text="Add Homeworks" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, to change settings."
                             android:textSize="12sp"
 
                             />

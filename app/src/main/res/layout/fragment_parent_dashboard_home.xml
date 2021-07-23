@@ -157,7 +157,7 @@
                 android:id="@+id/card_viewHomeworks"
 
                 android:layout_width="match_parent"
-                android:visibility="gone"
+                android:visibility="visible"
 
 
                 app:cardCornerRadius="16dp"

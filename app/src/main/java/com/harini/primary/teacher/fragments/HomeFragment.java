@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
+import com.harini.primary.Settings;
 import com.harini.primary.Signin;
 import com.harini.primary.teacher.AdHomeWork;
 import com.harini.primary.teacher.AddVideoLessons;
@@ -35,7 +36,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
    // onCreateView onViewCreated
-   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks;
+   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_settings;
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
@@ -84,6 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_ImgMakeAnnouncement = view.findViewById(R.id.card_ImgMakeAnnouncement);
         card_addVideoLessons = view.findViewById(R.id.card_addVideoLessons);
         card_addhomeworks = view.findViewById(R.id.card_addhomeworks);
+        card_settings = view.findViewById(R.id.card_settings);
 
     }
 
@@ -94,6 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_ImgMakeAnnouncement.setOnClickListener(this);
         card_addVideoLessons.setOnClickListener(this);
         card_addhomeworks.setOnClickListener(this);
+        card_settings.setOnClickListener(this);
     }
 
 
@@ -144,6 +147,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.card_addhomeworks:
                 Intent AdHomeWorkIntent = new Intent(getActivity(), AdHomeWork.class);
                 startActivity(AdHomeWorkIntent);
+                break;
+            case R.id.card_settings:
+                Intent SettingsIntent = new Intent(getActivity(), com.harini.primary.Settings.class);
+                startActivity(SettingsIntent);
                 break;
 
             default:

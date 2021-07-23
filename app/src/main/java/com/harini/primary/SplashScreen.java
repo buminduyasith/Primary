@@ -50,6 +50,40 @@ public class SplashScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        SharedPreferences prf = getSharedPreferences("Settings", MODE_PRIVATE);
+
+
+        boolean langStatus = prf.getBoolean("lan_sinhala", false);
+
+        if(langStatus){
+            String languageToLoad = "si";
+
+            Locale locale = new Locale(languageToLoad);
+
+            Locale.setDefault(locale);
+
+            Configuration config = new Configuration();
+
+            config.locale = locale;
+
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+        }
+        else{
+            String languageToLoad = "en";
+
+            Locale locale = new Locale(languageToLoad);
+
+            Locale.setDefault(locale);
+
+            Configuration config = new Configuration();
+
+            config.locale = locale;
+
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        }
+
+
         //setLocale(this,"si-rLK");
 
 
@@ -185,6 +219,8 @@ public class SplashScreen extends AppCompatActivity {
                         Teacher teacher = ds.toObject(Teacher.class);
 
                         if(grade==null){
+
+
 
                             SharedPreferences.Editor editor = prf.edit();
 
