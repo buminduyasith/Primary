@@ -8,6 +8,7 @@
     <string name="homeworkstitle">Homeworks</string>
     <string name="eventsfragmenttitle">Events</string>
     <string name="welcome_to_appname">"Welcome to StudentTag</string>
+    <string name="exam_papers">Exam Papers</string>
 
 
     <string-array name="grade_arrays">

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".parent.ViewExamPapers"></activity>
+        <activity android:name=".parent.ViewPapers"></activity>
+        <activity android:name=".parent.ViewExamPapers" />
         <activity android:name=".teacher.AddExamPapers" />
         <activity android:name=".Settings" />
         <activity android:name=".parent.ViewHomeWork" />

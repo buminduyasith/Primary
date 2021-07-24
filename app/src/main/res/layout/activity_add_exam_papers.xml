@@ -9,13 +9,47 @@
     android:padding="20dp"
     tools:context=".teacher.AddExamPapers">
 
-    <ImageButton
-        android:id="@+id/imgbtn_upload"
-        android:layout_width="250dp"
+    <LinearLayout
+
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/announcementimg"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"/>
+        android:id="@+id/ll_btnupload"
+        android:background="@drawable/uploadimgbackground"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgBtnUpload"
+                android:layout_width="80dp"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/cloud_computing"
+                android:layout_height="80dp">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/txtImgUploadStatus"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/imgBtnUpload"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Upload exam papers"
+                android:layout_centerInParent="true"
+              android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
 
 
     <Spinner
@@ -49,5 +83,13 @@
         android:layout_height="wrap_content"
         android:text="Upload"
         android:id="@+id/btnUpload"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyleview_viewpapers"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/recycleview_view_exams_papers" />
 
 </LinearLayout>

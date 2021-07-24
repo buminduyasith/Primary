@@ -26,6 +26,7 @@ import com.harini.primary.admin.AddEvents;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.ParentDashboard;
+import com.harini.primary.parent.ViewPapers;
 import com.harini.primary.teacher.TeacherDashboard;
 import com.harini.primary.utill.LocaleHelper;
 
@@ -49,6 +50,7 @@ public class SplashScreen extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
 
         SharedPreferences prf = getSharedPreferences("Settings", MODE_PRIVATE);
 
@@ -219,7 +221,6 @@ public class SplashScreen extends AppCompatActivity {
                         Teacher teacher = ds.toObject(Teacher.class);
 
                         if(grade==null){
-
 
 
                             SharedPreferences.Editor editor = prf.edit();

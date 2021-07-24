@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,9 +18,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,15 +31,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.harini.primary.Models.ExamPaper;
 import com.harini.primary.R;
+import com.harini.primary.adapters.ExamPaperAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +60,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class AddExamPapers extends AppCompatActivity implements View.OnClickListener {
 
 
-    private ImageButton imgbtn_upload;
+    private LinearLayout ll_btnupload;
     private final static int FILE_REQUEST_CODE = 1;
 
     private FirebaseStorage fstorage;
@@ -65,6 +76,9 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
     private Button btnUpload;
 
     private TextInputLayout txtinput_fileName;
+    private RecyclerView recyleview_viewpapers;
+
+    private ExamPaperAdapter adapter;
 
     private Uri uri;
 
@@ -76,20 +90,22 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
         setupUI();
         setActions();
         init();
+        setupRecycleView();
     }
 
 
     private void setupUI(){
-         imgbtn_upload = findViewById(R.id.imgbtn_upload);
+        ll_btnupload = findViewById(R.id.ll_btnupload);
         spinner_category = findViewById(R.id.spinner_category);
         txtinput_fileName = findViewById(R.id.txtinput_fileName);
         btnUpload = findViewById(R.id.btnUpload);
+          recyleview_viewpapers = findViewById(R.id.recyleview_viewpapers);
 
 
     }
 
     private void setActions(){
-        imgbtn_upload.setOnClickListener(this);
+        ll_btnupload.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
 
 //        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -138,7 +154,7 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()){
 
-           case R.id.imgbtn_upload:
+           case R.id.ll_btnupload:
                openfile();
                break;
             case R.id.btnUpload:
@@ -310,6 +326,7 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
 
         String filename = txtinput_fileName.getEditText().getText().toString();
         String subject = spinner_category.getSelectedItem().toString();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         Map<String, Object> hw = new HashMap<>();
         hw.put("filename", filename);
@@ -317,6 +334,7 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
         hw.put("link", linkfile);
         hw.put("timestamp", timestamp);
         hw.put("stdclass", grade);
+        hw.put("uid", user.getUid());
 
         db.collection("Exams").add(hw)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -355,6 +373,96 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    private void setupRecycleView() {
+
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+        String grade = prf.getString("GRADE", null);
+
+
+
+        Log.d(TAG, "setupRecycleView: grade"+grade);
+
+        if(grade==null){
+            throw new RuntimeException(" grade should not be null");
+        }
+
+
+        Log.d(TAG, "setupRecycleView: grade"+grade);
+
+        Query query = collectionReference
+                .whereEqualTo("uid",firebaseUser.getUid())
+                .orderBy("timestamp", Query.Direction.DESCENDING);
+        //.whereEqualTo("stdclass", grade)
+
+
+        FirestoreRecyclerOptions<ExamPaper> options = new FirestoreRecyclerOptions.Builder<ExamPaper>()
+                .setQuery(query, ExamPaper.class).build();
+
+
+        adapter = new ExamPaperAdapter(options,"teacher");
+
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+
+//                if (value != null) {
+//
+//
+//                    if (value.size() > 0) {
+//
+//
+//                        hw_noresults_container.setVisibility(View.GONE);
+//                        recyleview_viewpapers.setVisibility(View.VISIBLE);
+//
+//
+//                    } else {
+//
+//                        recyleview_viewpapers.setVisibility(View.GONE);
+//                        hw_noresults_container.setVisibility(View.VISIBLE);
+//
+//                    }
+//
+//                }
+
+
+            }
+        });
+
+
+        recyleview_viewpapers.setHasFixedSize(true);
+
+        recyleview_viewpapers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recyleview_viewpapers.setAdapter(adapter);
+
+
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.stopListening();
     }
 
 

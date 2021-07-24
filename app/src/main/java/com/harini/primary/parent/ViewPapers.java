@@ -2,7 +2,6 @@ package com.harini.primary.parent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,16 +15,12 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.icu.util.ULocale;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,7 +29,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.crashlytics.internal.model.CrashlyticsReport;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -43,136 +38,102 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.harini.primary.Models.ExamPaper;
 import com.harini.primary.Models.Homework;
-import com.harini.primary.Models.Teacher;
 import com.harini.primary.R;
-import com.harini.primary.SplashScreen;
+import com.harini.primary.adapters.ExamPaperAdapter;
 import com.harini.primary.adapters.HomeWorkAdapter;
-import com.harini.primary.teacher.AdHomeWork;
 import com.harini.primary.utill.LocaleHelper;
-
-import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class ViewHomeWork extends AppCompatActivity {
-
-    private FirebaseStorage fstorage;
-
-    private final static int FILE_REQUEST_CODE = 3;
-
-    private RecyclerView recyleview_homeworks;
-
+public class ViewPapers extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private CollectionReference collectionReference;
-
-
-    private HomeWorkAdapter adapter;
-
-    private LinearLayout hw_noresults_container;
+    private FirebaseStorage fstorage;
 
     private SweetAlertDialog pDialog;
-
-    private DialogInterface dialogInterface ;
-
-    private String discription;
 
     private static final int REQUEST_CODE=1;
     private static final int REQUESTCODE_STORAGE_PERMISSION = 99;
 
-    private TextView title;
-
-    private String TAG="viewhomework";
-    private String TAG1="viewhomeworkc";
+    private ExamPaperAdapter adapter;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    private RecyclerView recyleview_viewpapers;
+    private LinearLayout hw_noresults_container;
+
+
+    private String TAG="viewpapers";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_view_home_work);
-
+        setContentView(R.layout.activity_view_papers);
 
         setupUi();
+        init();
+        setupRecycleView();
+
+        Boolean readPermission = ActivityCompat.checkSelfPermission(ViewPapers.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        Boolean writePermission = ActivityCompat.checkSelfPermission(ViewPapers.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+        if (!readPermission || !writePermission) {
+            ActivityCompat.requestPermissions(ViewPapers.this, new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUESTCODE_STORAGE_PERMISSION);
+
+        }
 
 
+
+    }
+
+    private void init(){
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         fstorage = FirebaseStorage.getInstance();
-
-        collectionReference = db.collection("HomeWorks");
-
-        Boolean readPermission = ActivityCompat.checkSelfPermission(ViewHomeWork.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        Boolean writePermission = ActivityCompat.checkSelfPermission(ViewHomeWork.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-
-        if (!readPermission || !writePermission) {
-            ActivityCompat.requestPermissions(ViewHomeWork.this, new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUESTCODE_STORAGE_PERMISSION);
-
-        }
-
-
-
-       /* if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Log.e("Permission error","You have permission");
-
-
-        }
-        else{
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-        }*/
-
-
-        setupRecycleView();
+        collectionReference = db.collection("Exams");
     }
 
     private void setupUi() {
 
 
 
-        recyleview_homeworks = findViewById(R.id.recyleview_homeworks);
+        recyleview_viewpapers = findViewById(R.id.recyleview_viewpapers);
         hw_noresults_container = findViewById(R.id.hw_noresults_container);
-        title = findViewById(R.id.title);
 
-
-       //Context context =   LocaleHelper.setLocale(ViewHomeWork.this, "si");
-
-
-       Log.d(TAG, "setupUi: "+LocaleHelper.getLanguage(this));
-       // Log.d(TAG, "setupUi: "+getApplicationContext().getString(R.string.homeworkActivtiyTitle));
-
-        ///title.setText(resource.getText(R.string.homeworkActivtiyTitle));
     }
 
     private void setupRecycleView() {
 
-        // FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+         //FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         SharedPreferences prf = getSharedPreferences("Parent_DATA", MODE_PRIVATE);
 
-        String grade = prf.getString("GRADE", null);
+        String grade = prf.getString("GRADE", "null");
 
         Log.d(TAG, "setupRecycleView: grade"+grade);
 
         if(grade==null){
-            throw new RuntimeException("p grade should not be null");
+            throw new RuntimeException(" grade should not be null");
         }
 
 
         Log.d(TAG, "setupRecycleView: grade"+grade);
 
-        Query query = collectionReference.whereEqualTo("stdclass", grade).orderBy("timestamp", Query.Direction.DESCENDING);
+        Query query = collectionReference.whereEqualTo("stdclass", grade)
+                .orderBy("timestamp", Query.Direction.DESCENDING);
 
 
-        FirestoreRecyclerOptions<Homework> options = new FirestoreRecyclerOptions.Builder<Homework>()
-                .setQuery(query, Homework.class).build();
+        FirestoreRecyclerOptions<ExamPaper> options = new FirestoreRecyclerOptions.Builder<ExamPaper>()
+                .setQuery(query, ExamPaper.class).build();
 
 
-        adapter = new HomeWorkAdapter(options,"PARENT");
+        adapter = new ExamPaperAdapter(options,"student");
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -186,12 +147,12 @@ public class ViewHomeWork extends AppCompatActivity {
 
 
                         hw_noresults_container.setVisibility(View.GONE);
-                        recyleview_homeworks.setVisibility(View.VISIBLE);
+                        recyleview_viewpapers.setVisibility(View.VISIBLE);
 
 
                     } else {
 
-                        recyleview_homeworks.setVisibility(View.GONE);
+                        recyleview_viewpapers.setVisibility(View.GONE);
                         hw_noresults_container.setVisibility(View.VISIBLE);
 
                     }
@@ -203,21 +164,21 @@ public class ViewHomeWork extends AppCompatActivity {
         });
 
 
-        recyleview_homeworks.setHasFixedSize(true);
+        recyleview_viewpapers.setHasFixedSize(true);
 
-        recyleview_homeworks.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyleview_viewpapers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        recyleview_homeworks.setAdapter(adapter);
+        recyleview_viewpapers.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListner(new HomeWorkAdapter.onItemClickListner() {
+        adapter.setOnItemClickListner(new ExamPaperAdapter.onItemClickListner() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
-                Homework homework = documentSnapshot.toObject(Homework.class);
+                ExamPaper paper = documentSnapshot.toObject(ExamPaper.class);
 
 
-                pDialog = new SweetAlertDialog(ViewHomeWork.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog = new SweetAlertDialog(ViewPapers.this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.setCancelable(false);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                 pDialog.setTitleText("please wait...");
@@ -227,7 +188,7 @@ public class ViewHomeWork extends AppCompatActivity {
                     public void run() {
                         DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
 
-                        Uri uri = Uri.parse(homework.getLink());
+                        Uri uri = Uri.parse(paper.getLink());
 
                         DownloadManager.Request request = new DownloadManager.Request(uri);
 
@@ -235,7 +196,7 @@ public class ViewHomeWork extends AppCompatActivity {
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
 
-                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,homework.getDiscription());
+                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,paper.getFilename());
 
                         downloadManager.enqueue(request);
 
@@ -243,7 +204,7 @@ public class ViewHomeWork extends AppCompatActivity {
                             @Override
                             public void run() {
                                 pDialog.dismissWithAnimation();
-                                Toast toast = Toast.makeText(ViewHomeWork.this, "Downloaded", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(ViewPapers.this, "Downloaded", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         });
@@ -252,7 +213,7 @@ public class ViewHomeWork extends AppCompatActivity {
                 }.start();
 
 
-                Log.d(TAG, "onItemClick: link "+homework.getLink());
+               // Log.d(TAG, "onItemClick: link "+homework.getLink());
 
             }
         });
@@ -278,10 +239,11 @@ public class ViewHomeWork extends AppCompatActivity {
         adapter.stopListening();
     }
 
+
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.d(TAG1, "onConfigurationChanged: ");
+       // Log.d(TAG1, "onConfigurationChanged: ");
         //title.setText(getApplicationContext().getString(R.string.homeworkActivtiyTitle));
     }
 
@@ -305,7 +267,7 @@ public class ViewHomeWork extends AppCompatActivity {
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(ViewHomeWork.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+                                ActivityCompat.requestPermissions(ViewPapers.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
 
                             }
                         })
@@ -325,32 +287,6 @@ public class ViewHomeWork extends AppCompatActivity {
         }
 
 
-      /*  if(requestCode == REQUEST_CODE){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
-                //authandredirectuser();
-            }
-            else{
 
-                new AlertDialog.Builder(this)
-                        .setTitle("Permission needed")
-                        .setMessage("This permission is need to give a better user experience  ")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(ViewHomeWork.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
-
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                dialog.dismiss();
-                                finish();
-                            }
-                        })
-                        .create().show();
-            }
-        }*/
     }
 }
