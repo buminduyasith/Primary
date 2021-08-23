@@ -13,9 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.harini.primary.Models.ExamPaper;
-
 import com.harini.primary.R;
+import com.harini.primary.models.ExamPaper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

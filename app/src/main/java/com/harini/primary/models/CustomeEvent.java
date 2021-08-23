@@ -1,4 +1,4 @@
-package com.harini.primary.Models;
+package com.harini.primary.models;
 
 import com.google.firebase.Timestamp;
 

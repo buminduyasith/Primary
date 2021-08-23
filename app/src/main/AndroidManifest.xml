@@ -16,7 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".parent.ViewPapers"></activity>
+        <activity
+            android:name=".admin.ViewTimeTable"
+            android:exported="true" />
+        <activity
+            android:name=".admin.AddTimeTable"
+            android:exported="true" />
+        <activity android:name=".parent.ViewPapers" />
         <activity android:name=".parent.ViewExamPapers" />
         <activity android:name=".teacher.AddExamPapers" />
         <activity android:name=".Settings" />

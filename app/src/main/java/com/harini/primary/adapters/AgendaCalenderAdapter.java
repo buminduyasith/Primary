@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.harini.primary.Models.CustomeEvent;
 import com.harini.primary.R;
+import com.harini.primary.models.CustomeEvent;
 
 public class AgendaCalenderAdapter extends FirestoreRecyclerAdapter<CustomeEvent,AgendaCalenderAdapter.AgendaCalenderViewHolder> {
 
