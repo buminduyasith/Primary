@@ -6,7 +6,7 @@
     app:cardCornerRadius="4dp"
     android:elevation="4dp"
     android:layout_margin="5dp"
-    android:id="@+id/cardview_single_chat_view"
+    android:id="@+id/cardview_homeworks"
     android:layout_marginBottom="30dp"
     android:layout_height="wrap_content">
 
@@ -17,79 +17,61 @@
         android:layout_height="wrap_content">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+
+        <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/userprofileforchat"
-            android:layout_margin="5dp"
+            android:id="@+id/imghw"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/homework"
 
-          />
-
+            />
 
         <LinearLayout
             android:id="@+id/container"
-            android:layout_width="match_parent"
+            android:layout_width="199dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profile_image"
+            android:layout_toRightOf="@id/imghw"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/txtUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="bumindu yasith"
-                    style="@style/viewParent.headerText"
-                    android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txthwdiscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/txttime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_toEndOf="@+id/txtUserName"
-                    android:ems="11"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="10dp"
-                   android:gravity="end"
-                    android:singleLine="true"
-                    android:textColor="@color/main_green_color"
-                    android:text="2021/07/20"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/txtRecentMsg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_below="@+id/txtUserName"
-                    android:ems="11"
-                    android:layout_marginTop="8dp"
-                    android:singleLine="true"
-
-                    android:text="how are you"
-                    android:textSize="18sp" />
-
-
-            </RelativeLayout>
-
-
+            <TextView
+                android:id="@+id/txthwtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="11"
+                android:singleLine="true"
+                android:text="time"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
 
+        <ImageButton
+            android:id="@+id/imgbtndownload"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:background="@drawable/ic_baseline_cloud_download_24"/>
+
 
     </RelativeLayout>
 
-<!--    android:ellipsize="end"-->
-<!--    android:ems="12"-->
-<!--    android:singleLine="true"-->
+    <!--    android:ellipsize="end"-->
+    <!--    android:ems="12"-->
+    <!--    android:singleLine="true"-->
 
 </androidx.cardview.widget.CardView>
