@@ -1,35 +1,41 @@
-package com.harini.primary.parent.fragments;
-
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
+package com.harini.primary;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.harini.primary.Models.Message;
-import com.harini.primary.R;
+import com.harini.primary.Models.TeacherChatQueue;
 import com.harini.primary.adapters.MessageAdapter;
+import com.harini.primary.adapters.TeacherChatQueueAdapter;
+import com.harini.primary.teacher.AddExamPapers;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,9 +43,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class ChatFragment extends Fragment {
+public class SingleChat extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -49,23 +53,17 @@ public class ChatFragment extends Fragment {
 
     private RecyclerView rec_chat;
     private CollectionReference collectionReference;
+    private String name;
 
     private String TAG="teacherchat";
     private ImageButton btnsend;
     private TextInputLayout txtinput_msg;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  =  inflater.inflate(R.layout.fragment_parent_dashboard_chat,container,false);
-
-        setupUi(view);
-
-
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_single_chat);
+        setupUi();
         init();
         setupRecycleView();
 
@@ -75,15 +73,6 @@ public class ChatFragment extends Fragment {
                 sendMsg();
             }
         });
-
-        return view;
-
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     private void init(){
@@ -94,33 +83,58 @@ public class ChatFragment extends Fragment {
 
     }
 
-    private void setupUi(View view) {
+    private void setupUi() {
 
-        rec_chat = view.findViewById(R.id.rec_chat);
-        btnsend = view.findViewById(R.id.btnsend);
-        txtinput_msg = view.findViewById(R.id.txtinput_msg);
+        rec_chat = findViewById(R.id.rec_chat);
+        btnsend = findViewById(R.id.btnsend);
+        txtinput_msg = findViewById(R.id.txtinput_msg);
 
     }
 
     private void sendMsg(){
 
-        SharedPreferences prf = this.getActivity().getSharedPreferences("Parent_DATA", MODE_PRIVATE);
+        String convoId = getIntent().getStringExtra("EXTRA_CONVO_ID");
+         name = getIntent().getStringExtra("EXTRA_NAME");
 
-        String grade = prf.getString("GRADE", "null");
-        String FIRST_NAME = prf.getString("FIRST_NAME", "null");
-
+//        if(name==null){
+//            DocumentReference docRef = db.collection("Parents").document(convoId);
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if (task.isSuccessful()) {
+//                        DocumentSnapshot document = task.getResult();
+//                        if (document.exists()) {
+//                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                            name = document.getString("firstName");
+//                            Log.d(TAG, "onComplete: "+name);
+//                        } else {
+//                            Log.d(TAG, "No such document");
+//                        }
+//                    } else {
+//                        Log.d(TAG, "get failed with ", task.getException());
+//                    }
+//                }
+//            });
+//        }
 
         String msg = txtinput_msg.getEditText().getText().toString();
         Timestamp timestamp = new Timestamp(new Date());
-        String senderRole = "STUDENT";
+        String senderRole = "";
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+        String grade = prf.getString("GRADE", null);
+        if(grade!=null){
+            senderRole = "TEACHER";
+        }else{
+            senderRole = "STUDENT";
+        }
 
-        String convoId = mAuth.getCurrentUser().getUid();
 
 
         Map<String, Object> recent = new HashMap<>();
         recent.put("grade", grade);
-        recent.put("name", FIRST_NAME);
+        recent.put("name", name);
         recent.put("recentMsg", msg);
+        recent.put("teacherid", mAuth.getCurrentUser().getUid());
         recent.put("studentId",convoId);
         recent.put("timestamp", timestamp);
 
@@ -144,6 +158,8 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Log.d(TAG, "onSuccess: data added to firestore "+documentReference.getPath());
+
+                                rec_chat.smoothScrollToPosition(adapter.getItemCount() -1 );
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -173,15 +189,15 @@ public class ChatFragment extends Fragment {
     }
 
     private void setupRecycleView() {
-//        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
-//
-//        String grade = prf.getString("GRADE", null);
-//
-//        if(grade==null){
-//            throw new RuntimeException(" grade should not be null");
-//        }
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
 
-        String convoId = mAuth.getCurrentUser().getUid();
+        String grade = prf.getString("GRADE", null);
+
+        if(grade==null){
+            throw new RuntimeException(" grade should not be null");
+        }
+
+        String convoId = getIntent().getStringExtra("EXTRA_CONVO_ID");
 
         if(convoId==null || convoId.isEmpty()){
             throw new RuntimeException(" convoId should not be null");
@@ -193,7 +209,7 @@ public class ChatFragment extends Fragment {
                 .collection("msg");
 
 
-        //Log.d(TAG, "setupRecycleView: grade"+grade);
+        Log.d(TAG, "setupRecycleView: grade"+grade);
 
         Query query = collectionReference
                 .orderBy("timestamp", Query.Direction.ASCENDING);
@@ -248,7 +264,7 @@ public class ChatFragment extends Fragment {
 
         rec_chat.setHasFixedSize(true);
 
-        rec_chat.setLayoutManager(new LinearLayoutManager(getContext()));
+        rec_chat.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         rec_chat.setAdapter(adapter);
 
@@ -257,20 +273,21 @@ public class ChatFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         adapter.stopListening();
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         adapter.stopListening();
     }
+
 }

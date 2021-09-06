@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.harini.primary" >
+    package="com.harini.primary">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application
-        xmlns:tools="http://schemas.android.com/tools"
+    <application xmlns:tools="http://schemas.android.com/tools"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
-        tools:replace="android:icon" >
-        <activity android:name=".Chat" >
-        </activity>
+        tools:replace="android:icon">
+        <activity android:name=".SelectParentChat"></activity>
+        <activity android:name=".SingleChat" />
+        <activity android:name=".Chat" />
         <activity android:name=".parent.ViewPapers" />
         <activity android:name=".parent.ViewExamPapers" />
         <activity android:name=".teacher.AddExamPapers" />
@@ -40,7 +40,7 @@
         <activity android:name=".ParentSignup" />
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/spalshscreen" >
+            android:theme="@style/spalshscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

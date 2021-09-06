@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -23,58 +22,49 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.harini.primary.Models.ExamPaper;
+import com.harini.primary.Models.Parent;
 import com.harini.primary.Models.TeacherChatQueue;
-import com.harini.primary.adapters.ExamPaperAdapter;
+import com.harini.primary.adapters.StudentListAdapter;
 import com.harini.primary.adapters.TeacherChatQueueAdapter;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class Chat extends AppCompatActivity {
+public class SelectParentChat extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    private SweetAlertDialog pDialog;
-    private TeacherChatQueueAdapter adapter;
 
-    private RecyclerView rec_teacher_chat_queue;
+    private StudentListAdapter adapter;
+
+    private RecyclerView rec_select_parent;
     private CollectionReference collectionReference;
-    private FloatingActionButton btnselectuser;
+    private String TAG;
 
-    private String TAG="teacherchat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_select_parent_chat);
+
         setupUi();
         init();
         setupRecycleView();
 
-        btnselectuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent newIntent = new Intent(getApplicationContext(), SelectParentChat.class);
-                startActivity(newIntent);
-
-            }
-        });
     }
 
     private void init(){
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        collectionReference = db.collection("messages");
+        collectionReference = db.collection("Parents");
     }
 
     private void setupUi() {
 
-        rec_teacher_chat_queue = findViewById(R.id.rec_teacher_chat_queue);
-        btnselectuser = findViewById(R.id.btnselectuser);
+        rec_select_parent = findViewById(R.id.rec_select_parent);
+
 
     }
 
@@ -90,15 +80,15 @@ public class Chat extends AppCompatActivity {
 
         Log.d(TAG, "setupRecycleView: grade"+grade);
 
-        Query query = collectionReference.whereEqualTo("grade",grade)
-                .orderBy("timestamp", Query.Direction.DESCENDING);
+        Query query = collectionReference.whereEqualTo("grade", grade)
+                .orderBy("firstName", Query.Direction.ASCENDING);
 
 
-        FirestoreRecyclerOptions<TeacherChatQueue> options = new FirestoreRecyclerOptions.Builder<TeacherChatQueue>()
-                .setQuery(query, TeacherChatQueue.class).build();
+        FirestoreRecyclerOptions<Parent> options = new FirestoreRecyclerOptions.Builder<Parent>()
+                .setQuery(query, Parent.class).build();
 
 
-        adapter = new TeacherChatQueueAdapter(options);
+        adapter = new StudentListAdapter(options);
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -126,27 +116,29 @@ public class Chat extends AppCompatActivity {
             }
         });
 
-        adapter.setOnItemClickListner(new TeacherChatQueueAdapter.onItemClickListner() {
+        adapter.setOnItemClickListner(new StudentListAdapter.onItemClickListner() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                String conversationId = documentSnapshot.getId();
-                Log.d(TAG, "onItemClick: "+conversationId);
-               // Toast.makeText(getApplicationContext(),"convo"+conversationId,Toast.LENGTH_LONG).show();
+                String parentId = documentSnapshot.getId();
+                String name = documentSnapshot.getString("firstName");
+                Log.d(TAG, "onItemClick: "+parentId);
+                //Toast.makeText(getApplicationContext(),"convo"+parentId,Toast.LENGTH_LONG).show();
 
-
+               // Log.d(TAG, "onItemClick: name user");
                 Intent newIntent = new Intent(getApplicationContext(), SingleChat.class);
-                newIntent.putExtra("EXTRA_CONVO_ID", conversationId);
+                newIntent.putExtra("EXTRA_CONVO_ID", parentId);
+                newIntent.putExtra("EXTRA_NAME",name );
                 startActivity(newIntent);
-
 
             }
         });
 
-        rec_teacher_chat_queue.setHasFixedSize(true);
 
-        rec_teacher_chat_queue.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        rec_select_parent.setHasFixedSize(true);
 
-        rec_teacher_chat_queue.setAdapter(adapter);
+        rec_select_parent.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        rec_select_parent.setAdapter(adapter);
 
 
 
@@ -169,5 +161,4 @@ public class Chat extends AppCompatActivity {
         super.onDestroy();
         adapter.stopListening();
     }
-
 }
