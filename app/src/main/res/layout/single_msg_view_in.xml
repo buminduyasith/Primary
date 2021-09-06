@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:elevation="4dp"
+    android:layout_margin="5dp"
+    android:id="@+id/cardview_single_chat_view"
+    android:layout_marginBottom="20dp"
+
+    android:layout_height="wrap_content">
+<RelativeLayout
+
+    android:layout_width="300dp"
+    android:padding="8dp"
+    android:layout_height="wrap_content">
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtmsg"
+        android:layout_centerVertical="true"
+        android:lineSpacingExtra="2dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="4dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="10dp"
+        android:text="Hi, How are you?"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+      />
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="wdwdwd"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/txtmsg"
+        android:layout_alignParentStart="true"
+        />
+
+
+
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>

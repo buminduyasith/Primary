@@ -70,8 +70,8 @@
 
     </RelativeLayout>
 
-<!--    android:ellipsize="end"-->
-<!--    android:ems="12"-->
-<!--    android:singleLine="true"-->
+    <!--    android:ellipsize="end"-->
+    <!--    android:ems="12"-->
+    <!--    android:singleLine="true"-->
 
 </androidx.cardview.widget.CardView>
