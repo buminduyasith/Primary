@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.harini.primary.Models.Message;
+import com.harini.primary.models.Message;
 import com.harini.primary.R;
 import com.harini.primary.adapters.MessageAdapter;
 
@@ -50,7 +50,7 @@ public class ChatFragment extends Fragment {
     private RecyclerView rec_chat;
     private CollectionReference collectionReference;
 
-    private String TAG="teacherchat";
+    private String TAG="chatparentf";
     private ImageButton btnsend;
     private TextInputLayout txtinput_msg;
 
@@ -216,6 +216,8 @@ public class ChatFragment extends Fragment {
                     if (value.size() > 0) {
 
                         Log.d(TAG, "setupRecycleView: true"+value.toString());
+                        adapter.notifyDataSetChanged();
+
 
 
 
