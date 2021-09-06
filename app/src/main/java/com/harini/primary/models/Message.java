@@ -7,14 +7,16 @@ public class Message {
     private String msg;
     private String senderRole;
     private Timestamp timestamp;
+    private String senderName;
 
     public Message() {
     }
 
-    public Message(String msg, String senderRole, Timestamp timestamp) {
+    public Message(String msg, String senderRole, String senderName,Timestamp timestamp) {
         this.msg = msg;
         this.senderRole = senderRole;
         this.timestamp = timestamp;
+        this.senderName = senderName;
     }
 
     public String getMsg() {
@@ -39,5 +41,13 @@ public class Message {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 }

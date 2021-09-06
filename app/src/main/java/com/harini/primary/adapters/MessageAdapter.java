@@ -27,9 +27,11 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message,MessageAdap
     private onItemClickListner listner;
     private String role;
     private String TAG="msgadapter";
+    FirestoreRecyclerOptions<Message> optionsi;
 
     public MessageAdapter( FirestoreRecyclerOptions<Message> options) {
         super(options);
+        optionsi = options;
 
 
 //        this.role = role;
@@ -54,8 +56,8 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message,MessageAdap
 
     @Override
     public MessageAdapterViewholder onCreateViewHolder( ViewGroup parent, int viewType) {
-        Log.d(TAG, "onCreateViewHolder: "+role);
-        if (role == "TEACHER") {
+        Log.d(TAG, "onCreateViewHolder: "+viewType);
+        if (viewType==1) {
 //            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, parent, false);
 //            return new MessageAdapter.ViewHolder(view);
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_msg_view_out,parent,false);
@@ -75,7 +77,17 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message,MessageAdap
 //        return new MessageAdapter.MessageAdapterViewholder(v);
     }
 
+    @Override
+    public int getItemViewType(int position) {
 
+//        return super.getItemViewType(position);
+        Message message = optionsi.getSnapshots().get(position);
+        if(message.getSenderRole().contains("TEACHER")){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 
     public class MessageAdapterViewholder extends RecyclerView.ViewHolder {
         TextView txtmsg;
@@ -98,6 +110,8 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message,MessageAdap
             });
         }
     }
+
+
 
     @Override
     public int getItemCount() {

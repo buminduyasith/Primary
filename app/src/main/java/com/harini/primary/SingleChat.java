@@ -139,6 +139,7 @@ public class SingleChat extends AppCompatActivity {
         hw.put("msg", msg);
         hw.put("senderRole", senderRole);
         hw.put("timestamp", timestamp);
+       // hw.put("timestamp", timestamp);
 
 
 

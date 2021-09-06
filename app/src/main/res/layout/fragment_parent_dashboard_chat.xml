@@ -9,13 +9,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_chat"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:visibility="visible"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        tools:listitem="@layout/single_msg_view_in" />
+        tools:listitem="@layout/single_msg_view_out" />
 
     <LinearLayout
         android:layout_width="match_parent"
