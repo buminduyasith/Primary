@@ -99,6 +99,11 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message,MessageAdap
         }
     }
 
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
+
     public interface onItemClickListner{
 
         void onItemClick(DocumentSnapshot documentSnapshot, int position);

@@ -85,6 +85,11 @@ public class SingleChat extends AppCompatActivity {
 
     private void sendMsg(){
 
+        String msg = txtinput_msg.getEditText().getText().toString();
+        if(msg==null || msg.isEmpty()){
+            return;
+        }
+
         String convoId = getIntent().getStringExtra("EXTRA_CONVO_ID");
          name = getIntent().getStringExtra("EXTRA_NAME");
 
@@ -109,7 +114,7 @@ public class SingleChat extends AppCompatActivity {
 //            });
 //        }
 
-        String msg = txtinput_msg.getEditText().getText().toString();
+        //String msg = txtinput_msg.getEditText().getText().toString();
         Timestamp timestamp = new Timestamp(new Date());
         String senderRole = "";
         SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
@@ -173,7 +178,7 @@ public class SingleChat extends AppCompatActivity {
         });
 
 
-
+        txtinput_msg.getEditText().getText().clear();
 
 
 
@@ -223,7 +228,7 @@ public class SingleChat extends AppCompatActivity {
 
                     if (value.size() > 0) {
 
-                        Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),"done",Toast.LENGTH_LONG).show();
                         Log.d(TAG, "setupRecycleView: true"+value.toString());
 
 
