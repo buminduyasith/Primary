@@ -104,13 +104,18 @@ public class ChatFragment extends Fragment {
 
     private void sendMsg(){
 
+        String msg = txtinput_msg.getEditText().getText().toString();
+        if(msg==null || msg.isEmpty()){
+            return;
+        }
+
         SharedPreferences prf = this.getActivity().getSharedPreferences("Parent_DATA", MODE_PRIVATE);
 
         String grade = prf.getString("GRADE", "null");
         String FIRST_NAME = prf.getString("FIRST_NAME", "null");
 
 
-        String msg = txtinput_msg.getEditText().getText().toString();
+
         Timestamp timestamp = new Timestamp(new Date());
         String senderRole = "STUDENT";
 
@@ -143,6 +148,7 @@ public class ChatFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                rec_chat.smoothScrollToPosition(adapter.getItemCount() -1 );
                                 Log.d(TAG, "onSuccess: data added to firestore "+documentReference.getPath());
 
                             }
@@ -164,6 +170,8 @@ public class ChatFragment extends Fragment {
             }
         });
 
+
+        txtinput_msg.getEditText().getText().clear();
 
 
 
