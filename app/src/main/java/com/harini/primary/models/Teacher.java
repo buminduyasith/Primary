@@ -1,4 +1,4 @@
-package com.harini.primary.Models;
+package com.harini.primary.models;
 
 public class Teacher {
 

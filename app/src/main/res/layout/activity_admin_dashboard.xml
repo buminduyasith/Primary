@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".admin.AdminDashboard">
 
-
     <RelativeLayout
         android:id="@+id/dashbord_topbar"
         android:layout_width="match_parent"
@@ -19,8 +18,7 @@
             android:id="@+id/displayname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="--"
@@ -30,10 +28,9 @@
             android:id="@+id/dpandlogout"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_login_24" />
-
 
     </RelativeLayout>
 
@@ -44,19 +41,15 @@
         android:layout_below="@+id/dashbord_topbar"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-
-
         android:layout_marginRight="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-
             android:layout_height="100dp"
             android:background="#1e59f6"
             android:backgroundTint="#44B5F3"
             app:cardCornerRadius="5dp"
             app:cardElevation="8dp"
-
             app:cardUseCompatPadding="false">
 
             <LinearLayout
@@ -73,21 +66,19 @@
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
-
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -95,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center"
                         android:text="MAR"
@@ -110,51 +101,35 @@
                         android:background="@drawable/datecircle"
                         android:gravity="center"
                         android:text="05"
-
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
-
-
             </RelativeLayout>
-
-
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
 
     <ScrollView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dashboard_mainview">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="20dp">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_createteacherAcocunts"
-
                 android:layout_width="match_parent"
-
-
                 android:layout_height="wrap_content"
-
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/ImgcreateteacherAcocunts"
@@ -167,14 +142,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/ImgcreateteacherAcocunts"
+                        android:layout_toEndOf="@+id/ImgcreateteacherAcocunts"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Create Teacher Accounts"
+                            android:text="@string/create_teacher_accounts"
                             android:textSize="16sp" />
 
                         <TextView
@@ -183,38 +158,24 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to Create Accounts."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_createEvents"
-
                 android:layout_width="match_parent"
-
-
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_createteacherAcocunts"
-
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/ImgViewEvents"
@@ -227,14 +188,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/ImgViewEvents"
+                        android:layout_toEndOf="@+id/ImgViewEvents"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Create School Events"
+                            android:text="@string/create_school_events"
                             android:textSize="16sp" />
 
                         <TextView
@@ -243,23 +204,103 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to Create Accounts."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_addTimetables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_createEvents"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivAddTimetables"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ico_manage_timetable" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/ivAddTimetables"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/add_timetables"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, to Add Timetables"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_viewTimetables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_addTimetables"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivViewTimetables"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ico_manage_timetable" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/ivViewTimetables"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/view_timetables"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, to View Timetables"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
-
-
     </ScrollView>
-
 </RelativeLayout>

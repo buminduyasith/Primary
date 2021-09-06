@@ -1,7 +1,6 @@
 package com.harini.primary;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.harini.primary.utill.Utill.hideSoftKeyboard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,8 +30,6 @@ import com.harini.primary.utill.UserRoles;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.harini.primary.utill.Utill.hideSoftKeyboard;
 
 public class AdminSignup extends AppCompatActivity {
 

@@ -1,18 +1,13 @@
 package com.harini.primary;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,15 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.harini.primary.Models.Parent;
-import com.harini.primary.Models.Teacher;
-import com.harini.primary.admin.AddEvents;
 import com.harini.primary.admin.AdminDashboard;
-import com.harini.primary.parent.AgendaCalendarView;
+import com.harini.primary.models.Parent;
+import com.harini.primary.models.Teacher;
 import com.harini.primary.parent.ParentDashboard;
-import com.harini.primary.parent.ViewPapers;
 import com.harini.primary.teacher.TeacherDashboard;
-import com.harini.primary.utill.LocaleHelper;
 
 import java.util.Locale;
 

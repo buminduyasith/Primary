@@ -23,4 +23,8 @@
     <color name="ytplayingtext">#03A9F4</color>
     <color name="backgroundcolor">#fafafa</color>
 
+    <color name="hint_color">#42000000</color>
+    <color name="heading_color">#2196F3</color>
+    <color name="transparent">#00000000</color>
+
 </resources>

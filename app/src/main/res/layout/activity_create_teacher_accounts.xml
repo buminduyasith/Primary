@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:text="Create User Accounts"
         android:fontFamily="@font/poppins_semibold"
-        android:textColor="#2196F3"
+        android:textColor="@color/heading_color"
         android:layout_margin="20dp"
         android:id="@+id/title"
-        android:textSize="25dp"/>
+        android:textSize="25sp"/>
 
 
     <ProgressBar
@@ -128,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:entries="@array/grade_arrays"
+            android:entries="@array/grade_array"
             />
 
 
