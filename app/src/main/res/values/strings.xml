@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Primary</string>
 
-
     <string name="country_prompt" translatable="false">Choose a Grade</string>
     <string name="homework">Home Work</string>
     <string name="video_lessons">Video Lessons</string>
@@ -9,41 +8,78 @@
     <string name="eventsfragmenttitle">Events</string>
     <string name="welcome_to_appname">"Welcome to StudentTag</string>
     <string name="exam_papers">Exam Papers</string>
+    <string name="settings">Settings</string>
+    <string name="select_class">Select Class</string>
+    <string name="select_day">Select Day</string>
+    <string name="view_timetables">View Timetables</string>
+    <string name="add_homeworks">Add Homeworks</string>
+    <string name="add_video_lesson">Add a Video Lesson</string>
+    <string name="make_announcement">Make an Announcement</string>
+    <string name="add_timetables">Add Timetables</string>
+    <string name="create_teacher_accounts">Create Teacher Accounts</string>
+    <string name="create_school_events">Create School Events</string>
 
-
-    <string-array name="grade_arrays">
+    <string-array name="grade_array">
         <item>1A</item>
         <item>1B</item>
         <item>1C</item>
         <item>1D</item>
         <item>1E</item>
         <item>1F</item>
+
         <item>2A</item>
         <item>2B</item>
         <item>2C</item>
         <item>2D</item>
         <item>2E</item>
         <item>2F</item>
+
         <item>3A</item>
         <item>3B</item>
         <item>3C</item>
         <item>3D</item>
         <item>3E</item>
         <item>3F</item>
+
         <item>4A</item>
         <item>4B</item>
         <item>4C</item>
         <item>4D</item>
         <item>4E</item>
         <item>4F</item>
+
         <item>5A</item>
         <item>5B</item>
         <item>5C</item>
         <item>5D</item>
         <item>5E</item>
         <item>5F</item>
-
     </string-array>
 
+    <string-array name="weekdays_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+
+    <string-array name="periods_time_array">
+        <!--<item>07:45 - 08:25</item>
+        <item>08:25 - 09:05</item>
+        <item>09:05 - 09:45</item>
+        <item>09:45 - 10:25</item>
+        <item>10:25 - 10:40</item>  &lt;!&ndash;Interval&ndash;&gt;
+        <item>10:40 - 11:20</item>
+        <item>11:20 - 12:00</item>
+        <item>12:00 - 12:40</item>
+        <item>12:40 - 13:20</item>-->
+
+        <item>07:45 - 09:05</item>
+        <item>09:05 - 10:25</item>
+        <!--        <item>10:25 - 10:40</item> --> <!--Interval-->
+        <item>10:40 - 12:00</item>
+        <item>12:00 - 13:20</item>
+    </string-array>
 
 </resources>

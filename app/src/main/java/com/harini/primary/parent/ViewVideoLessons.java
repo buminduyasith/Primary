@@ -1,18 +1,16 @@
 package com.harini.primary.parent;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -27,12 +25,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.harini.primary.Models.Teacher;
-import com.harini.primary.Models.VideoLesson;
 import com.harini.primary.R;
-import com.harini.primary.adapters.AddVideoLessonsAdapter;
 import com.harini.primary.adapters.ViewVideoLessonsAdapter;
 import com.harini.primary.config.DeveloperKey;
+import com.harini.primary.models.VideoLesson;
 
 public class ViewVideoLessons extends YouTubeBaseActivity {
 

@@ -9,14 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.harini.primary.Models.Parent;
-import com.harini.primary.Models.TeacherChatQueue;
+import com.harini.primary.models.Parent;
 import com.harini.primary.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class StudentListAdapter extends FirestoreRecyclerAdapter<Parent,StudentListAdapter.StudentListAdapterViewholder> {

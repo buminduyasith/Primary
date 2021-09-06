@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +23,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Settings;
 import com.harini.primary.Signin;
+import com.harini.primary.admin.ViewTimeTable;
 import com.harini.primary.parent.AgendaCalendarView;
-import com.harini.primary.parent.ViewExamPapers;
 import com.harini.primary.parent.ViewHomeWork;
 import com.harini.primary.parent.ViewPapers;
 import com.harini.primary.parent.ViewVideoLessons;
-import com.harini.primary.teacher.CreateAnnouncement;
-import com.harini.primary.utill.LocaleHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,7 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_settings;
+    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_viewTimetables,card_settings;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -84,6 +81,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewVideoLessons = view.findViewById(R.id.card_viewVideoLessons);
         card_viewevents = view.findViewById(R.id.card_viewevents);
         card_exams = view.findViewById(R.id.card_exams);
+        card_viewTimetables = view.findViewById(R.id.card_viewTimetables);
         card_settings = view.findViewById(R.id.card_settings);
 
     }
@@ -95,6 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewVideoLessons.setOnClickListener(this);
         card_viewevents.setOnClickListener(this);
         card_exams.setOnClickListener(this);
+        card_viewTimetables.setOnClickListener(this);
         card_settings.setOnClickListener(this);
     }
 
@@ -145,6 +144,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 Intent ViewExamsIntent = new Intent(getActivity(), ViewPapers.class);
                 startActivity(ViewExamsIntent);
+                break;
+
+            case R.id.card_viewTimetables:
+
+                Intent intentViewTimeTable = new Intent(getActivity(), ViewTimeTable.class);
+                intentViewTimeTable.putExtra("userRole","PARENT");
+                startActivity(intentViewTimeTable);
                 break;
 
             case R.id.card_settings:

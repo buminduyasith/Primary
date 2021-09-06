@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.harini.primary.Models.Announcement;
 import com.harini.primary.R;
+import com.harini.primary.models.Announcement;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,10 +94,7 @@ public class AnnouncementRecycleViewAdapter extends FirestoreRecyclerAdapter<Ann
                 }
             });
         }
-
-
     }
-
 
     @Override
     public int getItemCount() {

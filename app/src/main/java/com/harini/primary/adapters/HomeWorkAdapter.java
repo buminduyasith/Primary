@@ -13,8 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.harini.primary.Models.Homework;
 import com.harini.primary.R;
+import com.harini.primary.models.Homework;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,13 +81,10 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
     }
 
     public interface onItemClickListner{
-
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
 
     public void setOnItemClickListner(onItemClickListner listner){
-
-
         this.listner = listner;
     }
 }

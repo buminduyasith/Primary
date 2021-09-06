@@ -1,12 +1,5 @@
 package com.harini.primary.parent;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -24,12 +17,17 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -38,12 +36,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.harini.primary.Models.ExamPaper;
-import com.harini.primary.Models.Homework;
 import com.harini.primary.R;
 import com.harini.primary.adapters.ExamPaperAdapter;
-import com.harini.primary.adapters.HomeWorkAdapter;
-import com.harini.primary.utill.LocaleHelper;
+import com.harini.primary.models.ExamPaper;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

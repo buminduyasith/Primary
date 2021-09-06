@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,28 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.harini.primary.Models.Announcement;
 import com.harini.primary.R;
 import com.harini.primary.adapters.AnnouncementRecycleViewAdapter;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.harini.primary.models.Announcement;
 
 public class AnnouncementFragment extends Fragment {
 
@@ -95,25 +86,18 @@ public class AnnouncementFragment extends Fragment {
 
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-
-
-
         db.collection("Parents")
                 .document(firebaseUser.getUid())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-
                         grade = documentSnapshot.getString("grade");
 
                         Query query = collectionReference.whereEqualTo("grade", grade).orderBy("timestamp", Query.Direction.DESCENDING);
 
-
                         FirestoreRecyclerOptions<Announcement> response = new FirestoreRecyclerOptions.Builder<Announcement>()
                                 .setQuery(query, Announcement.class).build();
-
 
                         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
@@ -122,39 +106,25 @@ public class AnnouncementFragment extends Fragment {
                                 //Log.d(TAG, "onEvent: snapshort" + value.size());
 
                                 if(value!=null){
-
                                     if (value.size() > 0) {
-
                                         //Log.d(TAG, "onEvent: recy view");
                                         announcemtns_noresults_container.setVisibility(View.GONE);
                                         recyleview_announcement.setVisibility(View.VISIBLE);
-                                    } else {
 
+                                    } else {
                                         //Log.d(TAG, "onEvent: container view");
                                         recyleview_announcement.setVisibility(View.GONE);
                                         announcemtns_noresults_container.setVisibility(View.VISIBLE);
                                     }
                                 }
-
-
-
                             }
                         });
 
-
                         adapter = new AnnouncementRecycleViewAdapter(response,"PARENT");
-
-
                         recyleview_announcement.setHasFixedSize(true);
-
                         recyleview_announcement.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
                         recyleview_announcement.setAdapter(adapter);
-
-
                         adapter.startListening();
-
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -162,10 +132,7 @@ public class AnnouncementFragment extends Fragment {
                 Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
             }
         });
-
-
     }
-
 
     @Override
     public void onStart() {
@@ -173,11 +140,10 @@ public class AnnouncementFragment extends Fragment {
 
         if (adapter != null) {
             adapter.startListening();
+
         } else {
             //Log.d(TAG, "onStart: adapter is null");
         }
-
-
     }
 
     @Override
@@ -185,6 +151,4 @@ public class AnnouncementFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
-
 }

@@ -1,15 +1,12 @@
 package com.harini.primary;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import static com.harini.primary.utill.Utill.hideSoftKeyboard;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +16,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,15 +32,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.harini.primary.Models.Parent;
-import com.harini.primary.Models.Teacher;
 import com.harini.primary.admin.AdminDashboard;
+import com.harini.primary.models.Parent;
+import com.harini.primary.models.Teacher;
 import com.harini.primary.parent.ParentDashboard;
 import com.harini.primary.teacher.TeacherDashboard;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static com.harini.primary.utill.Utill.hideSoftKeyboard;
 
 public class Signin extends AppCompatActivity implements View.OnClickListener {
 

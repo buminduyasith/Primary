@@ -17,8 +17,7 @@
             android:id="@+id/displayname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="---"
@@ -28,10 +27,9 @@
             android:id="@+id/dpandlogout"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_login_24" />
-
 
     </RelativeLayout>
 
@@ -42,19 +40,15 @@
         android:layout_below="@+id/dashbord_topbar"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-
-
         android:layout_marginRight="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-
             android:layout_height="100dp"
             android:background="#1e59f6"
             android:backgroundTint="#44B5F3"
             app:cardCornerRadius="5dp"
             app:cardElevation="8dp"
-
             app:cardUseCompatPadding="false">
 
             <LinearLayout
@@ -71,21 +65,19 @@
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
 
-
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -93,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins_semibold"
                         android:gravity="center"
                         android:text="MAR"
@@ -108,48 +100,35 @@
                         android:background="@drawable/datecircle"
                         android:gravity="center"
                         android:text="05"
-
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
-
-
             </RelativeLayout>
-
-
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
 
     <ScrollView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dashboard_mainview">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="20dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="20dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_ImgMakeAnnouncement"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/ImgMakeAnnouncement"
@@ -162,14 +141,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/ImgMakeAnnouncement"
+                        android:layout_toEndOf="@+id/ImgMakeAnnouncement"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Make an Announcement"
+                            android:text="@string/make_announcement"
                             android:textSize="16sp"
                             tools:text="Make an Announcement" />
 
@@ -179,37 +158,24 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to make an Announcement."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_addVideoLessons"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-
                 android:layout_below="@+id/card_ImgMakeAnnouncement"
-
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/ImgAddVideoLessons"
@@ -222,14 +188,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/ImgAddVideoLessons"
+                        android:layout_toEndOf="@+id/ImgAddVideoLessons"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Add a Video Lessons"
+                            android:text="@string/add_video_lesson"
                             android:textSize="16sp"
                             tools:text="Add a Video Lessons" />
 
@@ -239,38 +205,25 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to add a video lesson."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_addhomeworks"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-
                 android:layout_below="@+id/card_addVideoLessons"
-                android:visibility="visible"
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                android:visibility="visible"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/Imgaddhw"
@@ -283,14 +236,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/Imgaddhw"
+                        android:layout_toEndOf="@+id/Imgaddhw"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Add Homeworks"
+                            android:text="@string/add_homeworks"
                             android:textSize="16sp"
                             tools:text="Add Homeworks" />
 
@@ -300,37 +253,121 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to add a Homework."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_exams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_addhomeworks"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/Imgexams"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/exam" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/Imgexams"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/exam_papers"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, to add papers."
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_viewTimetables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_exams"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivViewTimetables"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ico_manage_timetable" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/ivViewTimetables"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/view_timetables"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, to View Timetables"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_settings"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-
-                android:layout_below="@+id/card_exams"
-                android:visibility="visible"
+                android:layout_below="@+id/card_viewTimetables"
                 android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
+                android:visibility="visible"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content">
-
 
                     <ImageView
                         android:id="@+id/Imgsettings"
@@ -343,16 +380,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/Imgsettings"
+                        android:layout_toEndOf="@+id/Imgsettings"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Settings"
-                            android:textSize="16sp"
-                             />
+                            android:text="@string/settings"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -360,85 +396,11 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to change settings."
-                            android:textSize="12sp"
-
-                            />
-
+                            android:textSize="12sp" />
 
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
             </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_exams"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-
-                android:layout_below="@+id/card_addhomeworks"
-                android:visibility="visible"
-                android:layout_marginBottom="10dp"
-
-                app:cardCornerRadius="16dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content">
-
-
-                    <ImageView
-                        android:id="@+id/Imgexams"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/exam" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/Imgexams"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_semibold"
-                            android:text="Exam Papers"
-                            android:textSize="16sp"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/poppins_semibold"
-                            android:text="Tap here, to add papers."
-                            android:textSize="12sp"
-
-                            />
-
-
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
         </RelativeLayout>
-
-
-
-
     </ScrollView>
-
-
 </RelativeLayout>

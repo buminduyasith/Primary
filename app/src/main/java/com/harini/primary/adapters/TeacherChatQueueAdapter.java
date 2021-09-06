@@ -2,7 +2,6 @@ package com.harini.primary.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +10,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.harini.primary.Models.TeacherChatQueue;
+import com.harini.primary.models.TeacherChatQueue;
 import com.harini.primary.R;
 
 import java.text.SimpleDateFormat;
