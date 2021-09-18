@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.harini.primary.admin.AddStudentMarks;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.models.Parent;
 import com.harini.primary.models.Teacher;
@@ -120,77 +121,84 @@ public class SplashScreen extends AppCompatActivity {
         super.onStart();
 
         // throw new RuntimeException("Test Crash");
+        Intent testnewIntent = new Intent(getApplicationContext(), AddStudentMarks.class);
 
-       if (isFirstTime()) {
+        startActivity(testnewIntent);
 
-            Intent newIntent = new Intent(getApplicationContext(), MainScreen.class);
+        finish();
 
-            startActivity(newIntent);
-
-            finish();
-
-        } else {
-
-
-            FirebaseUser user = mAuth.getCurrentUser();
-
-            if (user != null) {
-
-                db.collection("userRole")
-                        .document(user.getUid())
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                String role = documentSnapshot.getString("role");
-
-                                if(role.equals(TEACHER_ROLE)){
-
-                                    getclassforTeacher(user.getUid());
-
-
-                                }
-
-                                else if(role.equals(PARENT_ROLE)){
-                                    getclassforStudent(user.getUid());
-                                }
-
-                                else{
-                                    Intent newIntent = new Intent(getApplicationContext(), AdminDashboard.class);
-
-                                    startActivity(newIntent);
-
-                                    finish();
-                                }
-
-
-
-
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
-
-
-                    }
-                });
-
-
-            } else {
-
-                Intent newIntent = new Intent(getApplicationContext(), Signin.class);
-
-                startActivity(newIntent);
-
-                finish();
-
-            }
-
-
-        }
+       // return;
+//
+//       if (isFirstTime()) {
+//
+//            Intent newIntent = new Intent(getApplicationContext(), MainScreen.class);
+//
+//            startActivity(newIntent);
+//
+//            finish();
+//
+//        } else {
+//
+//
+//            FirebaseUser user = mAuth.getCurrentUser();
+//
+//            if (user != null) {
+//
+//                db.collection("userRole")
+//                        .document(user.getUid())
+//                        .get()
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                                String role = documentSnapshot.getString("role");
+//
+//                                if(role.equals(TEACHER_ROLE)){
+//
+//                                    getclassforTeacher(user.getUid());
+//
+//
+//                                }
+//
+//                                else if(role.equals(PARENT_ROLE)){
+//                                    getclassforStudent(user.getUid());
+//                                }
+//
+//                                else{
+//                                    Intent newIntent = new Intent(getApplicationContext(), AdminDashboard.class);
+//
+//                                    startActivity(newIntent);
+//
+//                                    finish();
+//                                }
+//
+//
+//
+//
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
+//
+//
+//                    }
+//                });
+//
+//
+//            } else {
+//
+//                Intent newIntent = new Intent(getApplicationContext(), Signin.class);
+//
+//                startActivity(newIntent);
+//
+//                finish();
+//
+//            }
+//
+//
+//        }
     }
 
     private void getclassforTeacher(String uid) {
