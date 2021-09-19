@@ -92,6 +92,7 @@ public class AddStudentMarks extends AppCompatActivity {
     private List<String> terms;
     private StudentListAdapter adapter;
    private  Store store;
+   private  int count;
 
 
     //    private static  List<ExamDetails> examDetailsList;
@@ -136,6 +137,7 @@ public class AddStudentMarks extends AppCompatActivity {
                 if(studentMarksListtemp.size()>20){
                     throw  new RuntimeException("studentMarksListtemp overflow");
                 }
+                 count = 1;
                 for(StudentMarks std:studentMarksListtemp){
                     WriteBatch batch = db.batch();
                     String cusDocId = std.getStudentId() + "" + spinner_term.getSelectedItem().toString();
@@ -148,12 +150,27 @@ public class AddStudentMarks extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
+                            Log.d(TAG, "onComplete: size"+studentMarksListtemp.size()+ " count"+ count);
+                            if(count ==studentMarksListtemp.size()){
+                                Log.d(TAG, "onComplete: "+count);
+                                pDialog.dismissWithAnimation();
+                                pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.SUCCESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Exam marks");
+                                pDialog.setContentText("All marks added successfully..");
+                                pDialog.show();
+                                count=0;
+                            }
+                            count++;
 
                         }
                     });
 
+
+
                 }
-                pDialog.dismissWithAnimation();
+                //pDialog.dismissWithAnimation();
+
               //  addSummaryToDB();
 
             }
