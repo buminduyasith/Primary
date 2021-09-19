@@ -134,19 +134,20 @@ public class AddStudentMarks extends AppCompatActivity {
                     throw  new RuntimeException("studentMarksListtemp overflow");
                 }
                 for(StudentMarks std:studentMarksListtemp){
-//                    WriteBatch batch = db.batch();
-//
-//                    DocumentReference nycRef = db.collection("marks")
-//                            .document(spinner_grade.getSelectedItem().toString())
-//                            .collection("Students").document();
-//                    batch.set(nycRef,std);
-//                    batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//
-//
-//                        }
-//                    });
+                    WriteBatch batch = db.batch();
+                    String cusDocId = std.getStudentId() + "" + spinner_term.getSelectedItem().toString();
+                    Log.d(TAG, "onClick: adding marks to db"+std.toString());
+                    DocumentReference nycRef = db.collection("studentsmarks")
+                            .document(spinner_grade.getSelectedItem().toString())
+                            .collection("Students").document(cusDocId);
+                    batch.set(nycRef,std);
+                    batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+
+                        }
+                    });
 
                 }
                 pDialog.dismissWithAnimation();
@@ -641,6 +642,13 @@ public class AddStudentMarks extends AppCompatActivity {
 
 
     private void getAllStudentMarksDetailsFromDB(String grade,String term){
+
+        pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("please wait exam summary creating...");
+        //pDialog.setContentText("All marks added successfully..");
+        pDialog.show();
         if(grade==null || grade.isEmpty()){
             grade="3A";
         }
@@ -649,7 +657,7 @@ public class AddStudentMarks extends AppCompatActivity {
             term = "1st";
         }
 
-        db.collection("marks")
+        db.collection("studentsmarks")
                 .document(grade)
                 .collection("Students")
                 .whereEqualTo("term",term)
@@ -661,6 +669,7 @@ public class AddStudentMarks extends AppCompatActivity {
                         Log.d(TAG, "onSuccess: db");
                         List<StudentMarks> studentMarks =  queryDocumentSnapshots.toObjects(StudentMarks.class);
                         store.StoreInitDB(studentMarks);
+                        pDialog.dismissWithAnimation();
 
 //               for(StudentMarks std:studentMarks){
 //                   Log.d(TAG, "onClick we: "+std.getName());
@@ -677,6 +686,7 @@ public class AddStudentMarks extends AppCompatActivity {
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG,"fail"+ e.getLocalizedMessage() );
+                pDialog.dismissWithAnimation();
             }
         });
 
