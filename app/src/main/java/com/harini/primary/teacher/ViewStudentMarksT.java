@@ -269,7 +269,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
         if(grade==null || grade.isEmpty()){
             grade="3A";
         }
-        db.collection("marks")
+        db.collection("studentsmarks")
                 .document(grade)
                 .collection("Students")
                 .get()
