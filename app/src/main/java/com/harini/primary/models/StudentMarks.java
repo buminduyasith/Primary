@@ -9,14 +9,24 @@ public class StudentMarks {
     private String StudentId;
     private List<SubjectMarks> StudentSubjectMarksList;
     private String name;
+    private String term;
 
     public StudentMarks() {
     }
 
-    public StudentMarks(String studentId, List<SubjectMarks> studentSubjectMarksList, String name) {
+    public StudentMarks(String studentId, List<SubjectMarks> studentSubjectMarksList, String name, String term) {
         StudentId = studentId;
         StudentSubjectMarksList = studentSubjectMarksList;
         this.name = name;
+        this.term = term;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
     }
 
     public String getStudentId() {

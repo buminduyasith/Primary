@@ -8,20 +8,53 @@
     tools:context=".admin.AddStudentMarks">
 
 
-  <Spinner
-      android:id="@+id/spinner_grade"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:theme="@android:style/Widget.Holo.DropDownItem.Spinner"
-      android:backgroundTint="@color/main_green_color"
-      tools:listitem="support_simple_spinner_dropdown_item"
-      android:layout_marginBottom="20dp"
 
-      />
+ <LinearLayout
+     android:id="@+id/termcontainer"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_margin="10dp"
+   android:orientation="horizontal"
+   android:weightSum="7">
+
+     <Spinner
+         android:id="@+id/spinner_grade"
+         android:layout_width="wrap_content"
+         android:layout_height="50dp"
+         android:layout_weight="2"
+         android:theme="@android:style/Widget.Holo.DropDownItem.Spinner"
+         android:backgroundTint="@color/main_green_color"
+         tools:listitem="support_simple_spinner_dropdown_item"
+         android:layout_marginBottom="20dp"
+
+         />
+
+   <Spinner
+       android:id="@+id/spinner_term"
+       android:layout_width="wrap_content"
+       android:layout_below="@id/spinner_grade"
+       android:layout_height="50dp"
+       android:layout_weight="2"
+       android:theme="@android:style/Widget.Holo.DropDownItem.Spinner"
+       android:backgroundTint="@color/main_green_color"
+       tools:listitem="support_simple_spinner_dropdown_item"
+       android:layout_marginBottom="20dp"
+
+       />
+
+     <Button
+         android:id="@+id/btn_search"
+         android:layout_width="wrap_content"
+         android:layout_weight="2"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:text="Next" />
+
+ </LinearLayout>
 
   <TextView
       android:id="@+id/txtsubjectName"
-      android:layout_below="@+id/spinner_grade"
+      android:layout_below="@+id/termcontainer"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"

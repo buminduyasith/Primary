@@ -25,7 +25,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
 
     private TextView displayname, day, month;
     private ImageView dpandlogout;
-    private CardView card_createteacherAcocunts, card_createEvents, card_addTimetables, card_viewTimetables;
+    private CardView card_createteacherAcocunts, card_createEvents, card_addTimetables, card_viewTimetables,card_addexammarks;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -55,6 +55,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         card_createEvents = findViewById(R.id.card_createEvents);
         card_addTimetables = findViewById(R.id.card_addTimetables);
         card_viewTimetables = findViewById(R.id.card_viewTimetables);
+        card_addexammarks = findViewById(R.id.card_addexammarks);
     }
 
     private void setActions() {
@@ -64,6 +65,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         card_createEvents.setOnClickListener(this);
         card_addTimetables.setOnClickListener(this);
         card_viewTimetables.setOnClickListener(this);
+        card_addexammarks.setOnClickListener(this);
     }
 
     private void init() {
@@ -109,6 +111,11 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
                 Intent intentViewTimetable = new Intent(getApplicationContext(), ViewTimeTable.class);
                 intentViewTimetable.putExtra("userRole","ADMIN");
                 startActivity(intentViewTimetable);
+                break;
+            case R.id.card_addexammarks:
+                Intent addexamintent= new Intent(getApplicationContext(), AddStudentMarks.class);
+               // addexamintent.putExtra("userRole","ADMIN");
+                startActivity(addexamintent);
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.harini.primary.admin;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +51,7 @@ import com.harini.primary.Store;
 import com.harini.primary.adapters.StudentListAdapter;
 import com.harini.primary.adapters.SubjectMarks;
 import com.harini.primary.models.ExamDetails;
+import com.harini.primary.models.ExamSummaryClass;
 import com.harini.primary.models.Parent;
 import com.harini.primary.models.StudentMarks;
 import com.harini.primary.models.SubjectNameEnum;
@@ -68,24 +71,26 @@ import static com.harini.primary.models.SubjectNameEnum.*;
 
 public class AddStudentMarks extends AppCompatActivity {
 
-    private static final String TAG ="exammarks" ;
+    private static final String TAG ="storel2" ;
     private RecyclerView recAddStudentMarks;
    // private StudentAddMarkAdapter adapter;
     private static List<ExamDetails> examDetailsList;
-    private Button btn_add_mark;
+    private Button btn_add_mark,btn_search;
     private  static int stepCount = 0;
     private TextView txtsubjectName;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private Spinner spinner_grade;
+    private Spinner spinner_grade,spinner_term;
     private SweetAlertDialog pDialog;
 
     private ProgressBar progressBar;
     private CollectionReference collectionReference;
     private List<String> gradelist;
+    private List<String> terms;
     private StudentListAdapter adapter;
    private  Store store;
+
 
     //    private static  List<ExamDetails> examDetailsList;
     @Override
@@ -97,35 +102,26 @@ public class AddStudentMarks extends AppCompatActivity {
         init();
         setupRecycleView("");
         getSchools();
-       //getAllStudentMarksDetailsFromDB(null);
+       getAllStudentMarksDetailsFromDB(null,null);
 
         store  = Store.getInstance();
 
 
-        spinner_grade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code here
-                String grade = gradelist.get(position);
-
-                updateQuery(grade);
-                getAllStudentMarksDetailsFromDB(grade);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
 
 
 
 
         btn_add_mark.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+
+                pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.setCancelable(false);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("please wait exam summary creating...");
+                            //pDialog.setContentText("All marks added successfully..");
+                pDialog.show();
 
                 List<StudentMarks> studentMarksListtemp = store.getAllStudentMarksDetails();
 //
@@ -133,47 +129,125 @@ public class AddStudentMarks extends AppCompatActivity {
 //                   Log.d(TAG, "onClick: "+std.getName() + " size"+std.getStudentSubjectMarksList().size());
 //                }
 
-                for(StudentMarks std:studentMarksListtemp){
-                    WriteBatch batch = db.batch();
-
-                    DocumentReference nycRef = db.collection("marks")
-                            .document(spinner_grade.getSelectedItem().toString())
-                            .collection("Students").document(std.getStudentId());
-                    batch.set(nycRef,std);
-                    batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                        }
-                    });
+                //    store.summaryGenerate();
+                if(studentMarksListtemp.size()>10){
+                    throw  new RuntimeException("studentMarksListtemp overflow");
                 }
+                for(StudentMarks std:studentMarksListtemp){
+//                    WriteBatch batch = db.batch();
+//
+//                    DocumentReference nycRef = db.collection("marks")
+//                            .document(spinner_grade.getSelectedItem().toString())
+//                            .collection("Students").document();
+//                    batch.set(nycRef,std);
+//                    batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//
+//
+//                        }
+//                    });
 
-                pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.SUCCESS_TYPE);
-                pDialog.setCancelable(false);
-                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Student exam marks");
-                pDialog.setContentText("All marks added successfully..");
-                pDialog.setConfirmButton("Done\n", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        pDialog.dismissWithAnimation();
-
-                    }
-                });
-                pDialog.dismiss();
-                pDialog.show();
+                }
+                pDialog.dismissWithAnimation();
+              //  addSummaryToDB();
 
             }
         });
 
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String grade = spinner_grade.getSelectedItem().toString();
+                String term = spinner_term.getSelectedItem().toString();
+
+               if(grade==null || grade.isEmpty()){
+                   throw new  NullPointerException("grade can't be a null value");
+
+               }
+
+               else if(term==null || term.isEmpty()){
+                   throw new  NullPointerException("grade can't be a null value");
+               }
+
+                updateQuery(grade);
+               //empty the store static array
+                getAllStudentMarksDetailsFromDB(grade,term);
+            }
+        });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void addSummaryToDB(){
+
+
+        pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("please wait exam summary creating...");
+        //pDialog.setContentText("All marks added successfully..");
+        pDialog.show();
+
+
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run(){
+                //code to do the HTTP request
+                ExamSummaryClass examSummaryClass=  store.summaryGenerate();
+                WriteBatch batch = db.batch();
+
+                examSummaryClass.setTerm(spinner_term.getSelectedItem().toString());
+                examSummaryClass.setGrade(spinner_grade.getSelectedItem().toString());
+
+                DocumentReference nycRef = db.collection("summary").document();
+//                .document(spinner_grade.getSelectedItem().toString())
+//                .collection("Students").document();
+                batch.set(nycRef,examSummaryClass);
+                batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        AddStudentMarks.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                   // pDialog.dismiss();
+                                    pDialog.dismissWithAnimation();
+                                }catch (Exception e){
+                                    pDialog.dismissWithAnimation();
+                                }
+                            }//public void run() {
+                        });
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        pDialog.dismissWithAnimation();
+                        pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.setCancelable(false);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("exam summary ");
+                        pDialog.setContentText(e.getLocalizedMessage());
+                        pDialog.show();
+                    }
+                });
+            }
+        });
+        thread.start();
+
+
+
+
+    }
 
     private void init(){
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("Parents");
+
 
     }
 
@@ -183,6 +257,98 @@ public class AddStudentMarks extends AppCompatActivity {
         btn_add_mark = findViewById(R.id.btn_add_mark);
         txtsubjectName = findViewById(R.id.txtsubjectName);
         spinner_grade = findViewById(R.id.spinner_grade);
+        spinner_term = findViewById(R.id.spinner_term);
+        btn_search = findViewById(R.id.btn_search);
+
+         terms = new ArrayList<>();
+        terms.add("1st");
+        terms.add("2nd");
+        terms.add("3rd");
+
+        ArrayAdapter<String> termsAdapteer = new ArrayAdapter<String>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item,
+                terms
+
+        );
+
+        spinner_term.setAdapter(termsAdapteer);
+
+
+//        spinner_grade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                // your code here
+//                String grade = gradelist.get(position);
+//                String term;
+//                if( spinner_term.getSelectedItem()!=null){
+//
+//                    term = spinner_term.getSelectedItem().toString();
+//                }
+//                else{
+//                  //  grade = "3A";
+//                    term ="1st";
+//                }
+//
+//                updateQuery(grade);
+//                getAllStudentMarksDetailsFromDB(grade,term);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
+//
+//        spinner_term.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                // your code here
+//                String grade;
+//                String term;
+//                if( spinner_grade.getSelectedItem()!=null){
+//                     grade = spinner_grade.getSelectedItem().toString();
+//                     term = spinner_term.getSelectedItem().toString();
+//                }
+//                else{
+//                    grade = "3A";
+//                    term ="1st";
+//                }
+//
+//
+//                Log.d(TAG, "onItemSelected: grade"+grade+" term"+term);
+////
+////                updateQuery(grade);
+////                getAllStudentMarksDetailsFromDB(grade);
+//
+//
+//
+////                Query query = collectionReference.whereEqualTo("grade", grade)
+////                        .orderBy("firstName", Query.Direction.ASCENDING);
+////
+//////                Query query = collectionReference.whereEqualTo("grade", grade)
+//////                        .orderBy("firstName", Query.Direction.ASCENDING);
+////
+////
+////                FirestoreRecyclerOptions<Parent> options = new FirestoreRecyclerOptions.Builder<Parent>()
+////                        .setQuery(query, Parent.class).build();
+////
+////
+////                //   adapter = new StudentListAdapter(options);
+////                adapter.updateOptions(options);
+//
+//                getAllStudentMarksDetailsFromDB(grade,term);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//        });
 
 
     }
@@ -303,10 +469,11 @@ public class AddStudentMarks extends AppCompatActivity {
                         Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_Marks.getEditText().getText().toString());
                         break;
                     case ENGLISH:
-                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+
                         break;
                     case MATHS:
-                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
                         break;
                     case SCIENCE:
                         TIL_science_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
@@ -329,7 +496,7 @@ public class AddStudentMarks extends AppCompatActivity {
 
 
         builder.setView(view)
-                .setTitle("Video Lessons")
+                .setTitle("Add Marks")
                 .setPositiveButton("done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -353,7 +520,12 @@ public class AddStudentMarks extends AppCompatActivity {
                         subjectMarksList.add(new SubjectMarks(TAMIL,filtermarks(tamilM)));
                         subjectMarksList.add(new SubjectMarks(BUDDHISM,filtermarks(buddhism)));
 
-                        store.addStudentMark(new StudentMarks(studentId,subjectMarksList,name));
+                        String term = spinner_term.getSelectedItem().toString();
+                        store.addStudentMark(new StudentMarks(studentId,subjectMarksList,name,term));
+
+                        double totalMarks = filtermarks(sinhalaM)+
+                                filtermarks(mathsM)+
+                                filtermarks(englishM)+filtermarks(scienceM)+filtermarks(tamilM);
 
 
 
@@ -404,7 +576,10 @@ public class AddStudentMarks extends AppCompatActivity {
 
         Log.d(TAG, "setupRecycleView: grade"+stdgrade);
 
+        String term = spinner_term.getSelectedItem().toString();
+
         Query query = collectionReference.whereEqualTo("grade", stdgrade)
+                .whereEqualTo("term",term)
                 .orderBy("firstName", Query.Direction.ASCENDING);
 
 
@@ -465,13 +640,19 @@ public class AddStudentMarks extends AppCompatActivity {
     }
 
 
-    private void getAllStudentMarksDetailsFromDB(String grade){
+    private void getAllStudentMarksDetailsFromDB(String grade,String term){
         if(grade==null || grade.isEmpty()){
             grade="3A";
         }
+
+        else if(term==null || term.isEmpty()){
+            term = "1st";
+        }
+
         db.collection("marks")
                 .document(grade)
                 .collection("Students")
+                .whereEqualTo("term",term)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -481,15 +662,15 @@ public class AddStudentMarks extends AppCompatActivity {
                         List<StudentMarks> studentMarks =  queryDocumentSnapshots.toObjects(StudentMarks.class);
                         store.StoreInitDB(studentMarks);
 
-               for(StudentMarks std:studentMarks){
-                   Log.d(TAG, "onClick we: "+std.getName());
-                }
-
-                        for(StudentMarks std:store.getAllStudentMarksDetails()){
-                            Log.d(TAG, "onClick getAllStudentMarksDetails: "+std.getName());
-                            StudentMarks fill_studentMarks = store.getSpecificStudentMarks(std.getStudentId());
-                            Log.d(TAG, "onSuccess: "+fill_studentMarks.getStudentSubjectMarksList().toString());
-                        }
+//               for(StudentMarks std:studentMarks){
+//                   Log.d(TAG, "onClick we: "+std.getName());
+//                }
+//
+//                        for(StudentMarks std:store.getAllStudentMarksDetails()){
+//                            Log.d(TAG, "onClick getAllStudentMarksDetails: "+std.getName());
+//                            StudentMarks fill_studentMarks = store.getSpecificStudentMarks(std.getStudentId());
+//                            Log.d(TAG, "onSuccess: "+fill_studentMarks.getStudentSubjectMarksList().toString());
+//                        }
                        // Log.d(TAG, studentMarks.);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
