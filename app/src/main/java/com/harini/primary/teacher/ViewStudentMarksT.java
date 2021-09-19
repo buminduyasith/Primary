@@ -115,6 +115,13 @@ public class ViewStudentMarksT extends AppCompatActivity {
         final TextInputLayout TIL_science_marks = view.findViewById(R.id.TIL_science_marks);
         final TextInputLayout TIL_tamil_marks = view.findViewById(R.id.TIL_tamil_marks);
         final TextView txtStudentName = view.findViewById(R.id.txtStudentName);
+
+        TIL_Buddhism_marks.setEnabled(false);
+        TIL_sinhala_Marks.setEnabled(false);
+        TIL_maths_marks.setEnabled(false);
+        TIL_english_marks.setEnabled(false);
+        TIL_science_marks.setEnabled(false);
+        TIL_tamil_marks.setEnabled(false);
         txtStudentName.setText(name);
 
 
@@ -159,7 +166,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
 
 
         builder.setView(view)
-                .setTitle("Video Lessons")
+                .setTitle("View marks")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
