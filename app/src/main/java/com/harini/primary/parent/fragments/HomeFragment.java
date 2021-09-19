@@ -25,6 +25,7 @@ import com.harini.primary.Settings;
 import com.harini.primary.Signin;
 import com.harini.primary.admin.ViewTimeTable;
 import com.harini.primary.parent.AgendaCalendarView;
+import com.harini.primary.parent.StudentMarksViewP;
 import com.harini.primary.parent.ViewHomeWork;
 import com.harini.primary.parent.ViewPapers;
 import com.harini.primary.parent.ViewVideoLessons;
@@ -37,7 +38,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_viewTimetables,card_settings;
+    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_viewTimetables,card_settings,card_marks;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -83,6 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_exams = view.findViewById(R.id.card_exams);
         card_viewTimetables = view.findViewById(R.id.card_viewTimetables);
         card_settings = view.findViewById(R.id.card_settings);
+        card_marks = view.findViewById(R.id.card_marks);
 
     }
 
@@ -95,6 +97,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_exams.setOnClickListener(this);
         card_viewTimetables.setOnClickListener(this);
         card_settings.setOnClickListener(this);
+        card_marks.setOnClickListener(this);
+
     }
 
     private void init(){
@@ -157,6 +161,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 Intent SettingsIntent = new Intent(getActivity(), Settings.class);
                 startActivity(SettingsIntent);
+                break;
+
+            case R.id.card_marks:
+
+                Intent StudentMarksViewPIntent = new Intent(getActivity(), StudentMarksViewP.class);
+                startActivity(StudentMarksViewPIntent);
                 break;
 
             case R.id.dpandlogout:
