@@ -193,7 +193,12 @@ public class CreateTeacherAccounts extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:failure", task.getException());
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure( Exception e) {
+                Log.e(TAG, "onFailure: "+e.getLocalizedMessage());
+            }
+        });
 
 
     }

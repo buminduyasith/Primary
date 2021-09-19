@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "813166603212",
-    "project_id": "primary-school-a8bbf",
-    "storage_bucket": "primary-school-a8bbf.appspot.com"
+    "project_number": "603361629333",
+    "project_id": "primary-school-f6368",
+    "storage_bucket": "primary-school-f6368.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:813166603212:android:dbdfaf222cdd384f328b69",
+        "mobilesdk_app_id": "1:603361629333:android:45c722edf93940b60ff79c",
         "android_client_info": {
           "package_name": "com.harini.primary"
         }
       },
       "oauth_client": [
         {
-          "client_id": "813166603212-tbbthol9m5l5tj6fc59dckenbnjujra7.apps.googleusercontent.com",
+          "client_id": "603361629333-ali0a65m7qt0cm50s59qudmtdnl39fml.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC90ot5cfWbe-pefhdSs-1r8GfOK7HmoLI"
+          "current_key": "AIzaSyCv4Fg5CVwNYcVO864tw_LD6MULB4CL0Bo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "813166603212-tbbthol9m5l5tj6fc59dckenbnjujra7.apps.googleusercontent.com",
+              "client_id": "603361629333-ali0a65m7qt0cm50s59qudmtdnl39fml.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
