@@ -56,10 +56,12 @@ import com.harini.primary.models.Parent;
 import com.harini.primary.models.StudentMarks;
 import com.harini.primary.models.SubjectNameEnum;
 import com.harini.primary.teacher.AddVideoLessons;
+import com.harini.primary.utill.HintSpinnerAdapter;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +103,8 @@ public class AddStudentMarks extends AppCompatActivity {
         setupUi();
         init();
         setupRecycleView("");
-        getSchools();
+        loadClasses();
+       // getSchools();
        getAllStudentMarksDetailsFromDB(null,null);
 
         store  = Store.getInstance();
@@ -367,6 +370,15 @@ public class AddStudentMarks extends AppCompatActivity {
         adapter.updateOptions(options);
 
 
+    }
+
+    private void loadClasses() {
+        //selectedClass = null;
+        ArrayList<String> listClasses = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.grade_array)));
+        listClasses.add(getString(R.string.select_class));
+        HintSpinnerAdapter classesAdapter = new HintSpinnerAdapter(this, R.layout.spinner_item, listClasses);
+        spinner_grade.setAdapter(classesAdapter);
+        spinner_grade.setSelection(classesAdapter.getCount());
     }
 
     private void getSchools() {
