@@ -28,6 +28,7 @@ import com.harini.primary.teacher.AdHomeWork;
 import com.harini.primary.teacher.AddExamPapers;
 import com.harini.primary.teacher.AddVideoLessons;
 import com.harini.primary.teacher.CreateAnnouncement;
+import com.harini.primary.teacher.ViewStudentMarksT;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +38,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
    // onCreateView onViewCreated
-   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_exams,card_viewTimetables,card_settings;
+   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_exams,card_viewTimetables,card_settings,card_viewexamsmarks;
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
@@ -89,6 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_exams = view.findViewById(R.id.card_exams);
         card_viewTimetables = view.findViewById(R.id.card_viewTimetables);
         card_settings = view.findViewById(R.id.card_settings);
+        card_viewexamsmarks= view.findViewById(R.id.card_viewexamsmarks);
 
     }
 
@@ -101,6 +103,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_exams.setOnClickListener(this);
         card_viewTimetables.setOnClickListener(this);
         card_settings.setOnClickListener(this);
+        card_viewexamsmarks.setOnClickListener(this);
     }
 
 
@@ -167,6 +170,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intentViewTimetable = new Intent(getActivity(), ViewTimeTable.class);
                 intentViewTimetable.putExtra("userRole","TEACHER");
                 startActivity(intentViewTimetable);
+                break;
+            case R.id.card_viewexamsmarks:
+                Intent intentViewExams = new Intent(getActivity(), ViewStudentMarksT.class);
+               // intentViewExams.putExtra("userRole","TEACHER");
+                startActivity(intentViewExams);
                 break;
 
             default:

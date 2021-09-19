@@ -43,6 +43,11 @@
 
     </style>
 
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/bottomnavp1</item>
+
+</style>
 
 
 

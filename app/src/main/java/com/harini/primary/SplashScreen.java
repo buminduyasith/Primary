@@ -15,11 +15,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.harini.primary.admin.AddStudentMarks;
 import com.harini.primary.admin.AdminDashboard;
 import com.harini.primary.models.Parent;
 import com.harini.primary.models.Teacher;
 import com.harini.primary.parent.ParentDashboard;
+import com.harini.primary.parent.StudentMarksViewP;
 import com.harini.primary.teacher.TeacherDashboard;
+import com.harini.primary.teacher.ViewStudentMarksT;
 
 import java.util.Locale;
 
@@ -120,6 +123,14 @@ public class SplashScreen extends AppCompatActivity {
         super.onStart();
 
         // throw new RuntimeException("Test Crash");
+////        Intent testnewIntent = new Intent(getApplicationContext(), AddStudentMarks.class);
+//        Intent testnewIntent = new Intent(getApplicationContext(), StudentMarksViewP.class);
+////
+//        startActivity(testnewIntent);
+//
+//        finish();
+
+       // return;
 
        if (isFirstTime()) {
 
