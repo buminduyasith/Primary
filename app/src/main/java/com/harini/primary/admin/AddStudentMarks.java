@@ -130,7 +130,7 @@ public class AddStudentMarks extends AppCompatActivity {
 //                }
 
                 //    store.summaryGenerate();
-                if(studentMarksListtemp.size()>10){
+                if(studentMarksListtemp.size()>20){
                     throw  new RuntimeException("studentMarksListtemp overflow");
                 }
                 for(StudentMarks std:studentMarksListtemp){
