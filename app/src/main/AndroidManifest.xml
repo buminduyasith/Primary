@@ -16,8 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".teacher.ViewStudentMarksT"></activity>
-        <activity android:name=".admin.AddStudentMarks"></activity>
+        <activity android:name=".parent.StudentMarksViewP"></activity>
+        <activity android:name=".teacher.ViewStudentMarksT" />
+        <activity android:name=".admin.AddStudentMarks" />
         <activity
             android:name=".admin.ViewTimeTable"
             android:exported="true" />

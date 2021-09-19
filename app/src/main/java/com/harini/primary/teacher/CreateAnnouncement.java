@@ -111,7 +111,7 @@ public class CreateAnnouncement extends AppCompatActivity implements Announcemen
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                Log.d(TAG, "onStart:b "+value.size());
+               // Log.d(TAG, "onStart:b "+value.size());
 
 
                 if(value !=null){
