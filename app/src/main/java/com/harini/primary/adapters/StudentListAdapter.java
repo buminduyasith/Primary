@@ -27,7 +27,8 @@ public class StudentListAdapter extends FirestoreRecyclerAdapter<Parent,StudentL
 
 
 
-        holder.txtname.setText(model.getFirstName()+" "+model.getLastName());
+//        holder.txtname.setText(model.getFirstName()+" "+model.getLastName());
+            holder.txtname.setText(model.getStudentName());
 
     }
 
