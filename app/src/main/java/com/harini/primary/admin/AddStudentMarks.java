@@ -649,7 +649,8 @@ public class AddStudentMarks extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String parentId = documentSnapshot.getId();
-                String name = documentSnapshot.getString("firstName");
+//                String name = documentSnapshot.getString("firstName");
+                String name = documentSnapshot.getString("studentName");
 
                 openDialog(name,parentId);
 
