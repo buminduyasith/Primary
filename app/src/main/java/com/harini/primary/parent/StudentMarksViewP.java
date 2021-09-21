@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.harini.primary.Store;
 import com.harini.primary.adapters.StudentListAdapter;
 import com.harini.primary.adapters.SubjectMarks;
 import com.harini.primary.models.StudentMarks;
+import com.harini.primary.teacher.ViewStudentMarksT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,7 @@ public class StudentMarksViewP extends AppCompatActivity {
     private FirebaseFirestore db;
     private Spinner spinner_term;
     private SweetAlertDialog pDialog;
-    private Spinner Spinner_term;
+
     private List<String> terms;
 
     private CollectionReference collectionReference;
@@ -144,6 +146,12 @@ public class StudentMarksViewP extends AppCompatActivity {
 //        if(grade==null || grade.isEmpty()){
 //            grade="3A";
 //        }
+        pDialog = new SweetAlertDialog(StudentMarksViewP.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("please wait exam summary creating...");
+        //pDialog.setContentText("All marks added successfully..");
+        pDialog.show();
 
         String sid = mAuth.getCurrentUser().getUid();
 
@@ -175,7 +183,7 @@ public class StudentMarksViewP extends AppCompatActivity {
                         List<StudentMarks> studentMarksList =  queryDocumentSnapshots.toObjects(StudentMarks.class);
 
                         if(studentMarksList==null || studentMarksList.isEmpty()) {
-
+                            pDialog.dismissWithAnimation();
                             Toast.makeText(getApplicationContext(),"not available",Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -216,12 +224,13 @@ public class StudentMarksViewP extends AppCompatActivity {
                             }
                         }
 
-
+                        pDialog.dismissWithAnimation();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG,"fail"+ e.getLocalizedMessage() );
+                pDialog.dismissWithAnimation();
             }
         });
 
