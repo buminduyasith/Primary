@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -56,7 +59,9 @@ import static com.harini.primary.models.SubjectNameEnum.TAMIL;
 public class ViewStudentMarksT extends AppCompatActivity {
     private static final String TAG ="exammarks" ;
     private RecyclerView recAddStudentMarks;
+    private Spinner spinner_term;
 
+    private List<String> terms;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -100,6 +105,56 @@ public class ViewStudentMarksT extends AppCompatActivity {
     private void setupUi() {
 
         recAddStudentMarks = findViewById(R.id.recAddStudentMarks);
+        spinner_term = findViewById(R.id.spinner_term);
+        terms = new ArrayList<>();
+        terms.add("1st");
+        terms.add("2nd");
+        terms.add("3rd");
+
+        SharedPreferences prf = getSharedPreferences("TEACHERS_DATA", MODE_PRIVATE);
+
+        String stdgrade = prf.getString("GRADE", null);
+
+
+
+        Log.d(TAG, "setupRecycleView: grade"+stdgrade);
+
+        if(stdgrade==null){
+            throw new RuntimeException("grade should not be null");
+        }
+
+        ArrayAdapter<String> termsAdapteer = new ArrayAdapter<String>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item,
+                terms
+
+        );
+
+        spinner_term.setAdapter(termsAdapteer);
+
+        spinner_term.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String term = "1st";
+                if( spinner_term.getSelectedItem()!=null){
+                    Log.d(TAG, "onItemSelected: if  term"+term);
+                    term = spinner_term.getSelectedItem().toString();
+                }
+                else{
+                    Log.d(TAG, "onItemSelected: else  term"+term);
+
+                }
+
+
+
+                getAllStudentMarksDetailsFromDB(stdgrade,term);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
     private void openDialog(String name,String studentId) {
 
@@ -115,6 +170,13 @@ public class ViewStudentMarksT extends AppCompatActivity {
         final TextInputLayout TIL_science_marks = view.findViewById(R.id.TIL_science_marks);
         final TextInputLayout TIL_tamil_marks = view.findViewById(R.id.TIL_tamil_marks);
         final TextView txtStudentName = view.findViewById(R.id.txtStudentName);
+
+        TIL_Buddhism_marks.setEnabled(false);
+        TIL_sinhala_Marks.setEnabled(false);
+        TIL_maths_marks.setEnabled(false);
+        TIL_english_marks.setEnabled(false);
+        TIL_science_marks.setEnabled(false);
+        TIL_tamil_marks.setEnabled(false);
         txtStudentName.setText(name);
 
 
@@ -159,7 +221,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
 
 
         builder.setView(view)
-                .setTitle("Video Lessons")
+                .setTitle("View marks")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -193,7 +255,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
             throw new RuntimeException("grade should not be null");
         }
 
-        getAllStudentMarksDetailsFromDB(stdgrade);
+//        getAllStudentMarksDetailsFromDB(stdgrade);
 
         Log.d(TAG, "setupRecycleView: grade"+stdgrade);
 
@@ -258,13 +320,20 @@ public class ViewStudentMarksT extends AppCompatActivity {
     }
 
 
-    private void getAllStudentMarksDetailsFromDB(String grade){
+    private void getAllStudentMarksDetailsFromDB(String grade,String term){
+        pDialog = new SweetAlertDialog(ViewStudentMarksT.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("please wait exam summary creating...");
+        //pDialog.setContentText("All marks added successfully..");
+        pDialog.show();
         if(grade==null || grade.isEmpty()){
             grade="3A";
         }
-        db.collection("marks")
+        db.collection("studentsmarks")
                 .document(grade)
                 .collection("Students")
+                .whereEqualTo("term",term)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -273,22 +342,23 @@ public class ViewStudentMarksT extends AppCompatActivity {
                         Log.d(TAG, "onSuccess: db");
                         List<StudentMarks> studentMarks =  queryDocumentSnapshots.toObjects(StudentMarks.class);
                         store.StoreInitDB(studentMarks);
-
-                        for(StudentMarks std:studentMarks){
-                            Log.d(TAG, "onClick we: "+std.getName());
-                        }
-
-                        for(StudentMarks std:store.getAllStudentMarksDetails()){
-                            Log.d(TAG, "onClick getAllStudentMarksDetails: "+std.getName());
-                            StudentMarks fill_studentMarks = store.getSpecificStudentMarks(std.getStudentId());
-                            Log.d(TAG, "onSuccess: "+fill_studentMarks.getStudentSubjectMarksList().toString());
-                        }
+                        pDialog.dismissWithAnimation();
+//                        for(StudentMarks std:studentMarks){
+//                            Log.d(TAG, "onClick we: "+std.getName());
+//                        }
+//
+//                        for(StudentMarks std:store.getAllStudentMarksDetails()){
+//                            Log.d(TAG, "onClick getAllStudentMarksDetails: "+std.getName());
+//                            StudentMarks fill_studentMarks = store.getSpecificStudentMarks(std.getStudentId());
+//                            Log.d(TAG, "onSuccess: "+fill_studentMarks.getStudentSubjectMarksList().toString());
+//                        }
                         // Log.d(TAG, studentMarks.);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception e) {
                 Log.e(TAG,"fail"+ e.getLocalizedMessage() );
+                pDialog.dismissWithAnimation();
             }
         });
 

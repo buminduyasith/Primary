@@ -56,10 +56,12 @@ import com.harini.primary.models.Parent;
 import com.harini.primary.models.StudentMarks;
 import com.harini.primary.models.SubjectNameEnum;
 import com.harini.primary.teacher.AddVideoLessons;
+import com.harini.primary.utill.HintSpinnerAdapter;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +92,7 @@ public class AddStudentMarks extends AppCompatActivity {
     private List<String> terms;
     private StudentListAdapter adapter;
    private  Store store;
+   private  int count;
 
 
     //    private static  List<ExamDetails> examDetailsList;
@@ -101,7 +104,8 @@ public class AddStudentMarks extends AppCompatActivity {
         setupUi();
         init();
         setupRecycleView("");
-        getSchools();
+        loadClasses();
+       // getSchools();
        getAllStudentMarksDetailsFromDB(null,null);
 
         store  = Store.getInstance();
@@ -133,6 +137,7 @@ public class AddStudentMarks extends AppCompatActivity {
                 if(studentMarksListtemp.size()>20){
                     throw  new RuntimeException("studentMarksListtemp overflow");
                 }
+                 count = 1;
                 for(StudentMarks std:studentMarksListtemp){
                     WriteBatch batch = db.batch();
                     String cusDocId = std.getStudentId() + "" + spinner_term.getSelectedItem().toString();
@@ -145,12 +150,27 @@ public class AddStudentMarks extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
+                            Log.d(TAG, "onComplete: size"+studentMarksListtemp.size()+ " count"+ count);
+                            if(count ==studentMarksListtemp.size()){
+                                Log.d(TAG, "onComplete: "+count);
+                                pDialog.dismissWithAnimation();
+                                pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.SUCCESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Exam marks");
+                                pDialog.setContentText("All marks added successfully..");
+                                pDialog.show();
+                                count=0;
+                            }
+                            count++;
 
                         }
                     });
 
+
+
                 }
-                pDialog.dismissWithAnimation();
+                //pDialog.dismissWithAnimation();
+
               //  addSummaryToDB();
 
             }
@@ -367,6 +387,15 @@ public class AddStudentMarks extends AppCompatActivity {
         adapter.updateOptions(options);
 
 
+    }
+
+    private void loadClasses() {
+        //selectedClass = null;
+        ArrayList<String> listClasses = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.grade_array)));
+        listClasses.add(getString(R.string.select_class));
+        HintSpinnerAdapter classesAdapter = new HintSpinnerAdapter(this, R.layout.spinner_item, listClasses);
+        spinner_grade.setAdapter(classesAdapter);
+        spinner_grade.setSelection(classesAdapter.getCount());
     }
 
     private void getSchools() {
@@ -620,7 +649,8 @@ public class AddStudentMarks extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String parentId = documentSnapshot.getId();
-                String name = documentSnapshot.getString("firstName");
+//                String name = documentSnapshot.getString("firstName");
+                String name = documentSnapshot.getString("studentName");
 
                 openDialog(name,parentId);
 

@@ -20,6 +20,7 @@
     <string name="create_school_events">Create School Events</string>
     <string name="student_marks_view">Student Marks</string>
     <string name="add_exam_marks">Add Exam marks</string>
+    <string name="view_marks">View Marks</string>
 
     <string-array name="grade_array">
         <item>1A</item>
