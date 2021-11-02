@@ -15,5 +15,6 @@
     <string name="add_timetables">කාල සටහන් එකතු කිරීම</string>
     <string name="create_teacher_accounts">ගුරු ගිණුම් සෑදීම</string>
     <string name="create_school_events">පාසල් වැඩසටහන් එකතු කිරීම</string>
+    <string name="Analysis">සිසුන් විශ්ලේෂණය</string>
 
 </resources>

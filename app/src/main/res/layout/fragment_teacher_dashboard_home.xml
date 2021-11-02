@@ -356,12 +356,11 @@
             </androidx.cardview.widget.CardView>
 
 
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_viewTimetables"
+                android:layout_below="@+id/termsSTD"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
                 app:cardCornerRadius="16dp"
@@ -408,7 +407,7 @@
                 android:id="@+id/card_viewexamsmarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_settings"
+                android:layout_below="@+id/card_viewTimetables"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
                 app:cardCornerRadius="16dp"
@@ -483,7 +482,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="Analysis"
+                            android:text="@string/Analysis"
                             android:textSize="16sp" />
 
                         <TextView
