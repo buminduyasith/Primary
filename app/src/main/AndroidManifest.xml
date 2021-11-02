@@ -16,7 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Primary"
         tools:replace="android:icon">
-        <activity android:name=".parent.StudentMarksViewP"></activity>
+        <activity
+            android:name=".teacher.AddTerms"
+            android:exported="false" />
+        <activity
+            android:name=".admin.Add_Semester_Reslts"
+            android:exported="false" />
+        <activity
+            android:name=".admin.Students_list"
+            android:exported="false" />
+        <activity android:name=".parent.StudentMarksViewP" />
         <activity android:name=".teacher.ViewStudentMarksT" />
         <activity android:name=".admin.AddStudentMarks" />
         <activity

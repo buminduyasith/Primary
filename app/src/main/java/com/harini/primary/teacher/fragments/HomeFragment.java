@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Settings;
 import com.harini.primary.Signin;
+import com.harini.primary.admin.Students_list;
 import com.harini.primary.admin.ViewTimeTable;
 import com.harini.primary.teacher.AdHomeWork;
 import com.harini.primary.teacher.AddExamPapers;
@@ -38,7 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
    // onCreateView onViewCreated
-   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_exams,card_viewTimetables,card_settings,card_viewexamsmarks;
+   private CardView card_ImgMakeAnnouncement,card_addVideoLessons,card_addhomeworks,card_exams,card_viewTimetables,card_settings,card_viewexamsmarks,termsSTD;
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
@@ -92,6 +93,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_settings = view.findViewById(R.id.card_settings);
         card_viewexamsmarks= view.findViewById(R.id.card_viewexamsmarks);
 
+        termsSTD =view.findViewById(R.id.termsSTD);
+
     }
 
 
@@ -104,6 +107,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewTimetables.setOnClickListener(this);
         card_settings.setOnClickListener(this);
         card_viewexamsmarks.setOnClickListener(this);
+        termsSTD.setOnClickListener(this);
     }
 
 
@@ -175,6 +179,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intentViewExams = new Intent(getActivity(), ViewStudentMarksT.class);
                // intentViewExams.putExtra("userRole","TEACHER");
                 startActivity(intentViewExams);
+                break;
+
+            case R.id.termsSTD:
+                Intent intentViewtermsSTD = new Intent(getActivity(), Students_list.class);
+                // intentViewExams.putExtra("userRole","TEACHER");
+                startActivity(intentViewtermsSTD);
                 break;
 
             default:

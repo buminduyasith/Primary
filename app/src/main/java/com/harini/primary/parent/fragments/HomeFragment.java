@@ -23,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.harini.primary.R;
 import com.harini.primary.Settings;
 import com.harini.primary.Signin;
+import com.harini.primary.admin.Add_Semester_Reslts;
+import com.harini.primary.admin.Students_list;
 import com.harini.primary.admin.ViewTimeTable;
 import com.harini.primary.parent.AgendaCalendarView;
 import com.harini.primary.parent.StudentMarksViewP;
@@ -38,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private TextView displayname,day,month;
     private ImageView dpandlogout;
-    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_viewTimetables,card_settings,card_marks;
+    private CardView card_viewHomeworks,card_viewVideoLessons,card_viewevents,card_exams,card_viewTimetables,card_settings,card_marks,termsSTD;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -85,6 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewTimetables = view.findViewById(R.id.card_viewTimetables);
         card_settings = view.findViewById(R.id.card_settings);
         card_marks = view.findViewById(R.id.card_marks);
+        termsSTD   = view.findViewById(R.id.termsPeT);
 
     }
 
@@ -98,6 +101,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         card_viewTimetables.setOnClickListener(this);
         card_settings.setOnClickListener(this);
         card_marks.setOnClickListener(this);
+        termsSTD.setOnClickListener(this);
 
     }
 
@@ -167,6 +171,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 Intent StudentMarksViewPIntent = new Intent(getActivity(), StudentMarksViewP.class);
                 startActivity(StudentMarksViewPIntent);
+                break;
+
+            case R.id.termsPeT:
+
+                Intent intentViewtermsSTD = new Intent(getActivity(), Add_Semester_Reslts.class);
+                startActivity(intentViewtermsSTD);
                 break;
 
             case R.id.dpandlogout:

@@ -56,6 +56,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         card_addTimetables = findViewById(R.id.card_addTimetables);
         card_viewTimetables = findViewById(R.id.card_viewTimetables);
         card_addexammarks = findViewById(R.id.card_addexammarks);
+
     }
 
     private void setActions() {
@@ -66,6 +67,7 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
         card_addTimetables.setOnClickListener(this);
         card_viewTimetables.setOnClickListener(this);
         card_addexammarks.setOnClickListener(this);
+
     }
 
     private void init() {
@@ -117,6 +119,8 @@ public class AdminDashboard extends AppCompatActivity implements View.OnClickLis
                // addexamintent.putExtra("userRole","ADMIN");
                 startActivity(addexamintent);
                 break;
+
+
         }
     }
 

@@ -128,8 +128,6 @@ public class StudentMarksViewP extends AppCompatActivity {
 
                 }
 
-
-
                 getAllStudentMarksDetailsFromDB(term);
             }
 
