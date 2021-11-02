@@ -120,9 +120,16 @@ public class AddTerms extends AppCompatActivity {
                 if( TextUtils.isEmpty(Value1) && TextUtils.isEmpty(Value2) && TextUtils.isEmpty(Value3) ){
 
 
+
+
+                }
+                if(TextUtils.isEmpty(Value1) ||  TextUtils.isEmpty(Value2) ||  TextUtils.isEmpty(Value3))
+                {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 
-                }else {
+                }
+
+                else {
 
                     Toast.makeText(getApplicationContext(), "ADD DATA", Toast.LENGTH_SHORT).show();
 

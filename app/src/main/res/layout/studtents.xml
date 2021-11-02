@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="Studnet Name :"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_marginLeft="8dp"
                 android:text="Arya"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="Parent Name :"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_marginLeft="8dp"
                 android:text="Stark"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 

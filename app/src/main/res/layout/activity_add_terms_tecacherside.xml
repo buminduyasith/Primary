@@ -26,12 +26,6 @@
 
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tearms" />
-
-
-        <TextView
             android:id="@+id/StudntsName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
