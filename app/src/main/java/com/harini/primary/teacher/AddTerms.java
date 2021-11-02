@@ -120,9 +120,10 @@ public class AddTerms extends AppCompatActivity {
                 if( TextUtils.isEmpty(Value1) && TextUtils.isEmpty(Value2) && TextUtils.isEmpty(Value3) ){
 
 
-
+                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 
                 }
+
                 if(TextUtils.isEmpty(Value1) ||  TextUtils.isEmpty(Value2) ||  TextUtils.isEmpty(Value3))
                 {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
@@ -136,6 +137,7 @@ public class AddTerms extends AppCompatActivity {
                     Update();
 
                 }
+
 
 
 

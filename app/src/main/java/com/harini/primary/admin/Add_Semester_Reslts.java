@@ -111,9 +111,6 @@ public class Add_Semester_Reslts extends AppCompatActivity {
                     map.put("teram2","0");
                     map.put("teram3","0");
 
-
-
-
                     Task<Void> docRef = FirebaseFirestore.getInstance()
                             .collection("SemesterResult").document(FIXID).set(map);
 
