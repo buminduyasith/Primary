@@ -33,6 +33,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -180,14 +181,12 @@ public class AdHomeWork extends AppCompatActivity {
         recyleview_homeworks.setAdapter(adapter);
 
 
-//        adapter.setOnItemClickListner(new AddVideoLessonsAdapter.onItemClickListner() {
-//            @Override
-//            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-//
-//                adapter.deleteItem(position);
-//
-//            }
-//        });
+       adapter.setOnItemClickListner(new HomeWorkAdapter.onItemClickListner() {
+           @Override
+           public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+               adapter.deleteItem(position);
+           }
+       });
 
 
     }

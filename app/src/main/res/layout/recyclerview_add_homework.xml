@@ -68,6 +68,17 @@
             android:background="@drawable/ic_baseline_cloud_download_24"/>
 
 
+        <ImageButton
+            android:id="@+id/imgbtnremove"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:background="@drawable/ic_baseline_delete_24"/>
+
+
     </RelativeLayout>
 
     <!--    android:ellipsize="end"-->
