@@ -73,7 +73,7 @@ import static com.harini.primary.models.SubjectNameEnum.*;
 
 public class AddStudentMarks extends AppCompatActivity {
 
-    private static final String TAG ="storel2" ;
+    private static final String TAG ="addstdM" ;
     private RecyclerView recAddStudentMarks;
    // private StudentAddMarkAdapter adapter;
     private static List<ExamDetails> examDetailsList;
@@ -483,8 +483,8 @@ public class AddStudentMarks extends AppCompatActivity {
         final TextView txtStudentName = view.findViewById(R.id.txtStudentName);
         txtStudentName.setText(name);
 
-
-        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId);
+        Log.d(TAG, "fill_studentMarks "+spinner_term.getSelectedItem().toString());
+        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId,spinner_term.getSelectedItem().toString());
 
 
         if(fill_studentMarks!=null){
