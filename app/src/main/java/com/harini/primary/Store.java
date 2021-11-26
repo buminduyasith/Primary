@@ -54,8 +54,11 @@ public final class Store {
         }
         return instance;
     }
-    public  List<StudentMarks>  getAllStudentMarksDetails(){
-        return AllStudentMarksDetails;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public  List<StudentMarks>  getAllStudentMarksDetails(String term){
+        return AllStudentMarksDetails.stream()
+                .filter(c -> c.getTerm().contains(term))
+                .collect(Collectors.toList());
     }
     public  void addStudentMark(StudentMarks studentMarks){
         StudentMarks studentMarksdb = getSpecificStudentMarks(studentMarks.getStudentId(),studentMarks.getTerm());

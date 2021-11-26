@@ -127,7 +127,7 @@ public class AddStudentMarks extends AppCompatActivity {
                             //pDialog.setContentText("All marks added successfully..");
                 pDialog.show();
 
-                List<StudentMarks> studentMarksListtemp = store.getAllStudentMarksDetails();
+                List<StudentMarks> studentMarksListtemp = store.getAllStudentMarksDetails(spinner_term.getSelectedItem().toString());
 //
 //               for(StudentMarks std:studentMarksListtemp){
 //                   Log.d(TAG, "onClick: "+std.getName() + " size"+std.getStudentSubjectMarksList().size());

@@ -195,10 +195,10 @@ public class ViewStudentMarksT extends AppCompatActivity {
                         Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_Marks.getEditText().getText().toString());
                         break;
                     case ENGLISH:
-                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
                         break;
                     case MATHS:
-                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
                         break;
                     case SCIENCE:
                         TIL_science_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
