@@ -10,15 +10,15 @@
 
     <TextView
         android:id="@+id/txtStudentName"
+        style="@style/viewParent.headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="2"
         android:ellipsize="end"
         android:ems="11"
         android:singleLine="true"
-        android:layout_marginBottom="20dp"
-        style="@style/viewParent.headerText"
-        android:text="Student Marks"
-        android:layout_weight="2"
+        android:text="@string/StudentMarks"
         android:textSize="18sp" />
 
     <Spinner

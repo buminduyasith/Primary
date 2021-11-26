@@ -18,16 +18,16 @@
         android:text="View Students List"
         android:textColor="@color/heading_color"
         android:textSize="24sp"
+        android:layout_below="@+id/userList"
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userList"
-        android:layout_width="match_parent"
-        android:layout_height="673dp"
+        android:layout_width="371dp"
+        android:layout_height="641dp"
         android:layout_below="@id/tvHeading"
-        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
 </androidx.constraintlayout.widget.ConstraintLayout>

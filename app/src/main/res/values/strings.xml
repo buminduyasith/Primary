@@ -22,6 +22,7 @@
     <string name="add_exam_marks">Add Exam marks</string>
     <string name="view_marks">View Marks</string>
     <string name="Analysis">Studnets Analysis</string>
+    <string name="StudentMarks">Student Mark</string>
 
     <string-array name="grade_array">
         <item>1A</item>
