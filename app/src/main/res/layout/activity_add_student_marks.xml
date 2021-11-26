@@ -58,17 +58,17 @@
       android:text="TextView" />
 
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recAddStudentMarks"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_below="@+id/txtsubjectName"
-      android:layout_marginTop="10dp"
-      android:layout_width="match_parent"
-      android:visibility="visible"
-      android:layout_marginBottom="70dp"
-      android:layout_height="match_parent"
-      tools:listitem="@layout/list_add_student_marks" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recAddStudentMarks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtsubjectName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"
+        android:visibility="visible"
+        tools:listitem="@layout/list_add_student_marks" />
 
 
 

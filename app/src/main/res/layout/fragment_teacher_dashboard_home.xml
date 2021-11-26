@@ -355,11 +355,12 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_viewTimetables"
+                android:layout_below="@+id/termsSTD"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
                 app:cardCornerRadius="16dp"
@@ -406,7 +407,7 @@
                 android:id="@+id/card_viewexamsmarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_settings"
+                android:layout_below="@+id/card_viewTimetables"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
                 app:cardCornerRadius="16dp"
@@ -443,6 +444,53 @@
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="Tap here, to change settings."
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/termsSTD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_viewexamsmarks"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ChartSem"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/charts" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/ChartSem"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/Analysis"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Tap here, Analysis."
                             android:textSize="12sp" />
 
                     </LinearLayout>
