@@ -180,7 +180,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
         txtStudentName.setText(name);
 
 
-        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId);
+        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId,spinner_term.getSelectedItem().toString());
 
 
         if(fill_studentMarks!=null){
