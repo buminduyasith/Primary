@@ -334,7 +334,7 @@ public class ViewStudentMarksT extends AppCompatActivity {
         pDialog = new SweetAlertDialog(ViewStudentMarksT.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("please wait exam summary creating...");
+        pDialog.setTitleText("please wait ...");
         //pDialog.setContentText("All marks added successfully..");
         pDialog.show();
         if(grade==null || grade.isEmpty()){
