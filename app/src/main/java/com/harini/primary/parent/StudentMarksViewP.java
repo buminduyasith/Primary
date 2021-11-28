@@ -198,23 +198,23 @@ public class StudentMarksViewP extends AppCompatActivity {
                             switch(subjectm.getSubject()) {
                                 case SINHALA:
                                     // code block
-                                    TIL_sinhala_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_sinhala_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_marks.getEditText().getText().toString());
                                     break;
                                 case ENGLISH:
-                                    TIL_maths_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_maths_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case MATHS:
-                                    TIL_english_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_english_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case SCIENCE:
-                                    TIL_science_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_science_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case TAMIL:
-                                    TIL_tamil_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_tamil_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case BUDDHISM:
-                                    TIL_Buddhism_marks.getEditText().setText(String.valueOf(subjectm.getMarks()));
+                                    TIL_Buddhism_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 default:
                                     return;
@@ -232,6 +232,18 @@ public class StudentMarksViewP extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
+    private String marksformat(int marks){
+
+        if(marks==0){
+            return "";
+        }
+        else{
+            return String.valueOf(marks);
+        }
     }
 
 }

@@ -198,6 +198,17 @@ public class AddStudentMarks extends AppCompatActivity {
         });
     }
 
+
+    private String marksformat(int marks){
+
+        if(marks==0){
+            return "";
+        }
+        else{
+            return String.valueOf(marks);
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void addSummaryToDB(){
 
@@ -495,24 +506,24 @@ public class AddStudentMarks extends AppCompatActivity {
                 switch(subject) {
                     case SINHALA:
                         // code block
-                        TIL_sinhala_Marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_sinhala_Marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_Marks.getEditText().getText().toString());
                         break;
                     case ENGLISH:
-                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_english_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
 
                         break;
                     case MATHS:
-                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_maths_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case SCIENCE:
-                        TIL_science_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_science_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case TAMIL:
-                        TIL_tamil_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_tamil_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case BUDDHISM:
-                        TIL_Buddhism_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_Buddhism_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     default:
                         return;
