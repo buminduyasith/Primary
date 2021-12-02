@@ -60,8 +60,8 @@
 
         <ImageButton
             android:id="@+id/img_btn_download"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
@@ -71,8 +71,8 @@
 
         <ImageButton
             android:id="@+id/img_btn_remove"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"

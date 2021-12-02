@@ -32,7 +32,7 @@ public class ExamPaperAdapter extends FirestoreRecyclerAdapter<ExamPaper,ExamPap
     protected void onBindViewHolder(@NonNull  ExamPaperAdapter.ExamPaperViewHolder holder, int position,  ExamPaper model) {
         Timestamp ts=model.getTimestamp();
         Date date=ts.toDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
         String time =sdf.format(date);
 
 
