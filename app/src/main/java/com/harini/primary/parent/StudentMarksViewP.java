@@ -44,13 +44,15 @@ public class StudentMarksViewP extends AppCompatActivity {
     private static final String TAG ="stdmarks" ;
     private RecyclerView recAddStudentMarks;
 
-    private LinearLayout marksContainer;
+    private LinearLayout marksContainer,marks_container;
 
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private Spinner spinner_term;
     private SweetAlertDialog pDialog;
+
+
 
     private List<String> terms;
 
@@ -105,6 +107,7 @@ public class StudentMarksViewP extends AppCompatActivity {
         TIL_tamil_marks = findViewById(R.id.TIL_tamil_marks);
         spinner_term = findViewById(R.id.spinner_term);
         marksContainer= findViewById(R.id.marksContainer);
+        marks_container = findViewById(R.id.marks_container);
         terms = new ArrayList<>();
         terms.add("1st");
         terms.add("2nd");
@@ -150,6 +153,7 @@ public class StudentMarksViewP extends AppCompatActivity {
 //        }
 
         marksContainer.setVisibility(View.VISIBLE);
+        marks_container.setVisibility(View.GONE);
         pDialog = new SweetAlertDialog(StudentMarksViewP.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -190,6 +194,7 @@ public class StudentMarksViewP extends AppCompatActivity {
                             pDialog.dismissWithAnimation();
                             Toast.makeText(getApplicationContext(),"not available",Toast.LENGTH_SHORT).show();
                             marksContainer.setVisibility(View.GONE);
+                            marks_container.setVisibility(View.VISIBLE);
                             return;
                         }
 

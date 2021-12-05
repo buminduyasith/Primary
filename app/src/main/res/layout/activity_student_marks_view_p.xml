@@ -39,6 +39,7 @@
         android:id="@+id/marksContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_below="@+id/spinner_term"
         android:orientation="vertical">
 
@@ -171,6 +172,32 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/marks_container"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+       android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:visibility="visible"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="200dp"
+            android:src="@drawable/nodata"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Not available "
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
 
