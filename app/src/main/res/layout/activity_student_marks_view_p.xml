@@ -34,130 +34,142 @@
 
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_Buddhism_marks"
+
+    <LinearLayout
+        android:id="@+id/marksContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/spinner_term"
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:enabled="false"
+        android:orientation="vertical">
 
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_Buddhism_marks"
+            android:layout_below="@+id/spinner_term"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:hint="Buddhism Marks" />
+            app:errorEnabled="true"
+            android:enabled="false"
+
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="Buddhism Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_sinhala_marks"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/TIL_Buddhism_marks"
-        app:errorEnabled="true"
-
-        android:enabled="false"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_sinhala_marks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionNext"
-            android:hint="Sinhala Marks" />
+            android:layout_below="@+id/TIL_Buddhism_marks"
+            app:errorEnabled="true"
+
+            android:enabled="false"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:hint="Sinhala Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_maths_marks"
-        android:layout_below="@+id/TIL_sinhala_marks"
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
-
-        android:enabled="false"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_maths_marks"
+            android:layout_below="@+id/TIL_sinhala_marks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:hint="Maths Marks" />
+            app:errorEnabled="true"
+
+            android:enabled="false"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="Maths Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_english_marks"
-        android:layout_below="@+id/TIL_maths_marks"
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:enabled="false"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_english_marks"
+            android:layout_below="@+id/TIL_maths_marks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:hint="English Marks" />
+            app:errorEnabled="true"
+            android:enabled="false"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="English Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_science_marks"
-        android:layout_below="@+id/TIL_english_marks"
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:enabled="false"
-
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_science_marks"
+            android:layout_below="@+id/TIL_english_marks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:hint="Environment Related Activities Marks" />
+            app:errorEnabled="true"
+            android:enabled="false"
+
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="Environment Related Activities Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_tamil_marks"
-        android:layout_below="@+id/TIL_science_marks"
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:enabled="false"
-
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIL_tamil_marks"
+            android:layout_below="@+id/TIL_science_marks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:hint="Tamil Marks" />
+            app:errorEnabled="true"
+            android:enabled="false"
+
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:hint="Tamil Marks" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>

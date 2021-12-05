@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,8 @@ public class StudentMarksViewP extends AppCompatActivity {
 
     private static final String TAG ="stdmarks" ;
     private RecyclerView recAddStudentMarks;
+
+    private LinearLayout marksContainer;
 
 
     private FirebaseAuth mAuth;
@@ -101,6 +104,7 @@ public class StudentMarksViewP extends AppCompatActivity {
         TIL_science_marks = findViewById(R.id.TIL_science_marks);
         TIL_tamil_marks = findViewById(R.id.TIL_tamil_marks);
         spinner_term = findViewById(R.id.spinner_term);
+        marksContainer= findViewById(R.id.marksContainer);
         terms = new ArrayList<>();
         terms.add("1st");
         terms.add("2nd");
@@ -144,6 +148,8 @@ public class StudentMarksViewP extends AppCompatActivity {
 //        if(grade==null || grade.isEmpty()){
 //            grade="3A";
 //        }
+
+        marksContainer.setVisibility(View.VISIBLE);
         pDialog = new SweetAlertDialog(StudentMarksViewP.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -183,6 +189,7 @@ public class StudentMarksViewP extends AppCompatActivity {
                         if(studentMarksList==null || studentMarksList.isEmpty()) {
                             pDialog.dismissWithAnimation();
                             Toast.makeText(getApplicationContext(),"not available",Toast.LENGTH_SHORT).show();
+                            marksContainer.setVisibility(View.GONE);
                             return;
                         }
 
@@ -202,10 +209,10 @@ public class StudentMarksViewP extends AppCompatActivity {
                                     Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_marks.getEditText().getText().toString());
                                     break;
                                 case ENGLISH:
-                                    TIL_maths_marks.getEditText().setText(marksformat(subjectm.getMarks()));
+                                    TIL_english_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case MATHS:
-                                    TIL_english_marks.getEditText().setText(marksformat(subjectm.getMarks()));
+                                    TIL_maths_marks.getEditText().setText(marksformat(subjectm.getMarks()));
                                     break;
                                 case SCIENCE:
                                     TIL_science_marks.getEditText().setText(marksformat(subjectm.getMarks()));
