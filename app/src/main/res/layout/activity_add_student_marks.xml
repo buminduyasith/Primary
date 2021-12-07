@@ -15,7 +15,7 @@
      android:layout_height="wrap_content"
      android:layout_margin="10dp"
    android:orientation="horizontal"
-   android:weightSum="7">
+   android:weightSum="4">
 
      <Spinner
          android:id="@+id/spinner_grade"
@@ -39,36 +39,38 @@
 
        />
 
-     <Button
-         android:id="@+id/btn_search"
-         android:layout_width="wrap_content"
-         android:layout_weight="3"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:text="Search" />
+
 
  </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_weight="3"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termcontainer"
+        android:text="Search" />
   <TextView
       android:id="@+id/txtsubjectName"
-      android:layout_below="@+id/termcontainer"
+      android:layout_below="@+id/btn_search"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
       android:text="TextView" />
 
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recAddStudentMarks"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_below="@+id/txtsubjectName"
-      android:layout_marginTop="10dp"
-      android:layout_width="match_parent"
-      android:visibility="visible"
-      android:layout_marginBottom="70dp"
-      android:layout_height="match_parent"
-      tools:listitem="@layout/list_add_student_marks" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recAddStudentMarks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtsubjectName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"
+        android:visibility="visible"
+        tools:listitem="@layout/list_add_student_marks" />
 
 
 
@@ -78,6 +80,8 @@
       android:layout_marginTop="10dp"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
       android:text="save all marks" />
 
 </RelativeLayout>

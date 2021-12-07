@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 import com.harini.primary.R;
 import com.harini.primary.adapters.ExamPaperAdapter;
 import com.harini.primary.models.ExamPaper;
+import com.harini.primary.models.Parent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -349,7 +351,7 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 pDialog.dismissWithAnimation();
-
+                                updateDB();
                             }
                         });
 
@@ -438,10 +440,33 @@ public class AddExamPapers extends AppCompatActivity implements View.OnClickList
 
         recyleview_viewpapers.setAdapter(adapter);
 
+        adapter.setOnItemClickListner(new ExamPaperAdapter.onItemClickListner() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                adapter.deleteItem(position);
+                updateDB();
+            }
+        });
 
 
 
 
+
+    }
+
+    private void updateDB(){
+
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Query query = collectionReference
+                .whereEqualTo("uid",firebaseUser.getUid())
+                .orderBy("timestamp", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<ExamPaper> options = new FirestoreRecyclerOptions.Builder<ExamPaper>()
+                .setQuery(query, ExamPaper.class).build();
+
+
+
+        adapter.updateOptions(options);
     }
 
     @Override

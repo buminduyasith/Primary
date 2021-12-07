@@ -35,7 +35,7 @@ public final class Store {
     private static Store instance;
     public String value;
     private static List<StudentMarks> AllStudentMarksDetails;
-    private static final String TAG ="storel2" ;
+    private static final String TAG ="storev2" ;
 
     private Store() {
         // The following code emulates slow initialization.
@@ -54,11 +54,14 @@ public final class Store {
         }
         return instance;
     }
-    public  List<StudentMarks>  getAllStudentMarksDetails(){
-        return AllStudentMarksDetails;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public  List<StudentMarks>  getAllStudentMarksDetails(String term){
+        return AllStudentMarksDetails.stream()
+                .filter(c -> c.getTerm().contains(term))
+                .collect(Collectors.toList());
     }
     public  void addStudentMark(StudentMarks studentMarks){
-        StudentMarks studentMarksdb = getSpecificStudentMarks(studentMarks.getStudentId());
+        StudentMarks studentMarksdb = getSpecificStudentMarks(studentMarks.getStudentId(),studentMarks.getTerm());
         if(studentMarksdb!=null){
             int pos = AllStudentMarksDetails.indexOf(studentMarksdb);
             AllStudentMarksDetails.set(pos,studentMarks);
@@ -66,12 +69,14 @@ public final class Store {
         AllStudentMarksDetails.add(studentMarks);
     }
 
-    public StudentMarks getSpecificStudentMarks(String id){
+    public StudentMarks getSpecificStudentMarks(String id,String term){
 
         for (StudentMarks studentMarks: AllStudentMarksDetails){
 
             String stdid = studentMarks.getStudentId();
-            if(stdid.contains(id)){
+            String term1 = studentMarks.getTerm();
+            Log.d(TAG, "getSpecificStudentMarks: "+ studentMarks.getTerm());
+            if(stdid.contains(id) && term.contains(term1)){
                 return studentMarks;
             }
         }

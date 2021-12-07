@@ -73,7 +73,7 @@ import static com.harini.primary.models.SubjectNameEnum.*;
 
 public class AddStudentMarks extends AppCompatActivity {
 
-    private static final String TAG ="storel2" ;
+    private static final String TAG ="addstdM" ;
     private RecyclerView recAddStudentMarks;
    // private StudentAddMarkAdapter adapter;
     private static List<ExamDetails> examDetailsList;
@@ -123,11 +123,11 @@ public class AddStudentMarks extends AppCompatActivity {
                 pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.setCancelable(false);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("please wait exam summary creating...");
+                pDialog.setTitleText("please wait ...");
                             //pDialog.setContentText("All marks added successfully..");
                 pDialog.show();
 
-                List<StudentMarks> studentMarksListtemp = store.getAllStudentMarksDetails();
+                List<StudentMarks> studentMarksListtemp = store.getAllStudentMarksDetails(spinner_term.getSelectedItem().toString());
 //
 //               for(StudentMarks std:studentMarksListtemp){
 //                   Log.d(TAG, "onClick: "+std.getName() + " size"+std.getStudentSubjectMarksList().size());
@@ -198,6 +198,17 @@ public class AddStudentMarks extends AppCompatActivity {
         });
     }
 
+
+    private String marksformat(int marks){
+
+        if(marks==0){
+            return "";
+        }
+        else{
+            return String.valueOf(marks);
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void addSummaryToDB(){
 
@@ -205,7 +216,7 @@ public class AddStudentMarks extends AppCompatActivity {
         pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("please wait exam summary creating...");
+        pDialog.setTitleText("please wait student list creating ...");
         //pDialog.setContentText("All marks added successfully..");
         pDialog.show();
 
@@ -483,8 +494,8 @@ public class AddStudentMarks extends AppCompatActivity {
         final TextView txtStudentName = view.findViewById(R.id.txtStudentName);
         txtStudentName.setText(name);
 
-
-        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId);
+        Log.d(TAG, "fill_studentMarks "+spinner_term.getSelectedItem().toString());
+        StudentMarks fill_studentMarks = store.getSpecificStudentMarks(studentId,spinner_term.getSelectedItem().toString());
 
 
         if(fill_studentMarks!=null){
@@ -495,24 +506,24 @@ public class AddStudentMarks extends AppCompatActivity {
                 switch(subject) {
                     case SINHALA:
                         // code block
-                        TIL_sinhala_Marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_sinhala_Marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         Log.d(TAG, "openDialog: sinhalatil"+TIL_sinhala_Marks.getEditText().getText().toString());
                         break;
                     case ENGLISH:
-                        TIL_english_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_english_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
 
                         break;
                     case MATHS:
-                        TIL_maths_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_maths_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case SCIENCE:
-                        TIL_science_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_science_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case TAMIL:
-                        TIL_tamil_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_tamil_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     case BUDDHISM:
-                        TIL_Buddhism_marks.getEditText().setText(String.valueOf(subjectMarks.getMarks()));
+                        TIL_Buddhism_marks.getEditText().setText(marksformat(subjectMarks.getMarks()));
                         break;
                     default:
                         return;
@@ -676,7 +687,7 @@ public class AddStudentMarks extends AppCompatActivity {
         pDialog = new SweetAlertDialog(AddStudentMarks.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.setCancelable(false);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("please wait exam summary creating...");
+        pDialog.setTitleText("please wait  ...");
         //pDialog.setContentText("All marks added successfully..");
         pDialog.show();
         if(grade==null || grade.isEmpty()){

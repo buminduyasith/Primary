@@ -45,6 +45,9 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
         if(role.equals("PARENT")){
             holder.imgbtndownload.setVisibility(View.VISIBLE);
         }
+        else {
+            holder.imgbtnremove.setVisibility(View.VISIBLE);
+        }
     }
 
     @NonNull
@@ -59,7 +62,7 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
 
         TextView txthwdiscription;
         TextView txthwtime;
-        ImageButton imgbtndownload;
+        ImageButton imgbtndownload,imgbtnremove;
 
         public HomeWorkViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,8 +70,19 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
             txthwdiscription = itemView.findViewById(R.id.txthwdiscription);
             txthwtime = itemView.findViewById(R.id.txthwtime);
             imgbtndownload = itemView.findViewById(R.id.imgbtndownload);
+            imgbtnremove = itemView.findViewById(R.id.imgbtnremove);
 
             imgbtndownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION && listner !=null){
+                        listner.onItemClick(getSnapshots().getSnapshot(pos),pos);
+                    }
+                }
+            });
+
+            imgbtnremove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
@@ -86,5 +100,9 @@ public class HomeWorkAdapter extends FirestoreRecyclerAdapter<Homework,HomeWorkA
 
     public void setOnItemClickListner(onItemClickListner listner){
         this.listner = listner;
+    }
+
+    public void deleteItem(int position) {
+        getSnapshots().getSnapshot(position).getReference().delete();
     }
 }
